@@ -6,11 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class Title : MonoBehaviour
 {
+    public string gameSceneName = "Game";
     public void StartHost()
     {
         NetworkManager.Singleton.ConnectionApprovalCallback = ApprovalCheck;
         NetworkManager.Singleton.StartHost();
-        NetworkManager.Singleton.SceneManager.LoadScene("Game", LoadSceneMode.Single);
+        NetworkManager.Singleton.SceneManager.LoadScene(gameSceneName, LoadSceneMode.Single);
     }
 
     public void StartClient()
