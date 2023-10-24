@@ -6,16 +6,16 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/NetcodeTest/Title.unity
+    path: Assets/NetcodeTest/Scenes/Title.unity
     guid: c85e5bf7fa4ec344f997e52b022fec23
   - enabled: 0
-    path: Assets/Scenes/NetcodeTest/Game.unity
+    path: Assets/NetcodeTest/Scenes/Game.unity
     guid: b38c81ae0dc2a674c8b281fdfa4ee811
   - enabled: 1
-    path: Assets/Scenes/NetcodeOVR/NetcodeOVRGame.unity
+    path: Assets/NetcodeOVR/Scenes/Game.unity
     guid: 426f938c06bf2e84cb3726bf11195d56
   - enabled: 1
-    path: Assets/Scenes/NetcodeOVR/NetcodeOVRTitle.unity
+    path: Assets/NetcodeOVR/Scenes/Title.unity
     guid: 9af329d9be56d5245a6991b7cd2429d7
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 08dc298f1f9716d4aa85f13fd062266c, type: 2}

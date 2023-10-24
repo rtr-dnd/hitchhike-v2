@@ -9,6 +9,7 @@ public class Title : MonoBehaviour
     public string gameSceneName = "Game";
     public void StartHost()
     {
+        Debug.Log(NetworkManager.Singleton);
         NetworkManager.Singleton.ConnectionApprovalCallback = ApprovalCheck;
         NetworkManager.Singleton.StartHost();
         NetworkManager.Singleton.SceneManager.LoadScene(gameSceneName, LoadSceneMode.Single);
