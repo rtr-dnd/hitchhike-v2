@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Oculus.Interaction;
 using Oculus.Interaction.Input;
+using Unity.Netcode;
 
-public class DrivenHandVisual : MonoBehaviour
+// reads the joint angle from the hand and forces DrivenHandVisual to have the angles
+public class DrivenHandVisual : NetworkBehaviour
 {
     // for editor joint assigning only
+    // todo: remove this dependency
     [SerializeField, Interface(typeof(IHand))]
     private Object _hand;
     public IHand hand;
@@ -26,6 +29,7 @@ public class DrivenHandVisual : MonoBehaviour
         }
     }
 
+    // todo: use rootpose
     public void Drive(Pose rootPose, ReadOnlyHandJointPoses localJoints)
     {
         for (var i = 0; i < Constants.NUM_HAND_JOINTS; ++i)
