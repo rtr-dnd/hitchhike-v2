@@ -9,7 +9,9 @@ public class Title : MonoBehaviour
     public string gameSceneName = "Game";
     public void StartHost()
     {
+        // todo: remove player prefab
         Debug.Log(NetworkManager.Singleton);
+        Debug.Log(NetworkManager.Singleton.ConnectionApprovalCallback);
         NetworkManager.Singleton.ConnectionApprovalCallback = ApprovalCheck;
         NetworkManager.Singleton.StartHost();
         NetworkManager.Singleton.SceneManager.LoadScene(gameSceneName, LoadSceneMode.Single);

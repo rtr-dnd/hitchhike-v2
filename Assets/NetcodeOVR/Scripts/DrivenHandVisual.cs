@@ -30,8 +30,10 @@ public class DrivenHandVisual : NetworkBehaviour
     }
 
     // todo: use rootpose
+    // todo: return if localJoints don't match
     public void Drive(Pose rootPose, ReadOnlyHandJointPoses localJoints)
     {
+        if (localJoints.Count != Constants.NUM_HAND_JOINTS) return;
         for (var i = 0; i < Constants.NUM_HAND_JOINTS; ++i)
         {
             if (_jointTransforms[i] == null)

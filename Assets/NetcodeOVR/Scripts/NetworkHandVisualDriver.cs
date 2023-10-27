@@ -24,7 +24,6 @@ public class NetworkHandVisualDriver : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
-        joints.Value = new ReadOnlyHandJointPoses(new Pose[] { });
     }
 
     void Update()
