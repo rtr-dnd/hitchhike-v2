@@ -917,8 +917,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6536fde24a95ca04ca0ead900c73f1ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rawHandLeft: {fileID: 0}
-  _rawHandRight: {fileID: 0}
+  _rawHandLeft: {fileID: 578377541}
+  _rawHandRight: {fileID: 108704126}
 --- !u!4 &751877990
 Transform:
   m_ObjectHideFlags: 0

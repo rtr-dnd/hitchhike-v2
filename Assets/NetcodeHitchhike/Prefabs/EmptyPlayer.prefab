@@ -66,4 +66,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drivenHandPrefabLeft: {fileID: 3960765533234094122, guid: bff965f1c2ad37a4588cce81884fc74c, type: 3}
-  drivenHandPrefabRight: {fileID: -1592185379399014462, guid: e1eee66882986574882c9d0dacf7687e, type: 3}
+  drivenHandPrefabRight: {fileID: 7532343461446788699, guid: 792a28c4761b14f4b88294165d77942e, type: 3}
