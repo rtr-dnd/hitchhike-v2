@@ -11,10 +11,29 @@ public class NetworkHand : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
-        NetworkObject drivenHand_Network = Instantiate(drivenHandPrefab);
-        drivenHand_Network.Spawn();
-        visual = drivenHand_Network.GetComponent<DrivenHandVisual>();
+        Debug.Log(IsServer + " " + IsOwner);
+        // if (IsServer)
+        // {
+        //     visual = SpawnDrivenHandOnServer();
+        // }
+        // else
+        // {
+        //     visual = RequestSpawnDrivenHandOnServer();
+        // }
     }
+
+    // private DrivenHandVisual SpawnDrivenHandOnServer()
+    // {
+    //     NetworkObject drivenHand_Network = Instantiate(drivenHandPrefab);
+    //     drivenHand_Network.Spawn();
+    //     return drivenHand_Network.GetComponent<DrivenHandVisual>();
+    // }
+
+    // [ServerRpc]
+    // private DrivenHandVisual RequestSpawnDrivenHandOnServer()
+    // {
+    //     return SpawnDrivenHandOnServer();
+    // }
 
     void Update()
     {
@@ -23,6 +42,6 @@ public class NetworkHand : NetworkBehaviour
             if (HitchhikeMovementPool.Instance == null) return;
             if (HitchhikeMovementPool.Instance.leftJoint != null) joints.Value = HitchhikeMovementPool.Instance.leftJoint;
         }
-        if (joints.Value.poses != null && joints.Value.poses.Length != 0) visual.Drive(Pose.identity, joints.Value);
+        // if (joints.Value.poses != null && joints.Value.poses.Length != 0) visual.Drive(Pose.identity, joints.Value);
     }
 }

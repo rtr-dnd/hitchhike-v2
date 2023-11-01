@@ -11,6 +11,7 @@ struct NetworkHandJointPoses : INetworkSerializable, IEquatable<NetworkHandJoint
   public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
   {
     int length = 0;
+    if (poses == null) poses = new NetworkPose[] { };
     if (!serializer.IsReader) length = poses.Length;
     serializer.SerializeValue(ref length);
     if (serializer.IsReader) poses = new NetworkPose[length];
