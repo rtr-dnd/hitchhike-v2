@@ -6,34 +6,37 @@ public class NetworkHand : NetworkBehaviour
 {
     [SerializeField] NetworkObject drivenHandPrefab;
     DrivenHandVisual visual;
-    private NetworkVariable<NetworkHandJointPoses> joints = new NetworkVariable<NetworkHandJointPoses>();
+    private NetworkVariable<NetworkHandJointPoses> joints = new NetworkVariable<NetworkHandJointPoses>(
+        default,
+        NetworkVariableReadPermission.Everyone,
+        NetworkVariableWritePermission.Owner
+    );
 
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
-        Debug.Log(IsServer + " " + IsOwner);
-        // if (IsServer)
-        // {
-        //     visual = SpawnDrivenHandOnServer();
-        // }
-        // else
-        // {
-        //     visual = RequestSpawnDrivenHandOnServer();
-        // }
+        if (IsServer)
+        {
+            visual = SpawnDrivenHandOnServer();
+        }
+        else
+        {
+            RequestSpawnDrivenHandOnServerRpc();
+        }
     }
 
-    // private DrivenHandVisual SpawnDrivenHandOnServer()
-    // {
-    //     NetworkObject drivenHand_Network = Instantiate(drivenHandPrefab);
-    //     drivenHand_Network.Spawn();
-    //     return drivenHand_Network.GetComponent<DrivenHandVisual>();
-    // }
+    private DrivenHandVisual SpawnDrivenHandOnServer()
+    {
+        NetworkObject drivenHand_Network = Instantiate(drivenHandPrefab);
+        drivenHand_Network.Spawn();
+        return drivenHand_Network.GetComponent<DrivenHandVisual>();
+    }
 
-    // [ServerRpc]
-    // private DrivenHandVisual RequestSpawnDrivenHandOnServer()
-    // {
-    //     return SpawnDrivenHandOnServer();
-    // }
+    [ServerRpc]
+    private void RequestSpawnDrivenHandOnServerRpc()
+    {
+        visual = SpawnDrivenHandOnServer();
+    }
 
     void Update()
     {
@@ -42,6 +45,7 @@ public class NetworkHand : NetworkBehaviour
             if (HitchhikeMovementPool.Instance == null) return;
             if (HitchhikeMovementPool.Instance.leftJoint != null) joints.Value = HitchhikeMovementPool.Instance.leftJoint;
         }
+        Debug.Log(visual);
         // if (joints.Value.poses != null && joints.Value.poses.Length != 0) visual.Drive(Pose.identity, joints.Value);
     }
 }
