@@ -11,12 +11,18 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/NetcodeTest/Scenes/Game.unity
     guid: b38c81ae0dc2a674c8b281fdfa4ee811
-  - enabled: 1
+  - enabled: 0
     path: Assets/NetcodeOVR/Scenes/Game.unity
     guid: 426f938c06bf2e84cb3726bf11195d56
-  - enabled: 1
+  - enabled: 0
     path: Assets/NetcodeOVR/Scenes/Title.unity
     guid: 9af329d9be56d5245a6991b7cd2429d7
+  - enabled: 1
+    path: Assets/NetcodeHitchhike/Scenes/Game.unity
+    guid: 8d33cc1a1517dd843bea4d78476c9856
+  - enabled: 1
+    path: Assets/NetcodeHitchhike/Scenes/Title.unity
+    guid: 60cac8c92290e02478bce93777caf2b0
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 08dc298f1f9716d4aa85f13fd062266c, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: c84dee05198d57a4e99b261080ce7308, type: 2}
