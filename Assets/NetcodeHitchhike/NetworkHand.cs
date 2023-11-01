@@ -4,9 +4,21 @@ using Unity.Netcode;
 // reads the joint angle from the hand and forces DrivenHandVisual to have the angles
 public class NetworkHand : NetworkBehaviour
 {
-    [SerializeField] NetworkObject drivenHandPrefab;
-    DrivenHandVisual visual;
-    private NetworkVariable<NetworkHandJointPoses> joints = new NetworkVariable<NetworkHandJointPoses>(
+    enum Handedness
+    {
+        Left,
+        Right
+    }
+    [SerializeField] NetworkObject drivenHandPrefabLeft;
+    [SerializeField] NetworkObject drivenHandPrefabRight;
+    DrivenHandVisual leftVisual;
+    DrivenHandVisual rightVisual;
+    private NetworkVariable<NetworkHandJointPoses> leftJoints = new NetworkVariable<NetworkHandJointPoses>(
+        default,
+        NetworkVariableReadPermission.Everyone,
+        NetworkVariableWritePermission.Owner
+    );
+    private NetworkVariable<NetworkHandJointPoses> rightJoints = new NetworkVariable<NetworkHandJointPoses>(
         default,
         NetworkVariableReadPermission.Everyone,
         NetworkVariableWritePermission.Owner
@@ -19,33 +31,46 @@ public class NetworkHand : NetworkBehaviour
         if (!IsOwner) return;
         if (IsServer)
         {
-            SpawnDrivenHandOnServer(NetworkManager.LocalClientId);
+            SpawnDrivenHandOnServer(NetworkManager.LocalClientId, Handedness.Left);
+            SpawnDrivenHandOnServer(NetworkManager.LocalClientId, Handedness.Right);
         }
         else
         {
-            RequestSpawnDrivenHandOnServerRpc();
+            RequestSpawnDrivenHandOnServerRpc(Handedness.Left);
+            RequestSpawnDrivenHandOnServerRpc(Handedness.Right);
         }
     }
 
-    private void SpawnDrivenHandOnServer(ulong ownerClientId)
+    // server creates handvisual and notifies all clients
+    private void SpawnDrivenHandOnServer(ulong ownerClientId, Handedness handedness)
     {
-        NetworkObject drivenHand_Network = Instantiate(drivenHandPrefab);
+        NetworkObject drivenHand_Network = Instantiate(handedness == Handedness.Left ? drivenHandPrefabLeft : drivenHandPrefabRight);
         drivenHand_Network.SpawnWithOwnership(ownerClientId);
-        SetDrivenHandOnClientRpc(this.NetworkObjectId, drivenHand_Network.NetworkObjectId);
+        SetDrivenHandOnClientRpc(handedness, this.NetworkObjectId, drivenHand_Network.NetworkObjectId);
     }
 
+    // request creation of handvisual to server
     [ServerRpc]
-    private void RequestSpawnDrivenHandOnServerRpc(ServerRpcParams serverRpcParams = default)
+    private void RequestSpawnDrivenHandOnServerRpc(Handedness handedness, ServerRpcParams serverRpcParams = default)
     {
         var clientId = serverRpcParams.Receive.SenderClientId;
-        SpawnDrivenHandOnServer(clientId);
+        SpawnDrivenHandOnServer(clientId, handedness);
     }
 
+    // broadcast ID of the created handvisual to the same NetworkHand on all clients
+    // client registers the hand visual for later use
     [ClientRpc]
-    private void SetDrivenHandOnClientRpc(ulong hand_NetworkObjectId, ulong visual_NetworkObjectId)
+    private void SetDrivenHandOnClientRpc(Handedness handedness, ulong hand_NetworkObjectId, ulong visual_NetworkObjectId)
     {
         if (hand_NetworkObjectId != this.NetworkObjectId) return;
-        visual = NetworkManager.Singleton.SpawnManager.SpawnedObjects[visual_NetworkObjectId].GetComponent<DrivenHandVisual>();
+        if (handedness == Handedness.Left)
+        {
+            leftVisual = NetworkManager.Singleton.SpawnManager.SpawnedObjects[visual_NetworkObjectId].GetComponent<DrivenHandVisual>();
+        }
+        else
+        {
+            rightVisual = NetworkManager.Singleton.SpawnManager.SpawnedObjects[visual_NetworkObjectId].GetComponent<DrivenHandVisual>();
+        }
     }
 
     void Update()
@@ -53,9 +78,10 @@ public class NetworkHand : NetworkBehaviour
         if (IsOwner)
         {
             if (HitchhikeMovementPool.Instance == null) return;
-            if (HitchhikeMovementPool.Instance.leftJoint != null) joints.Value = HitchhikeMovementPool.Instance.leftJoint;
+            if (HitchhikeMovementPool.Instance.leftJoint != null) leftJoints.Value = HitchhikeMovementPool.Instance.leftJoint;
+            if (HitchhikeMovementPool.Instance.rightJoint != null) rightJoints.Value = HitchhikeMovementPool.Instance.rightJoint;
         }
-        Debug.Log(visual);
-        // if (joints.Value.poses != null && joints.Value.poses.Length != 0) visual.Drive(Pose.identity, joints.Value);
+        if (leftVisual != null && leftJoints.Value.poses != null && leftJoints.Value.poses.Length != 0) leftVisual.Drive(Pose.identity, leftJoints.Value);
+        if (rightVisual != null && rightJoints.Value.poses != null && rightJoints.Value.poses.Length != 0) leftVisual.Drive(Pose.identity, rightJoints.Value);
     }
 }

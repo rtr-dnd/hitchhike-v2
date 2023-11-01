@@ -5,19 +5,25 @@ using Oculus.Interaction.Input;
 public class HitchhikeMovementPool : SingletonMonoBehaviour<HitchhikeMovementPool>
 {
   [SerializeField, Interface(typeof(IHand))]
-  private UnityEngine.Object _rawHand;
-  public IHand rawHand;
+  private UnityEngine.Object _rawHandLeft;
+  public IHand rawHandLeft;
+  [SerializeField, Interface(typeof(IHand))]
+  private UnityEngine.Object _rawHandRight;
+  public IHand rawHandRight;
   public ReadOnlyHandJointPoses leftJoint;
+  public ReadOnlyHandJointPoses rightJoint;
 
   protected override void Awake()
   {
     base.Awake();
-    rawHand = _rawHand as IHand;
+    rawHandLeft = _rawHandLeft as IHand;
+    rawHandRight = _rawHandRight as IHand;
   }
 
   void Update()
   {
-    rawHand.GetJointPosesLocal(out ReadOnlyHandJointPoses localJoints);
-    leftJoint = localJoints;
+    // todo: make it passive (so that this component doesn't have to fetch joints actively)
+    rawHandLeft.GetJointPosesLocal(out leftJoint);
+    rawHandRight.GetJointPosesLocal(out rightJoint);
   }
 }
