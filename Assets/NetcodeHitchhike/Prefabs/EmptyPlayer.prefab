@@ -65,4 +65,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e07d70674c2f584ab5cd189cb8d9831, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drivenHandPrefab: {fileID: 3960765533234094122, guid: bff965f1c2ad37a4588cce81884fc74c, type: 3}
+  drivenHandPrefabLeft: {fileID: 3960765533234094122, guid: bff965f1c2ad37a4588cce81884fc74c, type: 3}
+  drivenHandPrefabRight: {fileID: -1592185379399014462, guid: e1eee66882986574882c9d0dacf7687e, type: 3}
