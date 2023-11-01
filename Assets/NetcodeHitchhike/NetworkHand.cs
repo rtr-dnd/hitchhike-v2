@@ -15,27 +15,42 @@ public class NetworkHand : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
-        if (IsServer)
-        {
-            visual = SpawnDrivenHandOnServer();
-        }
-        else
-        {
-            RequestSpawnDrivenHandOnServerRpc();
-        }
+        Debug.Log(NetworkManager.Singleton.LocalClientId);
+
+        // if (!IsOwner) return;
+        // if (IsServer)
+        // {
+        //     visual = SpawnDrivenHandOnServer().GetComponent<DrivenHandVisual>();
+        // }
+        // else
+        // {
+        //     RequestSpawnDrivenHandOnServerRpc();
+        // }
     }
 
-    private DrivenHandVisual SpawnDrivenHandOnServer()
+    private NetworkObject SpawnDrivenHandOnServer()
     {
         NetworkObject drivenHand_Network = Instantiate(drivenHandPrefab);
         drivenHand_Network.Spawn();
-        return drivenHand_Network.GetComponent<DrivenHandVisual>();
+        return drivenHand_Network;
     }
 
     [ServerRpc]
-    private void RequestSpawnDrivenHandOnServerRpc()
+    private void RequestSpawnDrivenHandOnServerRpc(ServerRpcParams serverRpcParams = default)
     {
-        visual = SpawnDrivenHandOnServer();
+        var clientId = serverRpcParams.Receive.SenderClientId;
+        var visual_Network = SpawnDrivenHandOnServer();
+        visual_Network.ChangeOwnership(clientId);
+        SetDrivenHandOnClientRpc(visual_Network.NetworkObjectId, new ClientRpcParams
+        {
+            Send = new ClientRpcSendParams { TargetClientIds = new ulong[] { clientId } }
+        });
+    }
+
+    [ClientRpc]
+    private void SetDrivenHandOnClientRpc(ulong visual_NetworkObjectId, ClientRpcParams clientRpcParams = default)
+    {
+        visual = NetworkManager.Singleton.SpawnManager.SpawnedObjects[visual_NetworkObjectId].GetComponent<DrivenHandVisual>();
     }
 
     void Update()
