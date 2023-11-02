@@ -91,8 +91,16 @@ public class NetworkHand : NetworkBehaviour
         if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.ContainsKey(current))
         {
             // found spawned hand on local env
-            if (handedness == Handedness.Left) leftVisual = NetworkManager.Singleton.SpawnManager.SpawnedObjects[current].GetComponent<DrivenHandVisual>();
-            if (handedness == Handedness.Right) rightVisual = NetworkManager.Singleton.SpawnManager.SpawnedObjects[current].GetComponent<DrivenHandVisual>();
+            if (handedness == Handedness.Left)
+            {
+                leftVisual = NetworkManager.Singleton.SpawnManager.SpawnedObjects[current].GetComponent<DrivenHandVisual>();
+                if (IsOwner) leftVisual.GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
+            }
+            if (handedness == Handedness.Right)
+            {
+                rightVisual = NetworkManager.Singleton.SpawnManager.SpawnedObjects[current].GetComponent<DrivenHandVisual>();
+                if (IsOwner) rightVisual.GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
+            }
             yield break;
         }
         yield return new WaitForSeconds(0.5f);
@@ -135,7 +143,7 @@ public class NetworkHand : NetworkBehaviour
         }
         if (leftVisual != null && leftJoints.Value.poses != null && leftJoints.Value.poses.Length != 0) leftVisual.Drive(Pose.identity, leftJoints.Value);
         if (rightVisual != null && rightJoints.Value.poses != null && rightJoints.Value.poses.Length != 0) rightVisual.Drive(Pose.identity, rightJoints.Value);
-        if (leftPose != null) leftVisual.transform.SetPose(leftPose.Value);
-        if (rightPose != null) rightVisual.transform.SetPose(rightPose.Value);
+        if (leftVisual != null && leftPose != null) leftVisual.transform.SetPose(leftPose.Value);
+        if (rightVisual != null && rightPose != null) rightVisual.transform.SetPose(rightPose.Value);
     }
 }
