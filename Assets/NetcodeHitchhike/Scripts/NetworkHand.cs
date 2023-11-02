@@ -23,22 +23,46 @@ public class NetworkHand : NetworkBehaviour
         NetworkVariableReadPermission.Everyone,
         NetworkVariableWritePermission.Owner
     );
+    private NetworkVariable<ulong> leftNetworkId = new NetworkVariable<ulong>(
+        default,
+        NetworkVariableReadPermission.Everyone,
+        NetworkVariableWritePermission.Owner
+    );
+    private NetworkVariable<ulong> rightNetworkId = new NetworkVariable<ulong>(
+        default,
+        NetworkVariableReadPermission.Everyone,
+        NetworkVariableWritePermission.Owner
+    );
 
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
 
+        // sync visuals to networkid
+        leftNetworkId.OnValueChanged += (ulong previous, ulong current) =>
+        {
+            // todo: keep checking until spawnedobjects[current] isn't null
+            leftVisual = NetworkManager.Singleton.SpawnManager.SpawnedObjects[current].GetComponent<DrivenHandVisual>();
+        };
+        rightNetworkId.OnValueChanged += (ulong previous, ulong current) =>
+        {
+            rightVisual = NetworkManager.Singleton.SpawnManager.SpawnedObjects[current].GetComponent<DrivenHandVisual>();
+        };
+
+        // hand without ownership (passive)
         if (!IsOwner) return;
+
+        // server side hand with ownership (active)
         if (IsServer)
         {
             SpawnDrivenHandOnServer(NetworkManager.LocalClientId, Handedness.Left);
             SpawnDrivenHandOnServer(NetworkManager.LocalClientId, Handedness.Right);
+            return;
         }
-        else
-        {
-            RequestSpawnDrivenHandOnServerRpc(Handedness.Left);
-            RequestSpawnDrivenHandOnServerRpc(Handedness.Right);
-        }
+
+        // client side hand with ownership (active)
+        RequestSpawnDrivenHandOnServerRpc(Handedness.Left);
+        RequestSpawnDrivenHandOnServerRpc(Handedness.Right);
     }
 
     // server creates handvisual and notifies all clients
@@ -46,7 +70,14 @@ public class NetworkHand : NetworkBehaviour
     {
         NetworkObject drivenHand_Network = Instantiate(handedness == Handedness.Left ? drivenHandPrefabLeft : drivenHandPrefabRight);
         drivenHand_Network.SpawnWithOwnership(ownerClientId);
-        SetDrivenHandOnClientRpc(handedness, this.NetworkObjectId, drivenHand_Network.NetworkObjectId);
+        if (handedness == Handedness.Left)
+        {
+            leftNetworkId.Value = drivenHand_Network.NetworkObjectId;
+        }
+        else
+        {
+            rightNetworkId.Value = drivenHand_Network.NetworkObjectId;
+        }
     }
 
     // request creation of handvisual to server
@@ -55,22 +86,6 @@ public class NetworkHand : NetworkBehaviour
     {
         var clientId = serverRpcParams.Receive.SenderClientId;
         SpawnDrivenHandOnServer(clientId, handedness);
-    }
-
-    // broadcast ID of the created handvisual to the same NetworkHand on all clients
-    // client registers the hand visual for later use
-    [ClientRpc]
-    private void SetDrivenHandOnClientRpc(Handedness handedness, ulong hand_NetworkObjectId, ulong visual_NetworkObjectId)
-    {
-        if (hand_NetworkObjectId != this.NetworkObjectId) return;
-        if (handedness == Handedness.Left)
-        {
-            leftVisual = NetworkManager.Singleton.SpawnManager.SpawnedObjects[visual_NetworkObjectId].GetComponent<DrivenHandVisual>();
-        }
-        else
-        {
-            rightVisual = NetworkManager.Singleton.SpawnManager.SpawnedObjects[visual_NetworkObjectId].GetComponent<DrivenHandVisual>();
-        }
     }
 
     void Update()

@@ -9,6 +9,14 @@ using Unity.Netcode;
 public class DrivenHandVisual : NetworkBehaviour
 {
     // for editor joint assigning only
+
+    // SETUP
+    // 0. copy OVRRight(Left)HandVisual
+    // 1. assign NetworkObject
+    // 2. assign this
+    // 3. push "Auto Map Joints"
+    // 4. remove HandVisual
+
     // todo: remove this dependency
     [SerializeField, Interface(typeof(IHand))]
     private Object _hand;
