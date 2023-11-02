@@ -39,20 +39,20 @@ public class NetworkHand : NetworkBehaviour
         base.OnNetworkSpawn();
 
         // sync visuals to networkid
-        leftNetworkId.OnValueChanged += (ulong previous, ulong current) =>
+        leftNetworkId.OnValueChanged += (ulong previous, ulong current) => OnHandNetworkIdChanged(current, Handedness.Left);
+        rightNetworkId.OnValueChanged += (ulong previous, ulong current) => OnHandNetworkIdChanged(current, Handedness.Right);
+
+        if (!IsServer)
         {
-            // todo: keep checking until spawnedobjects[current] isn't null
-            leftVisual = NetworkManager.Singleton.SpawnManager.SpawnedObjects[current].GetComponent<DrivenHandVisual>();
-        };
-        rightNetworkId.OnValueChanged += (ulong previous, ulong current) =>
-        {
-            rightVisual = NetworkManager.Singleton.SpawnManager.SpawnedObjects[current].GetComponent<DrivenHandVisual>();
-        };
+            // late joining clients; requires initial sync
+            OnHandNetworkIdChanged(leftNetworkId.Value, Handedness.Left);
+            OnHandNetworkIdChanged(rightNetworkId.Value, Handedness.Right);
+        }
 
         // hand without ownership (passive)
         if (!IsOwner) return;
 
-        // server side hand with ownership (active)
+        // server side spawning hand with ownership (active)
         if (IsServer)
         {
             SpawnDrivenHandOnServer(NetworkManager.LocalClientId, Handedness.Left);
@@ -60,9 +60,22 @@ public class NetworkHand : NetworkBehaviour
             return;
         }
 
-        // client side hand with ownership (active)
+        // client side spawning hand with ownership (active)
         RequestSpawnDrivenHandOnServerRpc(Handedness.Left);
         RequestSpawnDrivenHandOnServerRpc(Handedness.Right);
+    }
+
+    private void OnHandNetworkIdChanged(ulong current, Handedness handedness)
+    {
+        if (handedness == Handedness.Left)
+        {
+            // todo: keep checking until spawnedobjects[current] isn't null
+            leftVisual = NetworkManager.Singleton.SpawnManager.SpawnedObjects[current].GetComponent<DrivenHandVisual>();
+        }
+        else
+        {
+            rightVisual = NetworkManager.Singleton.SpawnManager.SpawnedObjects[current].GetComponent<DrivenHandVisual>();
+        }
     }
 
     // server creates handvisual and notifies all clients
