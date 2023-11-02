@@ -12,8 +12,8 @@ public class HitchhikeMovementPool : SingletonMonoBehaviour<HitchhikeMovementPoo
   public IHand syntheticHandRight;
   public ReadOnlyHandJointPoses leftJoint;
   public ReadOnlyHandJointPoses rightJoint;
-  public Pose leftPose;
-  public Pose rightPose;
+  [HideInInspector] public Pose leftPose { get; private set; }
+  [HideInInspector] public Pose rightPose { get; private set; }
 
   protected override void Awake()
   {
@@ -27,7 +27,9 @@ public class HitchhikeMovementPool : SingletonMonoBehaviour<HitchhikeMovementPoo
     // todo: make it passive (so that this component doesn't have to fetch joints actively)
     syntheticHandLeft.GetJointPosesLocal(out leftJoint);
     syntheticHandRight.GetJointPosesLocal(out rightJoint);
-    syntheticHandLeft.GetRootPose(out leftPose);
-    syntheticHandRight.GetRootPose(out rightPose);
+    syntheticHandLeft.GetRootPose(out var pose);
+    leftPose = pose;
+    syntheticHandRight.GetRootPose(out pose);
+    rightPose = pose;
   }
 }

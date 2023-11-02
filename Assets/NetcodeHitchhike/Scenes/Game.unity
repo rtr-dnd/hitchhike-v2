@@ -917,8 +917,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6536fde24a95ca04ca0ead900c73f1ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rawHandLeft: {fileID: 578377541}
-  _rawHandRight: {fileID: 108704126}
+  _syntheticHandLeft: {fileID: 578377541}
+  _syntheticHandRight: {fileID: 108704126}
+  leftPose:
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+  rightPose:
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!4 &751877990
 Transform:
   m_ObjectHideFlags: 0
