@@ -2,6 +2,7 @@ using UnityEngine;
 using Unity.Netcode;
 using System.Collections;
 using System.Data.Common;
+using System.Linq;
 
 // reads the joint angle from the hand and forces DrivenHandVisual to have the angles
 public class NetworkHand : NetworkBehaviour
@@ -42,10 +43,10 @@ public class NetworkHand : NetworkBehaviour
         base.OnNetworkSpawn();
 
         // sync visuals to networkid
-        leftNetworkId.OnValueChanged += (previous, current) => SetHandNetworkVisual(current, Handedness.Left);
-        rightNetworkId.OnValueChanged += (previous, current) => SetHandNetworkVisual(current, Handedness.Right);
+        leftNetworkId.OnValueChanged += (previous, current) => StartCoroutine(SetHandNetworkVisual(current, Handedness.Left));
+        rightNetworkId.OnValueChanged += (previous, current) => StartCoroutine(SetHandNetworkVisual(current, Handedness.Right));
 
-        if (!IsServer) StartCoroutine("CheckHandNetworkIdLoop");
+        if (!IsServer) StartCoroutine(CheckHandNetworkIdLoop());
 
         // hand without ownership (passive)
         if (!IsOwner) return;
@@ -72,21 +73,22 @@ public class NetworkHand : NetworkBehaviour
             SetHandNetworkVisual(rightNetworkId.Value, Handedness.Right);
             yield break;
         }
-        yield return new WaitForSeconds(1);
-        StartCoroutine("CheckHandNetworkIdLoop");
+        yield return new WaitForSeconds(0.5f);
+        StartCoroutine(CheckHandNetworkIdLoop());
     }
 
-    private void SetHandNetworkVisual(ulong current, Handedness handedness)
+    IEnumerator SetHandNetworkVisual(ulong current, Handedness handedness)
     {
-        if (current == ulong.MaxValue) return;
-        if (handedness == Handedness.Left)
+        if (current == ulong.MaxValue) yield break;
+        if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.ContainsKey(current))
         {
-            leftVisual = NetworkManager.Singleton.SpawnManager.SpawnedObjects[current].GetComponent<DrivenHandVisual>();
+            // found spawned hand on local env
+            if (handedness == Handedness.Left) leftVisual = NetworkManager.Singleton.SpawnManager.SpawnedObjects[current].GetComponent<DrivenHandVisual>();
+            if (handedness == Handedness.Right) rightVisual = NetworkManager.Singleton.SpawnManager.SpawnedObjects[current].GetComponent<DrivenHandVisual>();
+            yield break;
         }
-        else
-        {
-            rightVisual = NetworkManager.Singleton.SpawnManager.SpawnedObjects[current].GetComponent<DrivenHandVisual>();
-        }
+        yield return new WaitForSeconds(0.5f);
+        StartCoroutine(SetHandNetworkVisual(current, handedness));
     }
 
     // server creates handvisual
