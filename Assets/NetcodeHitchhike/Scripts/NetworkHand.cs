@@ -26,12 +26,12 @@ public class NetworkHand : NetworkBehaviour
     private NetworkVariable<ulong> leftNetworkId = new NetworkVariable<ulong>(
         default,
         NetworkVariableReadPermission.Everyone,
-        NetworkVariableWritePermission.Owner
+        NetworkVariableWritePermission.Server
     );
     private NetworkVariable<ulong> rightNetworkId = new NetworkVariable<ulong>(
         default,
         NetworkVariableReadPermission.Everyone,
-        NetworkVariableWritePermission.Owner
+        NetworkVariableWritePermission.Server
     );
 
     public override void OnNetworkSpawn()
