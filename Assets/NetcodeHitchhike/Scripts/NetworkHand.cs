@@ -1,5 +1,7 @@
 using UnityEngine;
 using Unity.Netcode;
+using System.Collections;
+using System.Data.Common;
 
 // reads the joint angle from the hand and forces DrivenHandVisual to have the angles
 public class NetworkHand : NetworkBehaviour
@@ -23,13 +25,14 @@ public class NetworkHand : NetworkBehaviour
         NetworkVariableReadPermission.Everyone,
         NetworkVariableWritePermission.Owner
     );
+    // defaults to MaxValue
     private NetworkVariable<ulong> leftNetworkId = new NetworkVariable<ulong>(
-        default,
+        ulong.MaxValue,
         NetworkVariableReadPermission.Everyone,
         NetworkVariableWritePermission.Server
     );
     private NetworkVariable<ulong> rightNetworkId = new NetworkVariable<ulong>(
-        default,
+        ulong.MaxValue,
         NetworkVariableReadPermission.Everyone,
         NetworkVariableWritePermission.Server
     );
@@ -39,15 +42,10 @@ public class NetworkHand : NetworkBehaviour
         base.OnNetworkSpawn();
 
         // sync visuals to networkid
-        leftNetworkId.OnValueChanged += (ulong previous, ulong current) => OnHandNetworkIdChanged(current, Handedness.Left);
-        rightNetworkId.OnValueChanged += (ulong previous, ulong current) => OnHandNetworkIdChanged(current, Handedness.Right);
+        leftNetworkId.OnValueChanged += (previous, current) => SetHandNetworkVisual(current, Handedness.Left);
+        rightNetworkId.OnValueChanged += (previous, current) => SetHandNetworkVisual(current, Handedness.Right);
 
-        if (!IsServer)
-        {
-            // late joining clients; requires initial sync
-            OnHandNetworkIdChanged(leftNetworkId.Value, Handedness.Left);
-            OnHandNetworkIdChanged(rightNetworkId.Value, Handedness.Right);
-        }
+        if (!IsServer) StartCoroutine("CheckHandNetworkIdLoop");
 
         // hand without ownership (passive)
         if (!IsOwner) return;
@@ -65,11 +63,24 @@ public class NetworkHand : NetworkBehaviour
         RequestSpawnDrivenHandOnServerRpc(Handedness.Right);
     }
 
-    private void OnHandNetworkIdChanged(ulong current, Handedness handedness)
+    IEnumerator CheckHandNetworkIdLoop()
     {
+        var hasInitialized = leftNetworkId.Value != ulong.MaxValue && rightNetworkId.Value != ulong.MaxValue;
+        if (hasInitialized)
+        {
+            SetHandNetworkVisual(leftNetworkId.Value, Handedness.Left);
+            SetHandNetworkVisual(rightNetworkId.Value, Handedness.Right);
+            yield break;
+        }
+        yield return new WaitForSeconds(1);
+        StartCoroutine("CheckHandNetworkIdLoop");
+    }
+
+    private void SetHandNetworkVisual(ulong current, Handedness handedness)
+    {
+        if (current == ulong.MaxValue) return;
         if (handedness == Handedness.Left)
         {
-            // todo: keep checking until spawnedobjects[current] isn't null
             leftVisual = NetworkManager.Singleton.SpawnManager.SpawnedObjects[current].GetComponent<DrivenHandVisual>();
         }
         else
@@ -78,7 +89,7 @@ public class NetworkHand : NetworkBehaviour
         }
     }
 
-    // server creates handvisual and notifies all clients
+    // server creates handvisual
     private void SpawnDrivenHandOnServer(ulong ownerClientId, Handedness handedness)
     {
         NetworkObject drivenHand_Network = Instantiate(handedness == Handedness.Left ? drivenHandPrefabLeft : drivenHandPrefabRight);
@@ -103,6 +114,7 @@ public class NetworkHand : NetworkBehaviour
 
     void Update()
     {
+        if (!IsSpawned) return;
         if (IsOwner)
         {
             if (HitchhikeMovementPool.Instance == null) return;
