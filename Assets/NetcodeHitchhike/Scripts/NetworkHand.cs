@@ -66,11 +66,12 @@ public class NetworkHand : NetworkBehaviour
 
     IEnumerator CheckHandNetworkIdLoop()
     {
-        var hasInitialized = leftNetworkId.Value != ulong.MaxValue && rightNetworkId.Value != ulong.MaxValue;
+        var hasInitialized = (leftNetworkId.Value != ulong.MaxValue) && (rightNetworkId.Value != ulong.MaxValue);
         if (hasInitialized)
         {
             SetHandNetworkVisual(leftNetworkId.Value, Handedness.Left);
             SetHandNetworkVisual(rightNetworkId.Value, Handedness.Right);
+            Debug.Log("quit check: " + leftNetworkId.Value + ", " + rightNetworkId.Value);
             yield break;
         }
         yield return new WaitForSeconds(0.5f);
