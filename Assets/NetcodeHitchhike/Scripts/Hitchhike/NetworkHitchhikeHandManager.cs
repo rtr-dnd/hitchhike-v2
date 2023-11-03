@@ -7,7 +7,7 @@ using System.Linq;
 using Oculus.Interaction;
 
 // reads the joint angle from the hand and forces DrivenHandVisual to have the angles
-public class NetworkHand : NetworkBehaviour
+public class NetworkHitchhikeHandManager : NetworkBehaviour
 {
     [SerializeField] NetworkObject drivenHandPrefabLeft;
     [SerializeField] NetworkObject drivenHandPrefabRight;
