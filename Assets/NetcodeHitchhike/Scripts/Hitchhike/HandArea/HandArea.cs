@@ -25,7 +25,7 @@ public class HandArea : NetworkBehaviour
         if (handAreaCoordinatePrefab == null) return;
         NetworkObject n_coordinate = Instantiate(handAreaCoordinatePrefab);
         n_coordinate.SpawnWithOwnership(clientId);
-        n_coordinate.transform.parent = transform;
+        n_coordinate.TrySetParent(transform, false);
     }
 
     // public void Init()
