@@ -1054,6 +1054,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 818ea2279c5c16245be6ab7f4b7559f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  handAreaManager: {fileID: 762702162}
   _switchTechnique: {fileID: 751877992}
 --- !u!114 &751877992
 MonoBehaviour:
@@ -1067,72 +1068,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d63c4fb2807e0f94eb7231b6a40863d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &762702160
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 762702163}
-  - component: {fileID: 762702162}
-  - component: {fileID: 762702161}
-  m_Layer: 0
-  m_Name: NetworkHandAreaManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &762702161
+--- !u!114 &762702162 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 373796640022924771, guid: 4c687931b7aae074f89e34e0bb300340, type: 3}
+  m_PrefabInstance: {fileID: 1061288779047652598}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 762702160}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1730951271
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
---- !u!114 &762702162
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 762702160}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0bf32f4265e61c5418da0c445cf00c83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handAreaPrefab: {fileID: 0}
---- !u!4 &762702163
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 762702160}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.1001375, y: -0.35796452, z: 0.82405114}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &829553804
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2668,15 +2614,76 @@ MonoBehaviour:
   HandType: 0
   _pointerPoseRoot: {fileID: 0}
   m_showState: 3
+--- !u!1001 &1061288779047652598
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 262521963313835194, guid: 4c687931b7aae074f89e34e0bb300340, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 4015128879
+      objectReference: {fileID: 0}
+    - target: {fileID: 6511031102466673449, guid: 4c687931b7aae074f89e34e0bb300340, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.1001375
+      objectReference: {fileID: 0}
+    - target: {fileID: 6511031102466673449, guid: 4c687931b7aae074f89e34e0bb300340, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.35796452
+      objectReference: {fileID: 0}
+    - target: {fileID: 6511031102466673449, guid: 4c687931b7aae074f89e34e0bb300340, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.82405114
+      objectReference: {fileID: 0}
+    - target: {fileID: 6511031102466673449, guid: 4c687931b7aae074f89e34e0bb300340, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6511031102466673449, guid: 4c687931b7aae074f89e34e0bb300340, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6511031102466673449, guid: 4c687931b7aae074f89e34e0bb300340, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6511031102466673449, guid: 4c687931b7aae074f89e34e0bb300340, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6511031102466673449, guid: 4c687931b7aae074f89e34e0bb300340, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6511031102466673449, guid: 4c687931b7aae074f89e34e0bb300340, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6511031102466673449, guid: 4c687931b7aae074f89e34e0bb300340, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8943254848499902609, guid: 4c687931b7aae074f89e34e0bb300340, type: 3}
+      propertyPath: m_Name
+      value: NetworkHandAreaManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4c687931b7aae074f89e34e0bb300340, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1045767463}
   - {fileID: 751877990}
+  - {fileID: 1061288779047652598}
   - {fileID: 172553620}
   - {fileID: 190994752}
   - {fileID: 838932798}
   - {fileID: 413914435}
   - {fileID: 1205724573}
-  - {fileID: 762702163}
