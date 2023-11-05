@@ -46,24 +46,20 @@ public class NetworkHandAreaManager : NetworkBehaviour
     activeHandAreaIndex = 0;
   }
 
-  public void CreateHandArea(Vector3 position, Quaternion rotation, bool isOriginal = false)
+  // if clientId != MaxValue, it creates an original hand area for the client
+  public void CreateHandArea(Vector3 position, Quaternion rotation, ulong clientId = ulong.MaxValue)
   {
-    if (IsServer)
-    {
-      var id = CreateHandAreaOnServer(position, rotation);
-      if (isOriginal && id != ulong.MaxValue) NotifyOriginalIdClientRpc(id);
-    }
-    else
-    {
-      CreateHandAreaServerRpc(position, rotation, isOriginal);
-    }
+    CreateHandAreaServerRpc(position, rotation, clientId);
   }
 
   [ServerRpc]
-  private void CreateHandAreaServerRpc(Vector3 position, Quaternion rotation, bool isOriginal = false)
+  private void CreateHandAreaServerRpc(Vector3 position, Quaternion rotation, ulong clientId = ulong.MaxValue)
   {
     var id = CreateHandAreaOnServer(position, rotation);
-    if (isOriginal && id != ulong.MaxValue) NotifyOriginalIdClientRpc(id);
+    if (clientId != ulong.MaxValue && id != ulong.MaxValue) NotifyOriginalIdClientRpc(id, new ClientRpcParams
+    {
+      Send = new ClientRpcSendParams { TargetClientIds = new ulong[] { clientId } }
+    });
   }
 
   private ulong CreateHandAreaOnServer(Vector3 position, Quaternion rotation)
@@ -76,7 +72,7 @@ public class NetworkHandAreaManager : NetworkBehaviour
   }
 
   [ClientRpc]
-  private void NotifyOriginalIdClientRpc(ulong id)
+  private void NotifyOriginalIdClientRpc(ulong id, ClientRpcParams clientRpcParams = default)
   {
     NetworkManager.LocalClient.PlayerObject.GetComponent<NetworkPlayer>().SetOriginalHandArea(id);
   }

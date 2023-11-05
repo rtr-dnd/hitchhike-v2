@@ -20,7 +20,7 @@ public class NetworkPlayer : NetworkBehaviour
             transform.position.x,
             0.7f,
             transform.position.z + 0.3f
-        ), Quaternion.identity, true);
+        ), Quaternion.identity, NetworkManager.LocalClientId);
     }
     public void SetOriginalHandArea(ulong id)
     {
