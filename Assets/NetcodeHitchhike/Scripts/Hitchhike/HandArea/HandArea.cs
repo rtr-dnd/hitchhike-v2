@@ -14,6 +14,7 @@ public class HandArea : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
+        if (!IsServer) return;
         foreach (var id in NetworkManager.Singleton.ConnectedClientsIds) { SpawnCoordinateForClient(id); }
         NetworkManager.Singleton.OnClientConnectedCallback += SpawnCoordinateForClient;
     }
@@ -22,8 +23,9 @@ public class HandArea : NetworkBehaviour
     {
         if (!IsServer) return;
         if (handAreaCoordinatePrefab == null) return;
-        NetworkObject n_coordinate = Instantiate(handAreaCoordinatePrefab, this.transform);
+        NetworkObject n_coordinate = Instantiate(handAreaCoordinatePrefab);
         n_coordinate.SpawnWithOwnership(clientId);
+        n_coordinate.transform.parent = transform;
     }
 
     // public void Init()
