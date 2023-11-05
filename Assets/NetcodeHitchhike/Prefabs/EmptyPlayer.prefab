@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2345051344515123087}
   - component: {fileID: 6443497233210424199}
-  - component: {fileID: 5305399449670165139}
   - component: {fileID: 8058424733551143175}
+  - component: {fileID: 5305399449670165139}
+  - component: {fileID: -8879795948460728172}
   m_Layer: 0
   m_Name: EmptyPlayer
   m_TagString: Untagged
@@ -54,6 +55,18 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!114 &8058424733551143175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1229415976517520029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c21df41a0b8083048be172246609b01d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5305399449670165139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,7 +81,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drivenHandPrefabLeft: {fileID: 3960765533234094122, guid: bff965f1c2ad37a4588cce81884fc74c, type: 3}
   drivenHandPrefabRight: {fileID: 7532343461446788699, guid: 792a28c4761b14f4b88294165d77942e, type: 3}
---- !u!114 &8058424733551143175
+--- !u!114 &-8879795948460728172
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -77,6 +90,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1229415976517520029}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c21df41a0b8083048be172246609b01d, type: 3}
+  m_Script: {fileID: 11500000, guid: 0bf32f4265e61c5418da0c445cf00c83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  handAreaPrefab: {fileID: -9133634215722379841, guid: 8aea1ed8af85baf46b6d0f19b00b6619, type: 3}
