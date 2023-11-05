@@ -24,6 +24,7 @@ public class NetworkPlayer : NetworkBehaviour
     }
     public void SetOriginalHandArea(ulong id)
     {
+        if (!IsOwner) return;
         originalHandAreaId.Value = id;
     }
 }

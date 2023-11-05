@@ -52,7 +52,7 @@ public class NetworkHandAreaManager : NetworkBehaviour
     CreateHandAreaServerRpc(position, rotation, clientId);
   }
 
-  [ServerRpc]
+  [ServerRpc(RequireOwnership = false)]
   private void CreateHandAreaServerRpc(Vector3 position, Quaternion rotation, ulong clientId = ulong.MaxValue)
   {
     var id = CreateHandAreaOnServer(position, rotation);
