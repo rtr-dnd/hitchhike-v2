@@ -17,7 +17,7 @@ public class HitchhikeManager : SingletonMonoBehaviour<HitchhikeManager>
             if (value >= handAreas.Count) return;
             foreach (var item in handAreas.Select((area, index) => new { area, index }))
             {
-                item.area.isEnabled = item.index == value;
+                // item.area.isEnabled = item.index == value;
             }
             m_activeHandAreaIndex = value;
             switchTechnique.UpdateActiveHandAreaIndex(value);
@@ -45,15 +45,15 @@ public class HitchhikeManager : SingletonMonoBehaviour<HitchhikeManager>
     void RegisterHandAreas()
     {
         handAreas = new List<HandArea>();
-        var original = new List<HandArea>(FindObjectsOfType<HandArea>()).Find(e => e.isOriginal);
-        var copied = new List<HandArea>(FindObjectsOfType<HandArea>()).FindAll(e => !e.isOriginal);
-        handAreas.Add(original);
-        handAreas.AddRange(copied);
+        // var original = new List<HandArea>(FindObjectsOfType<HandArea>()).Find(e => e.isOriginal);
+        // var copied = new List<HandArea>(FindObjectsOfType<HandArea>()).FindAll(e => !e.isOriginal);
+        // handAreas.Add(original);
+        // handAreas.AddRange(copied);
     }
 
     void InitHandAreas()
     {
-        handAreas.ForEach(area => area.Init());
+        // handAreas.ForEach(area => area.Init());
         activeHandAreaIndex = 0;
     }
 }

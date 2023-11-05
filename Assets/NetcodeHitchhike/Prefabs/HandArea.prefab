@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 1246530627215334791}
   - component: {fileID: 7896463640810804425}
   - component: {fileID: 8174758984510483551}
+  - component: {fileID: -9133634215722379841}
+  - component: {fileID: 8038799038260678552}
   - component: {fileID: 8803353773164179327}
   m_Layer: 0
   m_Name: HandArea
@@ -106,6 +108,56 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-9133634215722379841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7464691253620485597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+--- !u!114 &8038799038260678552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7464691253620485597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 1
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 1
+  SyncScaleY: 1
+  SyncScaleZ: 1
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 0
+  InLocalSpace: 0
+  Interpolate: 1
+  SlerpPosition: 0
 --- !u!114 &8803353773164179327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,5 +170,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0ed89e9d6fff1f44a90f8504955903a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enabledMaterial: {fileID: 2100000, guid: d1168845a7b063b40a96ae2d42c8bf79, type: 2}
-  disabledMaterial: {fileID: 2100000, guid: 34963dfd40dde494b827f860ac9d83b2, type: 2}
+  handAreaCoordinatePrefab: {fileID: -6395265605985935740, guid: 0c6cafc1817013640b70800d6c2d63ce, type: 3}
