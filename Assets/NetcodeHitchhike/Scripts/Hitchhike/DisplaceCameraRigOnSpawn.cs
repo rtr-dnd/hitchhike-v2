@@ -8,7 +8,12 @@ public class DisplaceCameraRigOnSpawn : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
+        if (!IsOwner) return;
+        Invoke(nameof(Displace), 0.5f);
+    }
+    void Displace()
+    {
         var cameraRig = FindObjectOfType<OVRCameraRig>();
-        cameraRig.transform.position = NetworkManager.LocalClient.PlayerObject.transform.position;
+        cameraRig.transform.position = transform.position;
     }
 }

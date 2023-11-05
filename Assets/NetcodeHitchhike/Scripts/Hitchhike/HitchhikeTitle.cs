@@ -34,8 +34,10 @@ public class HitchhikeTitle : MonoBehaviour
         response.CreatePlayerObject = true;
         response.PlayerPrefabHash = null;
 
-        var position = new Vector3(0, 1, -3);
-        position.x = -3 + 2 * (NetworkManager.Singleton.ConnectedClients.Count % 3);
+        var position = new Vector3(0, 0, 0)
+        {
+            x = -1 + (NetworkManager.Singleton.ConnectedClients.Count % 3)
+        };
         response.Position = position;
         response.Rotation = Quaternion.identity;
 
