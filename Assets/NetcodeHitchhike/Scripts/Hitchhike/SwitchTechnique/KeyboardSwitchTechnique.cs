@@ -10,7 +10,7 @@ public class KeyboardSwitchTechnique : MonoBehaviour, ISwitchTechnique
     int i = activeHandAreaIndex;
     if (!Input.GetKeyDown(KeyCode.Tab)) return i;
 
-    return i >= HitchhikeManager.Instance.handAreas.Count - 1 ? 0 : i + 1;
+    return i >= HitchhikeManager.Instance.handAreaManager.handAreas.Count - 1 ? 0 : i + 1;
   }
 
   public void UpdateActiveHandAreaIndex(int i)
