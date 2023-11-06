@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using Unity.VisualScripting;
 
 public class HandAreaCoordinate : NetworkBehaviour
 {
     [SerializeField] private Material enabledMaterial;
     [SerializeField] private Material disabledMaterial;
+    [SerializeField] private MeshRenderer meshRenderer;
+    HandsWrap handsWrap;
+
     // each coordinate is owned by each player
     public bool isLocal
     {
@@ -40,11 +44,13 @@ public class HandAreaCoordinate : NetworkBehaviour
             meshRenderer.material = value ? enabledMaterial : disabledMaterial;
         }
     }
-    private MeshRenderer meshRenderer;
 
     private void Awake()
     {
-        meshRenderer = GetComponent<MeshRenderer>();
+        handsWrap = Instantiate(HitchhikeManager.Instance.handsWrapPrefab, HitchhikeManager.Instance.handsWrapPrefab.transform.parent);
+        handsWrap.gameObject.SetActive(true);
+        handsWrap.coordinate = this;
+        if (isOriginal) handsWrap.originalCoordinate = this;
     }
 
     // Start is called before the first frame update

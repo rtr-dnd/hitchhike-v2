@@ -7,43 +7,16 @@ using UnityEngine;
 public class NetworkHandAreaManager : NetworkBehaviour
 {
   public NetworkObject handAreaPrefab;
-  public List<HandArea> handAreas { get; private set; }
-  int m_activeHandAreaIndex = 0;
-  public int activeHandAreaIndex
-  {
-    get { return m_activeHandAreaIndex; }
-    set
-    {
-      if (handAreas == null) return;
-      if (value >= handAreas.Count) return;
-      foreach (var item in handAreas.Select((area, index) => new { area, index }))
-      {
-        // item.area.isEnabled = item.index == value;
-      }
-      m_activeHandAreaIndex = value;
-    }
-  }
+  public List<HandArea> handAreas { get; private set; } = new List<HandArea>();
 
   public override void OnNetworkSpawn()
   {
     base.OnNetworkSpawn();
-    RegisterHandAreas();
-    InitHandAreas();
   }
 
-  void RegisterHandAreas()
+  public void RegisterHandArea(HandArea area)
   {
-    handAreas = new List<HandArea>();
-    // var original = new List<HandArea>(FindObjectsOfType<HandArea>()).Find(e => e.isOriginal);
-    var copied = new List<HandArea>(FindObjectsOfType<HandArea>());
-    // handAreas.Add(original);
-    handAreas.AddRange(copied);
-  }
-
-  void InitHandAreas()
-  {
-    // handAreas.ForEach(area => area.Init());
-    activeHandAreaIndex = 0;
+    handAreas.Add(area);
   }
 
   // if clientId != MaxValue, it creates an original hand area for the client

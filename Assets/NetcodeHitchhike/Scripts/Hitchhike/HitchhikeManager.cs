@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Netcode;
 using UnityEngine;
 
 public class HitchhikeManager : SingletonMonoBehaviour<HitchhikeManager>
 {
     public NetworkHandAreaManager handAreaManager;
     [SerializeField, InterfaceType(typeof(ISwitchTechnique))] Object _switchTechnique;
-    private ISwitchTechnique switchTechnique;
+    public ISwitchTechnique switchTechnique;
+    public HandsWrap handsWrapPrefab;
 
     protected override void Awake()
     {
@@ -14,15 +16,14 @@ public class HitchhikeManager : SingletonMonoBehaviour<HitchhikeManager>
         switchTechnique = _switchTechnique as ISwitchTechnique;
     }
 
-    void Update()
-    {
-        var newActiveHandAreaIndex = switchTechnique.GetFocusedHandAreaIndex();
-        if (handAreaManager.activeHandAreaIndex != newActiveHandAreaIndex)
-        {
-            handAreaManager.activeHandAreaIndex = newActiveHandAreaIndex;
-            switchTechnique.UpdateActiveHandAreaIndex(newActiveHandAreaIndex);
-        }
-    }
-
-
+    // void Update()
+    // {
+    //     localNetworkPlayer = NetworkManager.LocalClient.PlayerObject.GetComponent<NetworkPlayer>();
+    //     var newActiveHandAreaIndex = switchTechnique.GetFocusedHandAreaIndex();
+    //     if (localNetworkPlayer.activeHandAreaIndex.Value != newActiveHandAreaIndex)
+    //     {
+    //         localNetworkPlayer.activeHandAreaIndex.Value = newActiveHandAreaIndex;
+    //         switchTechnique.UpdateActiveHandAreaIndex(newActiveHandAreaIndex);
+    //     }
+    // }
 }
