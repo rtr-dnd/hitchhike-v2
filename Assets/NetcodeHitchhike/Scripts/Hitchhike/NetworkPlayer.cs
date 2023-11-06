@@ -25,6 +25,7 @@ public class NetworkPlayer : NetworkBehaviour
         };
         activeHandAreaId.OnValueChanged += (previousValue, newValue) =>
         {
+            if (!IsOwner) return;
             if (newValue == ulong.MaxValue) return;
             if (HitchhikeManager.Instance.handAreaManager.handAreas == null) return;
             // todo: startcoroutine

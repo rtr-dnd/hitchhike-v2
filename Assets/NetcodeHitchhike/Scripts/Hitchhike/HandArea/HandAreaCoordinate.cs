@@ -28,7 +28,11 @@ public class HandAreaCoordinate : NetworkBehaviour
     public bool isOriginal
     {
         get { return n_isOriginal.Value; }
-        set { n_isOriginal.Value = value; }
+        set
+        {
+            if (!IsOwner) return;
+            n_isOriginal.Value = value;
+        }
     }
     private NetworkVariable<bool> n_isEnabled = new NetworkVariable<bool>(
         false,
@@ -40,8 +44,8 @@ public class HandAreaCoordinate : NetworkBehaviour
         get { return n_isEnabled.Value; }
         set
         {
+            if (!IsOwner) return;
             n_isEnabled.Value = value;
-            meshRenderer.material = value ? enabledMaterial : disabledMaterial;
         }
     }
 
@@ -51,6 +55,15 @@ public class HandAreaCoordinate : NetworkBehaviour
         handsWrap.gameObject.SetActive(true);
         handsWrap.coordinate = this;
         if (isOriginal) handsWrap.originalCoordinate = this;
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+        n_isEnabled.OnValueChanged += (previousValue, newValue) =>
+        {
+            meshRenderer.material = newValue ? enabledMaterial : disabledMaterial;
+        };
     }
 
     // Start is called before the first frame update
