@@ -7,7 +7,8 @@ namespace Oculus.Interaction.Input
 
     public class DisplacedHand : Hand
     {
-        [HideInInspector] public Vector3 disposition = Vector3.zero;
+        [HideInInspector] public Transform originalSpace;
+        [HideInInspector] public Transform thisSpace;
         [HideInInspector] public float scale = 1f;
         [HideInInspector] public bool frozen = false;
         private readonly HandDataAsset _lastState = new HandDataAsset();
@@ -16,11 +17,14 @@ namespace Oculus.Interaction.Input
         // 0: waiting for IsHighConfidence
         // 1: found first confident hand pose; is valid
 
+        private void Awake()
+        {
+        }
+
         protected override void Start()
         {
             base.Start();
             this.BeginStart(ref _started, () => base.Start());
-
             this.EndStart(ref _started);
         }
 
@@ -43,7 +47,17 @@ namespace Oculus.Interaction.Input
 
         private void UpdateRootPose(ref Pose root)
         {
-            root.position += disposition;
+            var cameraRigDisplace = HitchhikeManager.Instance.cameraRig.transform.position - HitchhikeManager.Instance.initialCameraRigPosition;
+            if (originalSpace == null || thisSpace == null) return;
+            var newPose = HitchhikeUtilities.ApplyOffset(
+                new Pose(root.position, root.rotation),
+                originalSpace,
+                thisSpace,
+                cameraRigDisplace
+            );
+            root.position = newPose.position;
+            root.rotation = newPose.rotation;
+            // todo: filter pos/rot
         }
         private void ScaleHand(ref float handScale)
         {

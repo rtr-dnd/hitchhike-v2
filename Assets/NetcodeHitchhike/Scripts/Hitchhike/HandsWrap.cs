@@ -5,24 +5,24 @@ using System.Linq;
 
 public class HandsWrap : MonoBehaviour
 {
-    Vector3 m_disposition = Vector3.zero;
-    public Vector3 disposition
+    // Vector3 m_disposition = Vector3.zero;
+    // public Vector3 disposition
+    // {
+    //     get { return m_disposition; }
+    //     set
+    //     {
+    //         m_disposition = value;
+    //         if (displacedHands == null) return;
+    //         foreach (var hand in displacedHands) { hand.disposition = value; }
+    //     }
+    // }
+    float m_handVisualScale = 1f;
+    public float handVisualScale
     {
-        get { return m_disposition; }
+        get { return m_handVisualScale; }
         set
         {
-            m_disposition = value;
-            if (displacedHands == null) return;
-            foreach (var hand in displacedHands) { hand.disposition = value; }
-        }
-    }
-    float m_scale = 1f;
-    public float scale
-    {
-        get { return m_scale; }
-        set
-        {
-            m_scale = value;
+            m_handVisualScale = value;
             if (displacedHands == null) return;
             foreach (var hand in displacedHands) { hand.scale = value; }
         }
@@ -68,8 +68,9 @@ public class HandsWrap : MonoBehaviour
         // initialize value
         foreach (var hand in displacedHands)
         {
-            hand.disposition = disposition;
-            hand.scale = scale;
+            if (coordinate != null) hand.thisSpace = coordinate.transform;
+            if (originalCoordinate != null) hand.originalSpace = originalCoordinate.transform;
+            hand.scale = handVisualScale;
             hand.frozen = frozen;
         }
     }
@@ -77,8 +78,15 @@ public class HandsWrap : MonoBehaviour
     void OnCoordinateChanged()
     {
         if (originalCoordinate == null || coordinate == null) return;
-        disposition = coordinate.transform.position - originalCoordinate.transform.position;
-        scale = new float[] {
+        if (displacedHands == null) return;
+
+        foreach (var hand in displacedHands)
+        {
+            hand.thisSpace = coordinate.transform;
+            hand.originalSpace = originalCoordinate.transform;
+        }
+
+        handVisualScale = new float[] {
             coordinate.transform.lossyScale.x / originalCoordinate.transform.lossyScale.x,
             coordinate.transform.lossyScale.y / originalCoordinate.transform.lossyScale.y,
             coordinate.transform.lossyScale.z / originalCoordinate.transform.lossyScale.z

@@ -9,11 +9,16 @@ public class HitchhikeManager : SingletonMonoBehaviour<HitchhikeManager>
     [SerializeField, InterfaceType(typeof(ISwitchTechnique))] Object _switchTechnique;
     public ISwitchTechnique switchTechnique;
     public HandsWrap handsWrapPrefab;
+    public GameObject ovrHands;
+    [HideInInspector] public OVRCameraRig cameraRig;
+    [HideInInspector] public Vector3 initialCameraRigPosition;
 
     protected override void Awake()
     {
         base.Awake();
         switchTechnique = _switchTechnique as ISwitchTechnique;
+        cameraRig = ovrHands.GetComponentInParent<OVRCameraRig>();
+        initialCameraRigPosition = cameraRig.transform.position;
     }
 
     // void Update()
