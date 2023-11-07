@@ -10,6 +10,10 @@ public class HitchhikeManager : SingletonMonoBehaviour<HitchhikeManager>
     public ISwitchTechnique switchTechnique;
     public HandsWrap handsWrapPrefab;
     public GameObject ovrHands;
+    public Material localEnabledMaterial;
+    public Material localDisabledMaterial;
+    public Material remoteEnabledMaterial;
+    public Material remoteDisabledMaterial;
     [HideInInspector] public OVRCameraRig cameraRig;
     [HideInInspector] public Vector3 initialCameraRigPosition;
 

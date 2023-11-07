@@ -433,6 +433,10 @@ PrefabInstance:
       propertyPath: _cameraRigRef
       value: 
       objectReference: {fileID: 893998844}
+    - target: {fileID: 2851714296901184535, guid: 887fbefdfc0e59445b88556911798d85, type: 3}
+      propertyPath: skinnedMeshRenderer
+      value: 
+      objectReference: {fileID: 1974824712}
     - target: {fileID: 4568470625974888916, guid: 887fbefdfc0e59445b88556911798d85, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -485,6 +489,10 @@ PrefabInstance:
       propertyPath: _trackingToWorldTransformer
       value: 
       objectReference: {fileID: 893998843}
+    - target: {fileID: 5165796259067971102, guid: 887fbefdfc0e59445b88556911798d85, type: 3}
+      propertyPath: skinnedMeshRenderer
+      value: 
+      objectReference: {fileID: 856849644}
     - target: {fileID: 5235096724737332236, guid: 887fbefdfc0e59445b88556911798d85, type: 3}
       propertyPath: _cameraRigRef
       value: 
@@ -812,6 +820,10 @@ MonoBehaviour:
   _switchTechnique: {fileID: 751877992}
   handsWrapPrefab: {fileID: 1819012567}
   ovrHands: {fileID: 880279069}
+  localEnabledMaterial: {fileID: 2100000, guid: 2d9c01db7e7a68b4781ad7548116bdc9, type: 2}
+  localDisabledMaterial: {fileID: 2100000, guid: 6c1d3c8882c5e3f469db4f3b2b44ba8b, type: 2}
+  remoteEnabledMaterial: {fileID: 2100000, guid: dce9019943fb32c4da8f3b98662ff988, type: 2}
+  remoteDisabledMaterial: {fileID: 2100000, guid: 9763b9e9572621b4ead7c4492a7c0e9a, type: 2}
   cameraRig: {fileID: 0}
   initialCameraRigPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &751877992
@@ -1067,6 +1079,11 @@ Transform:
   - {fileID: 734103851}
   m_Father: {fileID: 190994756}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!137 &856849644 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5308445519695438621, guid: 887fbefdfc0e59445b88556911798d85, type: 3}
+  m_PrefabInstance: {fileID: 375401162}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &880279069 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 65207973030035947, guid: ea16c3c8c1688234fa81a4f39339bf1b, type: 3}
@@ -2097,6 +2114,11 @@ MonoBehaviour:
   HandType: 0
   _pointerPoseRoot: {fileID: 0}
   m_showState: 3
+--- !u!137 &1974824712 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2904078289556922612, guid: 887fbefdfc0e59445b88556911798d85, type: 3}
+  m_PrefabInstance: {fileID: 375401162}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1061288779047652598
 PrefabInstance:
   m_ObjectHideFlags: 0

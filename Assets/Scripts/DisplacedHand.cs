@@ -10,7 +10,18 @@ namespace Oculus.Interaction.Input
         [HideInInspector] public Transform originalSpace;
         [HideInInspector] public Transform thisSpace;
         [HideInInspector] public float scale = 1f;
-        [HideInInspector] public bool frozen = false;
+        private bool m_frozen = false;
+        [HideInInspector]
+        public bool frozen
+        {
+            get { return m_frozen; }
+            set
+            {
+                m_frozen = value;
+                skinnedMeshRenderer.material = value ? HitchhikeManager.Instance.localDisabledMaterial : HitchhikeManager.Instance.localEnabledMaterial;
+            }
+        }
+        public SkinnedMeshRenderer skinnedMeshRenderer;
         private readonly HandDataAsset _lastState = new HandDataAsset();
 
         private int _trackingState = 0;
