@@ -41,8 +41,9 @@ namespace Oculus.Interaction.Input
 
         protected override void Apply(HandDataAsset data)
         {
-            if (_trackingState == 0 && data.IsHighConfidence)
+            if (_trackingState == 0)
             {
+                if (!data.IsHighConfidence) return;
                 _trackingState = 1;
                 _lastState.CopyFrom(data);
             }
