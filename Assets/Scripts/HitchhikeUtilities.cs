@@ -8,7 +8,6 @@ public static class HitchhikeUtilities
 
     var originalSpaceOrigin = originalSpace;
     var thisSpaceOrigin = thisSpace;
-    Debug.Log("original: " + originalSpaceOrigin.position + ", this: " + thisSpaceOrigin.position);
 
     var originalToActiveRot = Quaternion.Inverse(thisSpaceOrigin.rotation) * originalSpaceOrigin.rotation;
     var originalToActiveScale = new Vector3(

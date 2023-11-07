@@ -37,12 +37,11 @@ namespace Oculus.Interaction.Input
             }
 
             if (frozen) data.CopyPosesFrom(_lastState);
+            if (!frozen) _lastState.CopyFrom(data);
 
             UpdateRootPose(ref data.Root);
             ScaleHand(ref data.HandScale);
             data.RootPoseOrigin = PoseOrigin.FilteredTrackedPose;
-
-            if (!frozen) _lastState.CopyFrom(data);
         }
 
         private void UpdateRootPose(ref Pose root)

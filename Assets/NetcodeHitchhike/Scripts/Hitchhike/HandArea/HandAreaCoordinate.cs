@@ -54,6 +54,7 @@ public class HandAreaCoordinate : NetworkBehaviour
         handsWrap = Instantiate(HitchhikeManager.Instance.handsWrapPrefab, HitchhikeManager.Instance.handsWrapPrefab.transform.parent);
         handsWrap.gameObject.SetActive(true);
         handsWrap.coordinate = this;
+        handsWrap.frozen = true;
     }
 
     public void SetOriginalCoordinate(HandAreaCoordinate coordinate)
@@ -67,6 +68,7 @@ public class HandAreaCoordinate : NetworkBehaviour
         n_isEnabled.OnValueChanged += (previousValue, newValue) =>
         {
             meshRenderer.material = newValue ? enabledMaterial : disabledMaterial;
+            handsWrap.frozen = !newValue;
         };
     }
 
