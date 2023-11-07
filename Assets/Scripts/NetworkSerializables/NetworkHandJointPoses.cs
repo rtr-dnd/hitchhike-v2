@@ -4,7 +4,7 @@ using UnityEngine;
 using Unity.Netcode;
 using Oculus.Interaction.Input;
 
-struct NetworkHandJointPoses : INetworkSerializable, IEquatable<NetworkHandJointPoses>
+public struct NetworkHandJointPoses : INetworkSerializable, IEquatable<NetworkHandJointPoses>
 {
   public NetworkPose[] poses;
 

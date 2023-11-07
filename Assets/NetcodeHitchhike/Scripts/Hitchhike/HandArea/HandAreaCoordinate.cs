@@ -4,6 +4,7 @@ using UnityEngine;
 using Unity.Netcode;
 using Unity.VisualScripting;
 using Oculus.Interaction;
+using System.Linq;
 
 public class HandAreaCoordinate : NetworkBehaviour
 {
@@ -23,6 +24,7 @@ public class HandAreaCoordinate : NetworkBehaviour
     HandsWrap handsWrap; // for IsOwner coordinate: actual hand
     DrivenHandVisual leftVisual; // for !IsOwner coordinate: hand visual
     DrivenHandVisual rightVisual;
+    NetworkPlayer player;
 
     // each coordinate is owned by each player
     private NetworkVariable<bool> n_isOriginal = new NetworkVariable<bool>(
@@ -64,6 +66,7 @@ public class HandAreaCoordinate : NetworkBehaviour
     {
         base.OnNetworkSpawn();
 
+        player = FindObjectsOfType<NetworkPlayer>().First(player => player.OwnerClientId == OwnerClientId);
         if (IsOwner)
         {
             handsWrap = Instantiate(HitchhikeManager.Instance.handsWrapPrefab, HitchhikeManager.Instance.handsWrapPrefab.transform.parent);
@@ -87,6 +90,7 @@ public class HandAreaCoordinate : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!IsSpawned) return;
         if (IsOwner)
         {
             if (handsWrap == null) return;
@@ -94,14 +98,19 @@ public class HandAreaCoordinate : NetworkBehaviour
             handsWrap.rightFinalHand.GetRootPose(out var tempRightPose);
             leftPose.Value = tempLeftPose;
             rightPose.Value = tempRightPose;
+
+            if (!isEnabled || player == null) return;
+            handsWrap.leftFinalHand.GetJointPosesLocal(out var tempLeftJoints);
+            handsWrap.rightFinalHand.GetJointPosesLocal(out var tempRightJoints);
+            player.leftJointsPool.Value = tempLeftJoints;
+            player.rightJointsPool.Value = tempRightJoints;
         }
         else
         {
-            if (HitchhikeMovementPool.Instance == null) return;
-            if (isEnabled)
+            if (isEnabled && player != null)
             {
-                if (leftVisual != null && HitchhikeMovementPool.Instance.leftJoint != null) leftVisual.Drive(Pose.identity, HitchhikeMovementPool.Instance.leftJoint);
-                if (leftVisual != null && HitchhikeMovementPool.Instance.rightJoint != null) rightVisual.Drive(Pose.identity, HitchhikeMovementPool.Instance.rightJoint);
+                if (leftVisual != null && player.leftJointsPool != null) leftVisual.Drive(Pose.identity, player.leftJointsPool.Value);
+                if (rightVisual != null && player.rightJointsPool != null) rightVisual.Drive(Pose.identity, player.rightJointsPool.Value);
             }
             if (leftVisual != null && leftPose != null) leftVisual.transform.SetPose(leftPose.Value);
             if (rightVisual != null && rightPose != null) rightVisual.transform.SetPose(rightPose.Value);

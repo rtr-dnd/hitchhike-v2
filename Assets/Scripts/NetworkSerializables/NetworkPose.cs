@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Unity.Netcode;
 
-struct NetworkPose : INetworkSerializable, IEquatable<NetworkPose>
+public struct NetworkPose : INetworkSerializable, IEquatable<NetworkPose>
 {
   Vector3 position;
   Quaternion rotation;
