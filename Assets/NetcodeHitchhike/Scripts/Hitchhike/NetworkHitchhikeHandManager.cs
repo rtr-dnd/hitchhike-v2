@@ -138,8 +138,6 @@ public class NetworkHitchhikeHandManager : NetworkBehaviour
             if (HitchhikeMovementPool.Instance == null) return;
             if (HitchhikeMovementPool.Instance.leftJoint != null) leftJoints.Value = HitchhikeMovementPool.Instance.leftJoint;
             if (HitchhikeMovementPool.Instance.rightJoint != null) rightJoints.Value = HitchhikeMovementPool.Instance.rightJoint;
-            if (HitchhikeMovementPool.Instance.leftPose != null) leftPose.Value = HitchhikeMovementPool.Instance.leftPose;
-            if (HitchhikeMovementPool.Instance.rightPose != null) rightPose.Value = HitchhikeMovementPool.Instance.rightPose;
         }
         if (leftVisual != null && leftJoints.Value.poses != null && leftJoints.Value.poses.Length != 0) leftVisual.Drive(Pose.identity, leftJoints.Value);
         if (rightVisual != null && rightJoints.Value.poses != null && rightJoints.Value.poses.Length != 0) rightVisual.Drive(Pose.identity, rightJoints.Value);

@@ -571,17 +571,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8aea1ed8af85baf46b6d0f19b00b6619, type: 3}
---- !u!114 &504664474 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4139098108749388236, guid: 887fbefdfc0e59445b88556911798d85, type: 3}
-  m_PrefabInstance: {fileID: 375401162}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c67033f580359c4581dff1ccffcca91, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &528679006
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,8 +776,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6536fde24a95ca04ca0ead900c73f1ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _syntheticHandLeft: {fileID: 1704518311}
-  _syntheticHandRight: {fileID: 504664474}
 --- !u!4 &751877990
 Transform:
   m_ObjectHideFlags: 0
@@ -819,6 +806,8 @@ MonoBehaviour:
   handAreaManager: {fileID: 762702162}
   _switchTechnique: {fileID: 751877992}
   handsWrapPrefab: {fileID: 1819012567}
+  drivenHandPrefabLeft: {fileID: 7946009845364635269, guid: bff965f1c2ad37a4588cce81884fc74c, type: 3}
+  drivenHandPrefabRight: {fileID: 7004447263039391787, guid: 792a28c4761b14f4b88294165d77942e, type: 3}
   ovrHands: {fileID: 880279069}
   localEnabledMaterial: {fileID: 2100000, guid: 2d9c01db7e7a68b4781ad7548116bdc9, type: 2}
   localDisabledMaterial: {fileID: 2100000, guid: 6c1d3c8882c5e3f469db4f3b2b44ba8b, type: 2}
@@ -1779,17 +1768,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d952c175ec3c6554199fd744548ce50a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1704518311 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4813424724190598259, guid: 887fbefdfc0e59445b88556911798d85, type: 3}
-  m_PrefabInstance: {fileID: 375401162}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c67033f580359c4581dff1ccffcca91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1727727899

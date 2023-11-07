@@ -5,17 +5,6 @@ using System.Linq;
 
 public class HandsWrap : MonoBehaviour
 {
-    // Vector3 m_disposition = Vector3.zero;
-    // public Vector3 disposition
-    // {
-    //     get { return m_disposition; }
-    //     set
-    //     {
-    //         m_disposition = value;
-    //         if (displacedHands == null) return;
-    //         foreach (var hand in displacedHands) { hand.disposition = value; }
-    //     }
-    // }
     float m_handVisualScale = 1f;
     public float handVisualScale
     {
@@ -61,6 +50,18 @@ public class HandsWrap : MonoBehaviour
 
     List<DisplacedHand> displacedHands;
 
+    [SerializeField, InterfaceType(typeof(IHand))]
+    private UnityEngine.Object _leftFinalHand;
+    public IHand leftFinalHand;
+    [SerializeField, InterfaceType(typeof(IHand))]
+    private UnityEngine.Object _rightFinalHand;
+    public IHand rightFinalHand;
+
+    void Awake()
+    {
+        leftFinalHand = _leftFinalHand as IHand;
+        rightFinalHand = _rightFinalHand as IHand;
+    }
     void Start()
     {
         displacedHands = GetComponentsInChildren<DisplacedHand>().ToList();
@@ -73,6 +74,13 @@ public class HandsWrap : MonoBehaviour
             hand.scale = handVisualScale;
             hand.frozen = frozen;
         }
+    }
+
+    void Update()
+    {
+        if (frozen) return;
+        leftFinalHand.GetJointPosesLocal(out HitchhikeMovementPool.Instance.leftJoint);
+        rightFinalHand.GetJointPosesLocal(out HitchhikeMovementPool.Instance.rightJoint);
     }
 
     void OnCoordinateChanged()

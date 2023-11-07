@@ -8,11 +8,6 @@ using UnityEditor.Animations;
 public class HandArea : NetworkBehaviour
 {
     [SerializeField] NetworkObject handAreaCoordinatePrefab;
-
-    private void Awake()
-    {
-    }
-
     public override void OnNetworkSpawn()
     {
         HitchhikeManager.Instance.handAreaManager.RegisterHandArea(this);
@@ -34,15 +29,4 @@ public class HandArea : NetworkBehaviour
     {
         return transform.GetComponentsInChildren<HandAreaCoordinate>().First(c => c.GetComponent<NetworkObject>().OwnerClientId == clientId);
     }
-
-    // public void Init()
-    // {
-
-    // }
-
-    // // Update is called once per frame
-    // void Update()
-    // {
-
-    // }
 }

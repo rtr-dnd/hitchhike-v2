@@ -9,6 +9,8 @@ public class HitchhikeManager : SingletonMonoBehaviour<HitchhikeManager>
     [SerializeField, InterfaceType(typeof(ISwitchTechnique))] Object _switchTechnique;
     public ISwitchTechnique switchTechnique;
     public HandsWrap handsWrapPrefab;
+    public DrivenHandVisual drivenHandPrefabLeft;
+    public DrivenHandVisual drivenHandPrefabRight;
     public GameObject ovrHands;
     public Material localEnabledMaterial;
     public Material localDisabledMaterial;
