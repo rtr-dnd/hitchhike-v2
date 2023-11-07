@@ -54,7 +54,11 @@ public class HandAreaCoordinate : NetworkBehaviour
         handsWrap = Instantiate(HitchhikeManager.Instance.handsWrapPrefab, HitchhikeManager.Instance.handsWrapPrefab.transform.parent);
         handsWrap.gameObject.SetActive(true);
         handsWrap.coordinate = this;
-        if (isOriginal) handsWrap.originalCoordinate = this;
+    }
+
+    public void SetOriginalCoordinate(HandAreaCoordinate coordinate)
+    {
+        handsWrap.originalCoordinate = coordinate;
     }
 
     public override void OnNetworkSpawn()
