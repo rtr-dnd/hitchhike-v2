@@ -141,4 +141,11 @@ public class HandAreaCoordinate : NetworkBehaviour
             if (isEnabled && rightVisual != null && player.rightJointsPool != null) rightVisual.Drive(Pose.identity, player.rightJointsPool.Value);
         }
     }
+
+    public override void OnDestroy()
+    {
+        if (leftVisual != null) Destroy(leftVisual);
+        if (rightVisual != null) Destroy(rightVisual);
+        base.OnDestroy();
+    }
 }
