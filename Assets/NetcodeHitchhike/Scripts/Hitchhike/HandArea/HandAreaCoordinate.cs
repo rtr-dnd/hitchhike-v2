@@ -142,10 +142,10 @@ public class HandAreaCoordinate : NetworkBehaviour
         }
     }
 
-    public override void OnDestroy()
+    public override void OnNetworkDespawn()
     {
         if (leftVisual != null) Destroy(leftVisual);
         if (rightVisual != null) Destroy(rightVisual);
-        base.OnDestroy();
+        base.OnNetworkDespawn();
     }
 }
