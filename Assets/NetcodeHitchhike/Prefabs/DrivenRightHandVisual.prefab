@@ -215,7 +215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hand: {fileID: 0}
-  _root: {fileID: 0}
+  _root: {fileID: 7193854328021454618}
   _jointTransforms:
   - {fileID: 7193854328021454618}
   - {fileID: 7193854328053804263}

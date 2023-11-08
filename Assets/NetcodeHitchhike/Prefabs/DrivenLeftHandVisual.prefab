@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6536860776232889746, guid: 70d02a90551f23042a882cdceeaf8e3a, type: 3}
       propertyPath: m_Name
-      value: DrivenLeftHandVisual Variant
+      value: DrivenLeftHandVisual
       objectReference: {fileID: 0}
     - target: {fileID: 6536860776232889757, guid: 70d02a90551f23042a882cdceeaf8e3a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hand: {fileID: 0}
-  _root: {fileID: 0}
+  _root: {fileID: 5119649142937870744}
   _jointTransforms:
   - {fileID: 5119649142937870744}
   - {fileID: 5119649143614019965}

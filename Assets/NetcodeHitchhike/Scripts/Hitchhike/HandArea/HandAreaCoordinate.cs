@@ -124,6 +124,7 @@ public class HandAreaCoordinate : NetworkBehaviour
                     transform.lossyScale.z / originalCoordinate.transform.lossyScale.z
                 }.Average()
                 : 1;
+            leftVisual.SetScale(scale);
             rightVisual.SetScale(scale);
 
             if (leftVisualState == 0)
