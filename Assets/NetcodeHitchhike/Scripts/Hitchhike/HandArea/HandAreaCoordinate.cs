@@ -76,8 +76,8 @@ public class HandAreaCoordinate : NetworkBehaviour
         }
         else
         {
-            leftVisual = Instantiate(HitchhikeManager.Instance.drivenHandPrefabLeft, transform);
-            rightVisual = Instantiate(HitchhikeManager.Instance.drivenHandPrefabRight, transform);
+            leftVisual = Instantiate(HitchhikeManager.Instance.drivenHandPrefabLeft);
+            rightVisual = Instantiate(HitchhikeManager.Instance.drivenHandPrefabRight);
         }
 
         n_isEnabled.OnValueChanged += (previousValue, newValue) =>
@@ -87,6 +87,9 @@ public class HandAreaCoordinate : NetworkBehaviour
         };
     }
 
+    // state; 0: not initialized yet, 1: initialized
+    int leftVisualState = 0;
+    int rightVisualState = 0;
     // Update is called once per frame
     void Update()
     {
@@ -107,13 +110,22 @@ public class HandAreaCoordinate : NetworkBehaviour
         }
         else
         {
-            if (isEnabled && player != null)
-            {
-                if (leftVisual != null && player.leftJointsPool != null) leftVisual.Drive(Pose.identity, player.leftJointsPool.Value);
-                if (rightVisual != null && player.rightJointsPool != null) rightVisual.Drive(Pose.identity, player.rightJointsPool.Value);
-            }
+            if (player == null) return;
             if (leftVisual != null && leftPose != null) leftVisual.transform.SetPose(leftPose.Value);
             if (rightVisual != null && rightPose != null) rightVisual.transform.SetPose(rightPose.Value);
+
+            if (leftVisualState == 0)
+            {
+                if (leftVisual != null && player.leftJointsPool != null) leftVisual.Drive(Pose.identity, player.leftJointsPool.Value);
+                leftVisualState = 1;
+            }
+            if (rightVisualState == 0)
+            {
+                if (rightVisual != null && player.rightJointsPool != null) rightVisual.Drive(Pose.identity, player.rightJointsPool.Value);
+                rightVisualState = 1;
+            }
+            if (isEnabled && leftVisual != null && player.leftJointsPool != null) leftVisual.Drive(Pose.identity, player.leftJointsPool.Value);
+            if (isEnabled && rightVisual != null && player.rightJointsPool != null) rightVisual.Drive(Pose.identity, player.rightJointsPool.Value);
         }
     }
 }
