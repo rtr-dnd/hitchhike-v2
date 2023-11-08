@@ -214,7 +214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56427b34e0eeb1445959d6e30e574d6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hand: {fileID: 642930805460571361, guid: 94313e563929cb3499e3989be338a213, type: 3}
+  _hand: {fileID: 0}
   _root: {fileID: 0}
   _jointTransforms:
   - {fileID: 7193854328021454618}

@@ -815,7 +815,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 751877990}
-  - component: {fileID: 751877989}
   - component: {fileID: 751877991}
   - component: {fileID: 751877992}
   m_Layer: 0
@@ -825,18 +824,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &751877989
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 751877988}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6536fde24a95ca04ca0ead900c73f1ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &751877990
 Transform:
   m_ObjectHideFlags: 0
@@ -867,7 +854,7 @@ MonoBehaviour:
   handAreaManager: {fileID: 762702162}
   _switchTechnique: {fileID: 751877992}
   handsWrapPrefab: {fileID: 1819012567}
-  drivenHandPrefabLeft: {fileID: 7946009845364635269, guid: bff965f1c2ad37a4588cce81884fc74c, type: 3}
+  drivenHandPrefabLeft: {fileID: 5175324739543704740, guid: b89dffd65c3f7a14788fadefbb27e512, type: 3}
   drivenHandPrefabRight: {fileID: 7004447263039391787, guid: 792a28c4761b14f4b88294165d77942e, type: 3}
   ovrHands: {fileID: 880279069}
   localEnabledMaterial: {fileID: 2100000, guid: 2d9c01db7e7a68b4781ad7548116bdc9, type: 2}
