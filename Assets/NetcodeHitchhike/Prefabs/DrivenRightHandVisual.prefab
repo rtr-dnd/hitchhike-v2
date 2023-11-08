@@ -107,6 +107,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1678554350487550514, guid: 34a22dd67c1e5344591237fdd61e78ec, type: 3}
   m_PrefabInstance: {fileID: 8403391639310030960}
   m_PrefabAsset: {fileID: 0}
+--- !u!137 &7193854328391041030 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1678554350674794614, guid: 34a22dd67c1e5344591237fdd61e78ec, type: 3}
+  m_PrefabInstance: {fileID: 8403391639310030960}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7193854328400616359 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1678554350734427095, guid: 34a22dd67c1e5344591237fdd61e78ec, type: 3}
@@ -241,6 +246,7 @@ MonoBehaviour:
   - {fileID: 7193854329002737630}
   - {fileID: 7193854328186135106}
   - {fileID: 7193854329549340216}
+  skinnedMeshRenderer: {fileID: 7193854328391041030}
 --- !u!4 &7193854329733283425 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1678554349869442577, guid: 34a22dd67c1e5344591237fdd61e78ec, type: 3}

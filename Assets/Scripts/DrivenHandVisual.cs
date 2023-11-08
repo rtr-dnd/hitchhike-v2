@@ -28,6 +28,7 @@ public class DrivenHandVisual : NetworkBehaviour
     [SerializeField]
     private List<Transform> _jointTransforms = new List<Transform>();
     public IList<Transform> Joints => _jointTransforms;
+    public SkinnedMeshRenderer skinnedMeshRenderer;
 
     private void Awake()
     {

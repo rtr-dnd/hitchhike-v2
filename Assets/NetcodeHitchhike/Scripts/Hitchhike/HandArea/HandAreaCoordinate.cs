@@ -18,9 +18,6 @@ public class HandAreaCoordinate : NetworkBehaviour
         NetworkVariableReadPermission.Everyone,
         NetworkVariableWritePermission.Owner
     );
-    [SerializeField] private Material enabledMaterial;
-    [SerializeField] private Material disabledMaterial;
-    [SerializeField] private MeshRenderer meshRenderer;
     HandsWrap handsWrap; // for IsOwner coordinate: actual hand
     DrivenHandVisual leftVisual; // for !IsOwner coordinate: hand visual
     DrivenHandVisual rightVisual;
@@ -83,8 +80,9 @@ public class HandAreaCoordinate : NetworkBehaviour
 
         n_isEnabled.OnValueChanged += (previousValue, newValue) =>
         {
-            meshRenderer.material = newValue ? enabledMaterial : disabledMaterial;
             if (handsWrap != null) handsWrap.frozen = !newValue;
+            if (leftVisual != null) leftVisual.skinnedMeshRenderer.material = newValue ? HitchhikeManager.Instance.remoteEnabledMaterial : HitchhikeManager.Instance.remoteDisabledMaterial;
+            if (rightVisual != null) rightVisual.skinnedMeshRenderer.material = newValue ? HitchhikeManager.Instance.remoteEnabledMaterial : HitchhikeManager.Instance.remoteDisabledMaterial;
         };
     }
 
