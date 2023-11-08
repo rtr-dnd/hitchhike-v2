@@ -53,6 +53,9 @@ namespace Oculus.Interaction.Input
 
             UpdateRootPose(ref data.Root);
             ScaleHand(ref data.HandScale);
+            data.IsDataValid = true;
+            data.IsTracked = true;
+            data.IsHighConfidence = true;
             data.RootPoseOrigin = PoseOrigin.FilteredTrackedPose;
         }
 

@@ -6,6 +6,7 @@ using System.Data.Common;
 using System.Linq;
 using Oculus.Interaction;
 
+// OBSOLETE. have to adapt to new joints pooling
 // reads the joint angle from the hand and forces DrivenHandVisual to have the angles
 public class NetworkHitchhikeHandManager : NetworkBehaviour
 {
