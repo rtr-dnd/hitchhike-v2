@@ -144,8 +144,8 @@ public class HandAreaCoordinate : NetworkBehaviour
 
     public override void OnNetworkDespawn()
     {
-        if (leftVisual != null) Destroy(leftVisual);
-        if (rightVisual != null) Destroy(rightVisual);
+        if (leftVisual != null) Destroy(leftVisual.gameObject);
+        if (rightVisual != null) Destroy(rightVisual.gameObject);
         base.OnNetworkDespawn();
     }
 }
