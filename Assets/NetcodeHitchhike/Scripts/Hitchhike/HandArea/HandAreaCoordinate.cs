@@ -76,6 +76,8 @@ public class HandAreaCoordinate : NetworkBehaviour
         {
             leftVisual = Instantiate(HitchhikeManager.Instance.drivenHandPrefabLeft);
             rightVisual = Instantiate(HitchhikeManager.Instance.drivenHandPrefabRight);
+            if (leftVisual != null) leftVisual.skinnedMeshRenderer.material = isEnabled ? HitchhikeManager.Instance.remoteEnabledMaterial : HitchhikeManager.Instance.remoteDisabledMaterial;
+            if (rightVisual != null) rightVisual.skinnedMeshRenderer.material = isEnabled ? HitchhikeManager.Instance.remoteEnabledMaterial : HitchhikeManager.Instance.remoteDisabledMaterial;
         }
 
         n_isEnabled.OnValueChanged += (previousValue, newValue) =>
