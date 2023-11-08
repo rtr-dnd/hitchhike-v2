@@ -26,6 +26,7 @@ public class NetworkPlayer : NetworkBehaviour
         NetworkVariableReadPermission.Everyone,
         NetworkVariableWritePermission.Owner
     );
+    IEnumerator seekActiveAreaLoop;
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
@@ -42,15 +43,28 @@ public class NetworkPlayer : NetworkBehaviour
             if (!IsOwner) return;
             if (newValue == ulong.MaxValue) return;
             if (HitchhikeManager.Instance.handAreaManager.handAreas == null) return;
-            // todo: startcoroutine
-            var i = HitchhikeManager.Instance.handAreaManager.handAreas.FindIndex(area => area.GetComponent<NetworkObject>().NetworkObjectId == newValue);
-            if (i == -1) return;
+
+            if (seekActiveAreaLoop != null) StopCoroutine(seekActiveAreaLoop);
+            seekActiveAreaLoop = SeekActiveAreaLoop(newValue);
+            StartCoroutine(seekActiveAreaLoop);
+        };
+        if (IsOwner) Invoke(nameof(DisplacePlayer), 0.5f);
+    }
+    IEnumerator SeekActiveAreaLoop(ulong activeAreaId)
+    {
+        if (activeAreaId == ulong.MaxValue) yield break;
+        var i = HitchhikeManager.Instance.handAreaManager.handAreas.FindIndex(area => area.GetComponent<NetworkObject>().NetworkObjectId == activeAreaId);
+        if (i != -1)
+        {
             foreach (var item in HitchhikeManager.Instance.handAreaManager.handAreas.Select((area, index) => new { area, index }))
             {
                 item.area.GetCoordinateForClient(this.OwnerClientId).isEnabled = item.index == i;
             }
-        };
-        if (IsOwner) Invoke(nameof(DisplacePlayer), 0.5f);
+            if (HitchhikeManager.Instance.switchTechnique != null) HitchhikeManager.Instance.switchTechnique.UpdateActiveHandAreaIndex(i);
+            yield break;
+        }
+        yield return new WaitForSeconds(0.5f);
+        StartCoroutine(SeekActiveAreaLoop(activeAreaId));
     }
     void DisplacePlayer()
     {
@@ -78,10 +92,6 @@ public class NetworkPlayer : NetworkBehaviour
         if (!IsOwner) return;
         var newActiveHandAreaIndex = HitchhikeManager.Instance.switchTechnique.GetFocusedHandAreaIndex();
         var newActiveId = HitchhikeManager.Instance.handAreaManager.handAreas[newActiveHandAreaIndex].GetComponent<NetworkObject>().NetworkObjectId;
-        if (activeHandAreaId.Value != newActiveId)
-        {
-            activeHandAreaId.Value = newActiveId;
-            HitchhikeManager.Instance.switchTechnique.UpdateActiveHandAreaIndex(newActiveHandAreaIndex);
-        }
+        if (activeHandAreaId.Value != newActiveId) activeHandAreaId.Value = newActiveId;
     }
 }

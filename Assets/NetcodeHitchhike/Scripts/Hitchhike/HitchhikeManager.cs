@@ -27,15 +27,4 @@ public class HitchhikeManager : SingletonMonoBehaviour<HitchhikeManager>
         cameraRig = ovrHands.GetComponentInParent<OVRCameraRig>();
         initialCameraRigPosition = cameraRig.transform.position;
     }
-
-    // void Update()
-    // {
-    //     localNetworkPlayer = NetworkManager.LocalClient.PlayerObject.GetComponent<NetworkPlayer>();
-    //     var newActiveHandAreaIndex = switchTechnique.GetFocusedHandAreaIndex();
-    //     if (localNetworkPlayer.activeHandAreaIndex.Value != newActiveHandAreaIndex)
-    //     {
-    //         localNetworkPlayer.activeHandAreaIndex.Value = newActiveHandAreaIndex;
-    //         switchTechnique.UpdateActiveHandAreaIndex(newActiveHandAreaIndex);
-    //     }
-    // }
 }
