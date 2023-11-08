@@ -33,9 +33,7 @@ public class NetworkPlayer : NetworkBehaviour
         {
             Debug.Log("original hand area is: " + newValue);
             HitchhikeManager.Instance.handAreaManager.handAreas.ForEach(area =>
-                area.GetCoordinateForClient(this.OwnerClientId).SetOriginalCoordinate(
-                    NetworkManager.SpawnManager.SpawnedObjects[newValue].GetComponent<HandArea>().GetCoordinateForClient(this.OwnerClientId)
-                ));
+                area.GetCoordinateForClient(this.OwnerClientId).SetOriginalCoordinate(PlayerOriginalCoordinate()));
             if (!IsOwner) return;
             activeHandAreaId.Value = newValue;
         };
@@ -68,6 +66,11 @@ public class NetworkPlayer : NetworkBehaviour
     {
         if (!IsOwner) return;
         originalHandAreaId.Value = id;
+    }
+    public HandAreaCoordinate PlayerOriginalCoordinate()
+    {
+        if (originalHandAreaId == null || originalHandAreaId.Value == ulong.MaxValue) return null;
+        return NetworkManager.SpawnManager.SpawnedObjects[originalHandAreaId.Value].GetComponent<HandArea>().GetCoordinateForClient(this.OwnerClientId);
     }
 
     void Update()

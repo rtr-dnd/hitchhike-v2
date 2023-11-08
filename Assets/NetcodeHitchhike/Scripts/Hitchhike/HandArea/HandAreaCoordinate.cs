@@ -72,6 +72,7 @@ public class HandAreaCoordinate : NetworkBehaviour
             handsWrap = Instantiate(HitchhikeManager.Instance.handsWrapPrefab, HitchhikeManager.Instance.handsWrapPrefab.transform.parent);
             handsWrap.gameObject.SetActive(true);
             handsWrap.coordinate = this;
+            if (player != null && player.PlayerOriginalCoordinate() != null) handsWrap.originalCoordinate = player.PlayerOriginalCoordinate();
             handsWrap.frozen = true;
         }
         else

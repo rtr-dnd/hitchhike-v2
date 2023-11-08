@@ -76,13 +76,6 @@ public class HandsWrap : MonoBehaviour
         }
     }
 
-    // void Update()
-    // {
-    //     if (frozen) return;
-    //     leftFinalHand.GetJointPosesLocal(out HitchhikeMovementPool.Instance.leftJoint);
-    //     rightFinalHand.GetJointPosesLocal(out HitchhikeMovementPool.Instance.rightJoint);
-    // }
-
     void OnCoordinateChanged()
     {
         if (originalCoordinate == null || coordinate == null) return;
