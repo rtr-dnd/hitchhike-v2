@@ -115,6 +115,13 @@ public class HandAreaCoordinate : NetworkBehaviour
             if (leftVisual != null && leftPose != null) leftVisual.transform.SetPose(leftPose.Value);
             if (rightVisual != null && rightPose != null) rightVisual.transform.SetPose(rightPose.Value);
 
+            float scale = HitchhikeManager.Instance.scaleHandModel ? new float[] {
+                transform.lossyScale.x / player.PlayerOriginalCoordinate().transform.lossyScale.x,
+                transform.lossyScale.y / player.PlayerOriginalCoordinate().transform.lossyScale.y,
+                transform.lossyScale.z / player.PlayerOriginalCoordinate().transform.lossyScale.z
+            }.Average() : 1;
+            rightVisual.SetScale(scale);
+
             if (leftVisualState == 0)
             {
                 if (leftVisual != null && player.leftJointsPool != null) leftVisual.Drive(Pose.identity, player.leftJointsPool.Value);

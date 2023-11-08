@@ -16,6 +16,7 @@ public class HitchhikeManager : SingletonMonoBehaviour<HitchhikeManager>
     public Material localDisabledMaterial;
     public Material remoteEnabledMaterial;
     public Material remoteDisabledMaterial;
+    public bool scaleHandModel;
     [HideInInspector] public OVRCameraRig cameraRig;
     [HideInInspector] public Vector3 initialCameraRigPosition;
 

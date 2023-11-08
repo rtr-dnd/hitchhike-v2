@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Oculus.Interaction.Input
@@ -9,7 +10,6 @@ namespace Oculus.Interaction.Input
     {
         [HideInInspector] public Transform originalSpace;
         [HideInInspector] public Transform thisSpace;
-        [HideInInspector] public float scale = 1f;
         private bool m_frozen = false;
         [HideInInspector]
         public bool frozen
@@ -75,7 +75,13 @@ namespace Oculus.Interaction.Input
         }
         private void ScaleHand(ref float handScale)
         {
-            handScale = scale;
+            handScale = (HitchhikeManager.Instance.scaleHandModel && thisSpace != null && originalSpace != null)
+                ? new float[] {
+                    thisSpace.lossyScale.x / originalSpace.lossyScale.x,
+                    thisSpace.lossyScale.y / originalSpace.lossyScale.y,
+                    thisSpace.lossyScale.z / originalSpace.lossyScale.z
+                }.Average()
+                : 1;
         }
 
         #region Inject

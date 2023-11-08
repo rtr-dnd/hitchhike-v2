@@ -812,6 +812,7 @@ MonoBehaviour:
   localDisabledMaterial: {fileID: 2100000, guid: 6c1d3c8882c5e3f469db4f3b2b44ba8b, type: 2}
   remoteEnabledMaterial: {fileID: 2100000, guid: dce9019943fb32c4da8f3b98662ff988, type: 2}
   remoteDisabledMaterial: {fileID: 2100000, guid: 9763b9e9572621b4ead7c4492a7c0e9a, type: 2}
+  scaleHandModel: 1
   cameraRig: {fileID: 0}
   initialCameraRigPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &751877992

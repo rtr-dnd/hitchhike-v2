@@ -5,17 +5,6 @@ using System.Linq;
 
 public class HandsWrap : MonoBehaviour
 {
-    float m_handVisualScale = 1f;
-    public float handVisualScale
-    {
-        get { return m_handVisualScale; }
-        set
-        {
-            m_handVisualScale = value;
-            if (displacedHands == null) return;
-            foreach (var hand in displacedHands) { hand.scale = value; }
-        }
-    }
     bool m_frozen = false;
     public bool frozen
     {
@@ -71,7 +60,6 @@ public class HandsWrap : MonoBehaviour
         {
             if (coordinate != null) hand.thisSpace = coordinate.transform;
             if (originalCoordinate != null) hand.originalSpace = originalCoordinate.transform;
-            hand.scale = handVisualScale;
             hand.frozen = frozen;
         }
     }
@@ -86,11 +74,5 @@ public class HandsWrap : MonoBehaviour
             hand.thisSpace = coordinate.transform;
             hand.originalSpace = originalCoordinate.transform;
         }
-
-        handVisualScale = new float[] {
-            coordinate.transform.lossyScale.x / originalCoordinate.transform.lossyScale.x,
-            coordinate.transform.lossyScale.y / originalCoordinate.transform.lossyScale.y,
-            coordinate.transform.lossyScale.z / originalCoordinate.transform.lossyScale.z
-        }.Average();
     }
 }

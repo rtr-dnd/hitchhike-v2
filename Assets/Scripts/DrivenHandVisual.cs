@@ -50,4 +50,8 @@ public class DrivenHandVisual : NetworkBehaviour
             _jointTransforms[i].SetPose(localJoints[i], Space.Self);
         }
     }
+    public void SetScale(float scale)
+    {
+        if (_root != null) _root.transform.localScale = new Vector3(scale, scale, scale);
+    }
 }
