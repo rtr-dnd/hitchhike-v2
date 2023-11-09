@@ -159,7 +159,7 @@ public class HandAreaCoordinate : NetworkBehaviour
     {
         if (leftVisual != null) Destroy(leftVisual.gameObject);
         if (rightVisual != null) Destroy(rightVisual.gameObject);
-        if (IsOwner && isOriginal) GetComponentInParent<HandArea>().RequestDespawn();
+        if (!IsOwner && isOriginal) GetComponentInParent<HandArea>().RequestDespawn();
         base.OnNetworkDespawn();
     }
 }

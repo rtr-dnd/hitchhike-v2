@@ -32,14 +32,16 @@ public class HandArea : NetworkBehaviour
 
     public void RequestDespawn()
     {
-        Debug.Log("Despawn requested");
         RequestDespawnServerRpc();
     }
 
     [ServerRpc(RequireOwnership = false)]
     public void RequestDespawnServerRpc()
     {
-        Debug.Log("Despawn called");
+        foreach (var coord in GetComponentsInChildren<HandAreaCoordinate>())
+        {
+            coord.NetworkObject.Despawn();
+        }
         NetworkObject.Despawn();
     }
 }
