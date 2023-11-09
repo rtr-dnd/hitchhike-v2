@@ -94,7 +94,7 @@ Material:
     - _Fresnel: 1
     - _FresnelOpacity: 0
     - _FresnelOpacityPower: 3.66
-    - _FresnelPower: 1.75
+    - _FresnelPower: 0
     - _GenerateGlow: 0
     - _GlobalOpacity: 0.714
     - _GlossMapScale: 1
@@ -112,7 +112,7 @@ Material:
     - _OutlineGlowIntensity: 1
     - _OutlineGradient: 0
     - _OutlineIntensity: 1
-    - _OutlineOpacity: 0.3
+    - _OutlineOpacity: 0
     - _OutlinePinchRange: 0.15
     - _OutlineSphereHardness: 0.15
     - _OutlineWidth: 0.0014
