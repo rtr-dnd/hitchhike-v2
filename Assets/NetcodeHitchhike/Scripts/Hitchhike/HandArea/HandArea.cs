@@ -36,7 +36,7 @@ public class HandArea : NetworkBehaviour
         RequestDespawnServerRpc();
     }
 
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     public void RequestDespawnServerRpc()
     {
         Debug.Log("Despawn called");
