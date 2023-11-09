@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Oculus.Interaction.Input;
 using System.Linq;
+using Oculus.Interaction.HandGrab;
 
 public class HandsWrap : MonoBehaviour
 {
@@ -12,8 +13,9 @@ public class HandsWrap : MonoBehaviour
         set
         {
             m_frozen = value;
-            if (displacedHands == null) return;
-            foreach (var hand in displacedHands) { hand.frozen = value; }
+            if (displacedHandLeft == null || displacedHandRight == null) return;
+            displacedHandLeft.frozen = value;
+            displacedHandRight.frozen = value;
         }
     }
     HandAreaCoordinate m_originalCoordinate;
@@ -37,8 +39,12 @@ public class HandsWrap : MonoBehaviour
         }
     }
 
-    List<DisplacedHand> displacedHands;
+    DisplacedHand displacedHandLeft;
+    DisplacedHand displacedHandRight;
 
+
+    public GameObject leftHand;
+    public GameObject rightHand;
     [SerializeField, InterfaceType(typeof(IHand))]
     private UnityEngine.Object _leftFinalHand;
     public IHand leftFinalHand;
@@ -53,10 +59,11 @@ public class HandsWrap : MonoBehaviour
     }
     void Start()
     {
-        displacedHands = GetComponentsInChildren<DisplacedHand>().ToList();
+        displacedHandLeft = leftHand.GetComponentInChildren<DisplacedHand>();
+        displacedHandRight = rightHand.GetComponentInChildren<DisplacedHand>();
 
         // initialize value
-        foreach (var hand in displacedHands)
+        foreach (var hand in new List<DisplacedHand>() { displacedHandLeft, displacedHandRight })
         {
             if (coordinate != null) hand.thisSpace = coordinate.transform;
             if (originalCoordinate != null) hand.originalSpace = originalCoordinate.transform;
@@ -64,12 +71,26 @@ public class HandsWrap : MonoBehaviour
         }
     }
 
+    public HandGrabInteractable GetCurrentInteractable(Handedness handedness)
+    {
+        var hand = handedness == Handedness.Left ? leftHand : rightHand;
+        return hand.GetComponentInChildren<HandGrabInteractor>().SelectedInteractable;
+    }
+
+    public void Unselect(Handedness handedness)
+    {
+        var hand = handedness == Handedness.Left ? leftHand : rightHand;
+        hand.GetComponentInChildren<HandGrabInteractor>().Unselect();
+        var grabUse = hand.GetComponentInChildren<HandGrabInteractor>();
+        if (grabUse != null) grabUse.Unselect();
+    }
+
     void OnCoordinateChanged()
     {
         if (originalCoordinate == null || coordinate == null) return;
-        if (displacedHands == null) return;
+        if (displacedHandLeft == null || displacedHandRight == null) return;
 
-        foreach (var hand in displacedHands)
+        foreach (var hand in new List<DisplacedHand>() { displacedHandLeft, displacedHandRight })
         {
             hand.thisSpace = coordinate.transform;
             hand.originalSpace = originalCoordinate.transform;

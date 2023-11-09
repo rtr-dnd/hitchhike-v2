@@ -19,6 +19,7 @@ public class HitchhikeManager : SingletonMonoBehaviour<HitchhikeManager>
     public bool scaleHandModel;
     public bool billboardToHead = true;
     public Transform headAnchor;
+    public bool DragAndDrop = true;
     [HideInInspector] public OVRCameraRig cameraRig;
     [HideInInspector] public Vector3 initialCameraRigPosition;
 

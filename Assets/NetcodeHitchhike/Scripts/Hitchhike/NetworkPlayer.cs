@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Oculus.Interaction.Input;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -101,7 +102,21 @@ public class NetworkPlayer : NetworkBehaviour
 
         // switching
         var newActiveHandAreaIndex = HitchhikeManager.Instance.switchTechnique.GetFocusedHandAreaIndex(activeHandAreaIndex);
-        var newActiveId = handAreaManager.handAreas[newActiveHandAreaIndex].GetComponent<NetworkObject>().NetworkObjectId;
-        if (activeHandAreaId.Value != newActiveId) activeHandAreaId.Value = newActiveId;
+        if (activeHandAreaIndex != newActiveHandAreaIndex)
+        {
+            var newActiveId = handAreaManager.handAreas[newActiveHandAreaIndex].GetComponent<NetworkObject>().NetworkObjectId;
+
+            // dnd
+            // var beforeCoordinate = handAreaManager.handAreas[activeHandAreaIndex].GetCoordinateForClient(NetworkManager.LocalClientId);
+            // var beforeHandsWrap = beforeCoordinate.handsWrap;
+            // var afterCoordinate = handAreaManager.handAreas[newActiveHandAreaIndex].GetCoordinateForClient(NetworkManager.LocalClientId);
+            // var afterHandsWrap = afterCoordinate.handsWrap;
+            // var interactables = new List<Handedness>(){ Handedness.Left, Handedness.Right }.Select(handedness => 
+            //     beforeHandsWrap.GetCurrentInteractable(handedness)
+            // );
+
+            // actual switch
+            activeHandAreaId.Value = newActiveId;
+        }
     }
 }
