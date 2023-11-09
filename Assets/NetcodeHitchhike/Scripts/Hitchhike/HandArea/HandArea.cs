@@ -30,9 +30,16 @@ public class HandArea : NetworkBehaviour
         return transform.GetComponentsInChildren<HandAreaCoordinate>().First(c => c.GetComponent<NetworkObject>().OwnerClientId == clientId);
     }
 
+    public void RequestDespawn()
+    {
+        Debug.Log("Despawn requested");
+        RequestDespawnServerRpc();
+    }
+
     [ServerRpc]
     public void RequestDespawnServerRpc()
     {
+        Debug.Log("Despawn called");
         NetworkObject.Despawn();
     }
 }
