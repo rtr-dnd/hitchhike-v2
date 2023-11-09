@@ -7,22 +7,15 @@ public class GazeSwitchTechnique : MonoBehaviour, ISwitchTechnique
   public Transform gazeGizmo;
   List<OVREyeGaze> eyeGazes;
   int maxRaycastDistance = 100;
-  int m_activeHandAreaIndex = 0;
-  public int activeHandAreaIndex => m_activeHandAreaIndex;
 
   void Awake()
   {
     eyeGazes = new List<OVREyeGaze>(GetComponents<OVREyeGaze>());
   }
 
-  public void UpdateActiveHandAreaIndex(int i)
+  public int GetFocusedHandAreaIndex(int current)
   {
-    m_activeHandAreaIndex = i;
-  }
-
-  public int GetFocusedHandAreaIndex()
-  {
-    int i = activeHandAreaIndex;
+    int i = current;
     if (Input.GetKeyDown(KeyCode.Tab))
     {
       return i >= HitchhikeManager.Instance.handAreaManager.handAreas.Count - 1 ? 0 : i + 1;
@@ -58,7 +51,7 @@ public class GazeSwitchTechnique : MonoBehaviour, ISwitchTechnique
       if (currentGazeArea != null)
       {
         i = HitchhikeManager.Instance.handAreaManager.handAreas.FindIndex(area => area == currentGazeArea);
-        return i == -1 ? activeHandAreaIndex : i;
+        return i == -1 ? current : i;
       }
     }
 

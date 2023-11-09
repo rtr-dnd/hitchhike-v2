@@ -16,6 +16,7 @@ public class NetworkPlayer : NetworkBehaviour
         NetworkVariableReadPermission.Everyone,
         NetworkVariableWritePermission.Owner
     );
+    int activeHandAreaIndex = 0;
     public NetworkVariable<NetworkHandJointPoses> leftJointsPool = new NetworkVariable<NetworkHandJointPoses>(
         default,
         NetworkVariableReadPermission.Everyone,
@@ -60,7 +61,7 @@ public class NetworkPlayer : NetworkBehaviour
             {
                 item.area.GetCoordinateForClient(this.OwnerClientId).isEnabled = item.index == i;
             }
-            if (HitchhikeManager.Instance.switchTechnique != null) HitchhikeManager.Instance.switchTechnique.UpdateActiveHandAreaIndex(i);
+            activeHandAreaIndex = i;
             yield break;
         }
         yield return new WaitForSeconds(0.5f);
@@ -90,8 +91,17 @@ public class NetworkPlayer : NetworkBehaviour
     void Update()
     {
         if (!IsOwner) return;
-        var newActiveHandAreaIndex = HitchhikeManager.Instance.switchTechnique.GetFocusedHandAreaIndex();
-        var newActiveId = HitchhikeManager.Instance.handAreaManager.handAreas[newActiveHandAreaIndex].GetComponent<NetworkObject>().NetworkObjectId;
+
+        var handAreaManager = HitchhikeManager.Instance.handAreaManager;
+
+        // check integrity of hand area id / index
+        var currentActiveIndex = handAreaManager.handAreas.FindIndex(area => area.GetComponent<NetworkObject>().NetworkObjectId == activeHandAreaId.Value);
+        if (currentActiveIndex == -1) activeHandAreaId.Value = handAreaManager.handAreas[0].GetComponent<HandArea>().NetworkObjectId;
+        if (currentActiveIndex != activeHandAreaIndex) activeHandAreaIndex = currentActiveIndex;
+
+        // switching
+        var newActiveHandAreaIndex = HitchhikeManager.Instance.switchTechnique.GetFocusedHandAreaIndex(activeHandAreaIndex);
+        var newActiveId = handAreaManager.handAreas[newActiveHandAreaIndex].GetComponent<NetworkObject>().NetworkObjectId;
         if (activeHandAreaId.Value != newActiveId) activeHandAreaId.Value = newActiveId;
     }
 }
