@@ -536,15 +536,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5485350865021554412, guid: 8aea1ed8af85baf46b6d0f19b00b6619, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.18
+      value: 0.149
       objectReference: {fileID: 0}
     - target: {fileID: 5485350865021554412, guid: 8aea1ed8af85baf46b6d0f19b00b6619, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.215
+      value: 0.674
       objectReference: {fileID: 0}
     - target: {fileID: 5485350865021554412, guid: 8aea1ed8af85baf46b6d0f19b00b6619, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.5
+      value: 2.929
       objectReference: {fileID: 0}
     - target: {fileID: 5485350865021554412, guid: 8aea1ed8af85baf46b6d0f19b00b6619, type: 3}
       propertyPath: m_LocalRotation.w
@@ -816,6 +816,8 @@ MonoBehaviour:
   remoteEnabledMaterial: {fileID: 2100000, guid: dce9019943fb32c4da8f3b98662ff988, type: 2}
   remoteDisabledMaterial: {fileID: 2100000, guid: 9763b9e9572621b4ead7c4492a7c0e9a, type: 2}
   scaleHandModel: 1
+  billboardToHead: 1
+  headAnchor: {fileID: 2117502593}
   cameraRig: {fileID: 0}
   initialCameraRigPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &751877992

@@ -98,6 +98,7 @@ public class HandAreaCoordinate : NetworkBehaviour
         if (!IsSpawned) return;
         if (IsOwner)
         {
+            if (HitchhikeManager.Instance.billboardToHead) Billboard();
             if (handsWrap == null) return;
             handsWrap.leftFinalHand.GetRootPose(out var tempLeftPose);
             handsWrap.rightFinalHand.GetRootPose(out var tempRightPose);
@@ -140,6 +141,17 @@ public class HandAreaCoordinate : NetworkBehaviour
             if (isEnabled && leftVisual != null && player.leftJointsPool != null) leftVisual.Drive(Pose.identity, player.leftJointsPool.Value);
             if (isEnabled && rightVisual != null && player.rightJointsPool != null) rightVisual.Drive(Pose.identity, player.rightJointsPool.Value);
         }
+    }
+
+    void Billboard()
+    {
+        if (HitchhikeManager.Instance.headAnchor == null) return;
+        var vec = HitchhikeManager.Instance.headAnchor.transform.position - transform.position;
+        transform.forward = new Vector3(
+          -vec.x,
+          0,
+          -vec.z
+        );
     }
 
     public override void OnNetworkDespawn()

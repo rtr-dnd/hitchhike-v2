@@ -17,6 +17,8 @@ public class HitchhikeManager : SingletonMonoBehaviour<HitchhikeManager>
     public Material remoteEnabledMaterial;
     public Material remoteDisabledMaterial;
     public bool scaleHandModel;
+    public bool billboardToHead = true;
+    public Transform headAnchor;
     [HideInInspector] public OVRCameraRig cameraRig;
     [HideInInspector] public Vector3 initialCameraRigPosition;
 
