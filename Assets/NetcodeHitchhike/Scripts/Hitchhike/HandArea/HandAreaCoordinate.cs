@@ -56,6 +56,7 @@ public class HandAreaCoordinate : NetworkBehaviour
     public void SetOriginalCoordinate(HandAreaCoordinate coordinate)
     {
         if (!IsOwner) return;
+        if (coordinate == this) isOriginal = true;
         if (handsWrap != null) handsWrap.originalCoordinate = coordinate;
     }
 
