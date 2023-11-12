@@ -85,7 +85,7 @@ public class NetworkPlayer : NetworkBehaviour
                 {
                     var mtoi = pdd.moveThisObjectInstead;
                     if (mtoi == null || mtoi.GetComponent<HandGrabInteractable>() == null) continue;
-                    interactable = GetComponent<HandGrabInteractable>();
+                    interactable = mtoi.GetComponent<HandGrabInteractable>();
                 }
                 if (alreadyDroppedInteractables.FindIndex(i => i == interactable) != -1) continue;
                 var grabbable = interactable.GetComponentInParent<Grabbable>();
