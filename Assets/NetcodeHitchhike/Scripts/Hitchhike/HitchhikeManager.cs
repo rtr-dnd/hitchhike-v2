@@ -22,6 +22,7 @@ public class HitchhikeManager : SingletonMonoBehaviour<HitchhikeManager>
     public bool DragAndDrop = true;
     [HideInInspector] public OVRCameraRig cameraRig;
     [HideInInspector] public Vector3 initialCameraRigPosition;
+    [HideInInspector] public Transform beforeCoordTransform;
 
     protected override void Awake()
     {
@@ -29,5 +30,11 @@ public class HitchhikeManager : SingletonMonoBehaviour<HitchhikeManager>
         switchTechnique = _switchTechnique as ISwitchTechnique;
         cameraRig = ovrHands.GetComponentInParent<OVRCameraRig>();
         initialCameraRigPosition = cameraRig.transform.position;
+        beforeCoordTransform = new GameObject("before coord transform").transform;
+    }
+
+    public Vector3 GetCameraRigDisplace()
+    {
+        return cameraRig.transform.position - initialCameraRigPosition;
     }
 }

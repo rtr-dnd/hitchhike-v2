@@ -142,6 +142,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51f8175151348914ca9cff07a8d29b8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftHand: {fileID: 5406273001887824548}
+  rightHand: {fileID: 4905080885952528714}
   _leftFinalHand: {fileID: 4813424724190598259}
   _rightFinalHand: {fileID: 4139098108749388236}
 --- !u!1 &1483333378025965657
@@ -307,7 +309,6 @@ MonoBehaviour:
   _applyModifier: 1
   originalSpace: {fileID: 0}
   thisSpace: {fileID: 0}
-  scale: 2
   skinnedMeshRenderer: {fileID: 2904078289556922612}
 --- !u!1 &4905080885952528714
 GameObject:
@@ -696,7 +697,6 @@ MonoBehaviour:
   _applyModifier: 1
   originalSpace: {fileID: 0}
   thisSpace: {fileID: 0}
-  scale: 0.5
   skinnedMeshRenderer: {fileID: 5308445519695438621}
 --- !u!1 &8281637954010506082
 GameObject:

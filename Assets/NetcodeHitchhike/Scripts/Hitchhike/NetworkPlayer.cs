@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Oculus.Interaction;
+using Oculus.Interaction.HandGrab;
 using Oculus.Interaction.Input;
 using Unity.Netcode;
 using UnityEngine;
@@ -28,6 +30,8 @@ public class NetworkPlayer : NetworkBehaviour
         NetworkVariableReadPermission.Everyone,
         NetworkVariableWritePermission.Owner
     );
+    List<Handedness> handednesses = new List<Handedness>() { Handedness.Left, Handedness.Right };
+    List<HandGrabInteractable> interactables;
     IEnumerator seekActiveAreaLoop;
     public override void OnNetworkSpawn()
     {
@@ -55,7 +59,8 @@ public class NetworkPlayer : NetworkBehaviour
     IEnumerator SeekActiveAreaLoop(ulong activeAreaId)
     {
         if (activeAreaId == ulong.MaxValue) yield break;
-        var i = HitchhikeManager.Instance.handAreaManager.handAreas.FindIndex(area => area.GetComponent<NetworkObject>().NetworkObjectId == activeAreaId);
+        var newArea = HitchhikeManager.Instance.handAreaManager.handAreas.Find(area => area.GetComponent<NetworkObject>().NetworkObjectId == activeAreaId);
+        var i = HitchhikeManager.Instance.handAreaManager.handAreas.FindIndex(area => area == newArea);
         if (i != -1)
         {
             foreach (var item in HitchhikeManager.Instance.handAreaManager.handAreas.Select((area, index) => new { area, index }))
@@ -63,10 +68,41 @@ public class NetworkPlayer : NetworkBehaviour
                 item.area.GetCoordinateForClient(this.OwnerClientId).isEnabled = item.index == i;
             }
             activeHandAreaIndex = i;
+
+            // dnd grab
+            if (!HitchhikeManager.Instance.DragAndDrop
+                || interactables == null
+                || interactables.Count == 0
+                || interactables.All(i => i == null)) yield break;
+            List<HandGrabInteractable> alreadyDroppedInteractables = new List<HandGrabInteractable>();
+            foreach (var (rawInteractable, handIndex) in interactables.Select((value, index) => (value, index)))
+            {
+                if (rawInteractable == null) continue;
+                var interactable = rawInteractable;
+                var pdd = interactable.GetComponent<PreventDragAndDrop>();
+                if (pdd != null)
+                {
+                    var mtoi = pdd.moveThisObjectInstead;
+                    if (mtoi == null || mtoi.GetComponent<HandGrabInteractable>() == null) continue;
+                    interactable = GetComponent<HandGrabInteractable>();
+                }
+                if (alreadyDroppedInteractables.FindIndex(i => i == interactable) != -1) continue;
+                var grabbable = interactable.GetComponentInParent<Grabbable>();
+                var newCoord = newArea.GetCoordinateForClient(OwnerClientId);
+                var newPose = HitchhikeUtilities.ApplyOffset(grabbable.transform.GetPose(Space.World), HitchhikeManager.Instance.beforeCoordTransform, newCoord.transform, Vector3.zero);
+                grabbable.transform.SetPose(newPose, Space.World);
+                var newScale = HitchhikeManager.Instance.scaleHandModel ? HitchhikeUtilities.ApplyScaling(HitchhikeManager.Instance.beforeCoordTransform, newCoord.transform) : 1;
+                grabbable.transform.localScale *= newScale;
+
+                var afterHandsWrap = newCoord.handsWrap;
+                afterHandsWrap.Select(handednesses[handIndex], interactable);
+                alreadyDroppedInteractables.Add(interactable);
+            }
             yield break;
         }
         yield return new WaitForSeconds(0.5f);
-        StartCoroutine(SeekActiveAreaLoop(activeAreaId));
+        seekActiveAreaLoop = SeekActiveAreaLoop(activeAreaId);
+        StartCoroutine(seekActiveAreaLoop);
     }
     void DisplacePlayer()
     {
@@ -92,6 +128,7 @@ public class NetworkPlayer : NetworkBehaviour
     void Update()
     {
         if (!IsOwner) return;
+        if (!IsSpawned) return;
 
         var handAreaManager = HitchhikeManager.Instance.handAreaManager;
 
@@ -106,14 +143,16 @@ public class NetworkPlayer : NetworkBehaviour
         {
             var newActiveId = handAreaManager.handAreas[newActiveHandAreaIndex].GetComponent<NetworkObject>().NetworkObjectId;
 
-            // dnd
-            // var beforeCoordinate = handAreaManager.handAreas[activeHandAreaIndex].GetCoordinateForClient(NetworkManager.LocalClientId);
-            // var beforeHandsWrap = beforeCoordinate.handsWrap;
-            // var afterCoordinate = handAreaManager.handAreas[newActiveHandAreaIndex].GetCoordinateForClient(NetworkManager.LocalClientId);
-            // var afterHandsWrap = afterCoordinate.handsWrap;
-            // var interactables = new List<Handedness>(){ Handedness.Left, Handedness.Right }.Select(handedness => 
-            //     beforeHandsWrap.GetCurrentInteractable(handedness)
-            // );
+            // dnd ungrab
+            var beforeCoordinate = handAreaManager.handAreas[activeHandAreaIndex].GetCoordinateForClient(NetworkManager.LocalClientId);
+            HitchhikeManager.Instance.beforeCoordTransform.position = beforeCoordinate.transform.position;
+            HitchhikeManager.Instance.beforeCoordTransform.rotation = beforeCoordinate.transform.rotation;
+            HitchhikeManager.Instance.beforeCoordTransform.localScale = beforeCoordinate.transform.lossyScale;
+            var beforeHandsWrap = beforeCoordinate.handsWrap;
+            interactables = handednesses.Select(h =>
+                beforeHandsWrap.GetCurrentInteractable(h)
+            ).ToList();
+            handednesses.ForEach(h => beforeHandsWrap.Unselect(h));
 
             // actual switch
             activeHandAreaId.Value = newActiveId;

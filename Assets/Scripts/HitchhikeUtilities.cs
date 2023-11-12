@@ -1,10 +1,13 @@
 using UnityEngine;
+using System.Linq;
+using UnityEngine.UIElements;
 
 public static class HitchhikeUtilities
 {
-  public static Pose ApplyOffset(Pose rawPose, Transform originalSpace, Transform thisSpace, Vector3 cameraRigDisplace, bool mirrored = false)
+  public static Pose ApplyOffset(Pose rawPose, Transform originalSpace, Transform thisSpace, Vector3 rawPoseDisplace, bool mirrored = false)
   {
-    rawPose.position += cameraRigDisplace;
+    // rawPoseDisplace is not translated during offset. This is useful for Oculus Hand where CameraRig moves
+    rawPose.position += rawPoseDisplace;
 
     var originalSpaceOrigin = originalSpace;
     var thisSpaceOrigin = thisSpace;
@@ -37,7 +40,7 @@ public static class HitchhikeUtilities
     * Matrix4x4.Translate(-originalSpaceOrigin.position) // offset translation to origin for next step
     * oMt; // hand anchor
 
-    return new Pose(resMat.GetPosition() - cameraRigDisplace, resMat.rotation);
+    return new Pose(resMat.GetPosition() - rawPoseDisplace, resMat.rotation);
     // filteredPosition = filteredPosition * (1 - filterRatio) + resMat.GetPosition() * filterRatio;
     // filteredRotation = Quaternion.Lerp(filteredRotation, resMat.rotation, filterRatio);
 
@@ -45,5 +48,16 @@ public static class HitchhikeUtilities
     //     filteredPosition,
     //     filteredRotation
     // );
+  }
+
+  public static float ApplyScaling(Transform originalSpace, Transform thisSpace)
+  {
+    return thisSpace != null && originalSpace != null
+      ? new float[] {
+        thisSpace.lossyScale.x / originalSpace.lossyScale.x,
+        thisSpace.lossyScale.y / originalSpace.lossyScale.y,
+        thisSpace.lossyScale.z / originalSpace.lossyScale.z
+      }.Average()
+      : 1;
   }
 }
