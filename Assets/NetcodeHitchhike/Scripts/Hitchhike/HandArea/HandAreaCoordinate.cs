@@ -18,7 +18,7 @@ public class HandAreaCoordinate : NetworkBehaviour
         NetworkVariableReadPermission.Everyone,
         NetworkVariableWritePermission.Owner
     );
-    HandsWrap handsWrap; // for IsOwner coordinate: actual hand
+    public HandsWrap handsWrap; // for IsOwner coordinate: actual hand
     DrivenHandVisual leftVisual; // for !IsOwner coordinate: hand visual
     DrivenHandVisual rightVisual;
     NetworkPlayer player;

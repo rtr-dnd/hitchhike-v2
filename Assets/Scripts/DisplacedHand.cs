@@ -61,7 +61,7 @@ namespace Oculus.Interaction.Input
 
         private void UpdateRootPose(ref Pose root)
         {
-            var cameraRigDisplace = HitchhikeManager.Instance.cameraRig.transform.position - HitchhikeManager.Instance.initialCameraRigPosition;
+            var cameraRigDisplace = HitchhikeManager.Instance.GetCameraRigDisplace();
             if (originalSpace == null || thisSpace == null) return;
             var newPose = HitchhikeUtilities.ApplyOffset(
                 new Pose(root.position, root.rotation),
@@ -75,13 +75,7 @@ namespace Oculus.Interaction.Input
         }
         private void ScaleHand(ref float handScale)
         {
-            handScale = (HitchhikeManager.Instance.scaleHandModel && thisSpace != null && originalSpace != null)
-                ? new float[] {
-                    thisSpace.lossyScale.x / originalSpace.lossyScale.x,
-                    thisSpace.lossyScale.y / originalSpace.lossyScale.y,
-                    thisSpace.lossyScale.z / originalSpace.lossyScale.z
-                }.Average()
-                : 1;
+            handScale = HitchhikeManager.Instance.scaleHandModel ? HitchhikeUtilities.ApplyScaling(originalSpace, thisSpace) : 1;
         }
 
         #region Inject

@@ -433,6 +433,15 @@ namespace Oculus.Interaction.HandGrab
                 SetComputeShouldUnselectOverride(() => !ReferenceEquals(interactable, SelectedInteractable), false);
             }
         }
+        // -------- ADDED FOR HITCHHIKE --------
+        public void ForceSelectOnce(HandGrabInteractable interactable)
+        {
+            _selectedInteractableOverride = interactable;
+            SetComputeCandidateOverride(() => interactable);
+
+            SetComputeShouldSelectOverride(() => ReferenceEquals(interactable, Interactable));
+        }
+
         /// <summary>
         /// Enforces deselection in the currently grabbed interactable (if any)
         /// </summary>

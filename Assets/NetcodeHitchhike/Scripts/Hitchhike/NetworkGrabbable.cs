@@ -6,9 +6,16 @@ using UnityEngine;
 
 public class NetworkGrabbable : NetworkBehaviour
 {
+    bool isSelected;
     public void OnSelect()
     {
+        if (isSelected) return;
         if (!IsOwner) ChangeOwnershipServerRpc();
+        isSelected = true;
+    }
+    public void OnUnselect()
+    {
+        isSelected = false;
     }
 
     [ServerRpc(RequireOwnership = false)]
