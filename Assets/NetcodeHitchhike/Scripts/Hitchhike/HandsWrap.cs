@@ -80,7 +80,7 @@ public class HandsWrap : MonoBehaviour
     public void Select(Handedness handedness, HandGrabInteractable interactable)
     {
         var hand = handedness == Handedness.Left ? leftHand : rightHand;
-        hand.GetComponentInChildren<HandGrabInteractor>().ForceSelectOnce(interactable);
+        hand.GetComponentInChildren<HandGrabInteractor>().ForceSelect(interactable, true);
     }
 
     public void Unselect(Handedness handedness)
