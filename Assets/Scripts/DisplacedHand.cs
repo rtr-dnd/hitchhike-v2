@@ -18,19 +18,16 @@ namespace Oculus.Interaction.Input
             set
             {
                 m_frozen = value;
-                skinnedMeshRenderer.material = value ? HitchhikeManager.Instance.localDisabledMaterial : HitchhikeManager.Instance.localEnabledMaterial;
+                skinnedMeshRenderer.material = value ? LocalHitchhikeManager.Instance.localDisabledMaterial : LocalHitchhikeManager.Instance.localEnabledMaterial;
             }
         }
         public SkinnedMeshRenderer skinnedMeshRenderer;
         private readonly HandDataAsset _lastState = new HandDataAsset();
 
-        private int _trackingState = 0;
+        // Tracking state
         // 0: waiting for IsHighConfidence
         // 1: found first confident hand pose; is valid
-
-        private void Awake()
-        {
-        }
+        private int _trackingState = 0;
 
         protected override void Start()
         {
@@ -61,7 +58,7 @@ namespace Oculus.Interaction.Input
 
         private void UpdateRootPose(ref Pose root)
         {
-            var cameraRigDisplace = HitchhikeManager.Instance.GetCameraRigDisplace();
+            var cameraRigDisplace = LocalHitchhikeManager.Instance.GetCameraRigDisplace();
             if (originalSpace == null || thisSpace == null) return;
             var newPose = HitchhikeUtilities.ApplyOffset(
                 new Pose(root.position, root.rotation),
@@ -75,7 +72,7 @@ namespace Oculus.Interaction.Input
         }
         private void ScaleHand(ref float handScale)
         {
-            handScale = HitchhikeManager.Instance.scaleHandModel ? HitchhikeUtilities.ApplyScaling(originalSpace, thisSpace) : 1;
+            handScale = LocalHitchhikeManager.Instance.scaleHandModel ? HitchhikeUtilities.ApplyScaling(originalSpace, thisSpace) : 1;
         }
 
         #region Inject

@@ -3,7 +3,7 @@ using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 
-public class HitchhikeManager : SingletonMonoBehaviour<HitchhikeManager>
+public class LocalHitchhikeManager : SingletonMonoBehaviour<LocalHitchhikeManager>
 {
     public NetworkHandAreaManager handAreaManager;
     [SerializeField, InterfaceType(typeof(ISwitchTechnique))] Object _switchTechnique;

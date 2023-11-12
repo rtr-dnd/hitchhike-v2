@@ -47,6 +47,6 @@ public class NetworkHandAreaManager : NetworkBehaviour
   [ClientRpc]
   private void NotifyOriginalIdClientRpc(ulong id, ClientRpcParams clientRpcParams = default)
   {
-    NetworkManager.LocalClient.PlayerObject.GetComponent<NetworkPlayer>().SetOriginalHandArea(id);
+    NetworkManager.LocalClient.PlayerObject.GetComponent<PlayerHitchhikeManager>().SetOriginalHandArea(id);
   }
 }

@@ -18,7 +18,7 @@ public class GazeSwitchTechnique : MonoBehaviour, ISwitchTechnique
     int i = current;
     if (Input.GetKeyDown(KeyCode.Tab))
     {
-      return i >= HitchhikeManager.Instance.handAreaManager.handAreas.Count - 1 ? 0 : i + 1;
+      return i >= LocalHitchhikeManager.Instance.handAreaManager.handAreas.Count - 1 ? 0 : i + 1;
     }
 
     if (eyeGazes == null) return i;
@@ -50,7 +50,7 @@ public class GazeSwitchTechnique : MonoBehaviour, ISwitchTechnique
       currentGazeArea = GetHandAreaFromHit(closestHit);
       if (currentGazeArea != null)
       {
-        i = HitchhikeManager.Instance.handAreaManager.handAreas.FindIndex(area => area == currentGazeArea);
+        i = LocalHitchhikeManager.Instance.handAreaManager.handAreas.FindIndex(area => area == currentGazeArea);
         return i == -1 ? current : i;
       }
     }

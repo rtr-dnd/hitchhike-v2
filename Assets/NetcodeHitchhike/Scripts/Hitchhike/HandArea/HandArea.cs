@@ -10,7 +10,7 @@ public class HandArea : NetworkBehaviour
     [SerializeField] NetworkObject handAreaCoordinatePrefab;
     public override void OnNetworkSpawn()
     {
-        HitchhikeManager.Instance.handAreaManager.RegisterHandArea(this);
+        LocalHitchhikeManager.Instance.handAreaManager.RegisterHandArea(this);
         if (!IsServer) return;
         foreach (var id in NetworkManager.Singleton.ConnectedClientsIds) { SpawnCoordinateForClient(id); }
         NetworkManager.Singleton.OnClientConnectedCallback += SpawnCoordinateForClient;
