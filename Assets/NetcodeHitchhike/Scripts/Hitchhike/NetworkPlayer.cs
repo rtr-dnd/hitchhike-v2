@@ -20,16 +20,7 @@ public class NetworkPlayer : NetworkBehaviour
         NetworkVariableWritePermission.Owner
     );
     int activeHandAreaIndex = 0;
-    public NetworkVariable<NetworkHandJointPoses> leftJointsPool = new NetworkVariable<NetworkHandJointPoses>(
-        default,
-        NetworkVariableReadPermission.Everyone,
-        NetworkVariableWritePermission.Owner
-    );
-    public NetworkVariable<NetworkHandJointPoses> rightJointsPool = new NetworkVariable<NetworkHandJointPoses>(
-        default,
-        NetworkVariableReadPermission.Everyone,
-        NetworkVariableWritePermission.Owner
-    );
+
     List<Handedness> handednesses = new List<Handedness>() { Handedness.Left, Handedness.Right };
     List<HandGrabInteractable> interactables;
     List<HandGrabTarget> handGrabTargets;
