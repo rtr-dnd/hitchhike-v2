@@ -38,7 +38,7 @@ namespace Oculus.Interaction.HandGrab
         }
 
         private Transform _relativeTo;
-        private HandGrabResult _handGrabResult = new HandGrabResult();
+        public HandGrabResult _handGrabResult = new HandGrabResult();
 
         public HandPose HandPose => _handGrabResult.HasHandPose ? _handGrabResult.HandPose : null;
 

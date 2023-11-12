@@ -3,6 +3,7 @@ using UnityEngine;
 using Oculus.Interaction.Input;
 using System.Linq;
 using Oculus.Interaction.HandGrab;
+using System.Collections;
 
 public class HandsWrap : MonoBehaviour
 {
@@ -77,18 +78,39 @@ public class HandsWrap : MonoBehaviour
         return hand.GetComponentInChildren<HandGrabInteractor>().SelectedInteractable;
     }
 
-    public void Select(Handedness handedness, HandGrabInteractable interactable)
+    public void Select(Handedness handedness, HandGrabInteractable interactable, HandGrabTarget target)
     {
         var hand = handedness == Handedness.Left ? leftHand : rightHand;
-        hand.GetComponentInChildren<HandGrabInteractor>().ForceSelect(interactable, true);
+        var interactor = hand.GetComponentInChildren<HandGrabInteractor>();
+        switch (target.Anchor)
+        {
+            case HandGrabTarget.GrabAnchor.Pinch:
+                interactor.grabTypeOverride = Oculus.Interaction.Grab.GrabTypeFlags.Pinch;
+                break;
+            case HandGrabTarget.GrabAnchor.Palm:
+                interactor.grabTypeOverride = Oculus.Interaction.Grab.GrabTypeFlags.Palm;
+                break;
+        }
+        interactor.HandGrabTarget.Set(null, target.HandAlignment, target.Anchor, target._handGrabResult);
+        interactor.ForceSelect(interactable, true);
+        StartCoroutine(ResetGrabOverride(interactor));
     }
 
-    public void Unselect(Handedness handedness)
+    IEnumerator ResetGrabOverride(HandGrabInteractor interactor)
+    {
+        yield return new WaitForSeconds(0.5f);
+        interactor.grabTypeOverride = Oculus.Interaction.Grab.GrabTypeFlags.None;
+    }
+
+    public HandGrabTarget Unselect(Handedness handedness)
     {
         var hand = handedness == Handedness.Left ? leftHand : rightHand;
-        hand.GetComponentInChildren<HandGrabInteractor>().Unselect();
-        var grabUse = hand.GetComponentInChildren<HandGrabInteractor>();
+        var interactor = hand.GetComponentInChildren<HandGrabInteractor>();
+        var target = interactor.HandGrabTarget;
+        interactor.Unselect();
+        var grabUse = hand.GetComponentInChildren<HandGrabUseInteractor>();
         if (grabUse != null) grabUse.Unselect();
+        return target;
     }
 
     void OnCoordinateChanged()

@@ -32,6 +32,7 @@ public class NetworkPlayer : NetworkBehaviour
     );
     List<Handedness> handednesses = new List<Handedness>() { Handedness.Left, Handedness.Right };
     List<HandGrabInteractable> interactables;
+    List<HandGrabTarget> handGrabTargets;
     IEnumerator seekActiveAreaLoop;
     public override void OnNetworkSpawn()
     {
@@ -95,7 +96,7 @@ public class NetworkPlayer : NetworkBehaviour
                 grabbable.transform.localScale *= newScale;
 
                 var afterHandsWrap = newCoord.handsWrap;
-                afterHandsWrap.Select(handednesses[handIndex], interactable);
+                afterHandsWrap.Select(handednesses[handIndex], interactable, handGrabTargets[handIndex]);
                 alreadyDroppedInteractables.Add(interactable);
             }
             yield break;
@@ -152,7 +153,7 @@ public class NetworkPlayer : NetworkBehaviour
             interactables = handednesses.Select(h =>
                 beforeHandsWrap.GetCurrentInteractable(h)
             ).ToList();
-            handednesses.ForEach(h => beforeHandsWrap.Unselect(h));
+            handGrabTargets = handednesses.Select(h => beforeHandsWrap.Unselect(h)).ToList();
 
             // actual switch
             activeHandAreaId.Value = newActiveId;

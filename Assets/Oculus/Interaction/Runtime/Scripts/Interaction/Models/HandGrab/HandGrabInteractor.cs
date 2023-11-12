@@ -493,11 +493,12 @@ namespace Oculus.Interaction.HandGrab
             return false;
         }
 
+        public GrabTypeFlags grabTypeOverride = GrabTypeFlags.None;
         private void UpdateTarget(HandGrabInteractable interactable)
         {
             WristToGrabPoseOffset = this.GetGrabOffset();
             GrabTypeFlags selectingGrabTypes = SelectingGrabTypes(interactable, float.NegativeInfinity, out float grabStrength);
-            TrySetTarget(interactable, selectingGrabTypes);
+            TrySetTarget(interactable, grabTypeOverride != GrabTypeFlags.None ? grabTypeOverride : selectingGrabTypes);
             SetGrabStrength(grabStrength);
         }
 
