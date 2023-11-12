@@ -821,6 +821,7 @@ MonoBehaviour:
   DragAndDrop: 1
   cameraRig: {fileID: 0}
   initialCameraRigPosition: {x: 0, y: 0, z: 0}
+  beforeCoordTransform: {fileID: 0}
 --- !u!114 &751877992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1810,12 +1811,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1279260620}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.74, y: 3.73, z: 15.04}
-  m_LocalScale: {x: 2.5645, y: 2.5645, z: 2.5645}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.8483133, y: 0, z: 0.22226542}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1999539308}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1279260634
 MonoBehaviour:
@@ -1829,7 +1830,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a95e85425f4c6945aa6ef3c232dc3bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveThisObjectInstead: {fileID: 0}
+  moveThisObjectInstead: {fileID: 1999539303}
 --- !u!1 &1413542853
 GameObject:
   m_ObjectHideFlags: 0
@@ -2501,7 +2502,8 @@ Transform:
   m_LocalPosition: {x: 7.48, y: 3.73, z: 14.47}
   m_LocalScale: {x: 2.5645, y: 2.5645, z: 2.5645}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1279260633}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1999539309
@@ -2838,4 +2840,3 @@ SceneRoots:
   - {fileID: 474319725}
   - {fileID: 2113455003}
   - {fileID: 1999539308}
-  - {fileID: 1279260633}
