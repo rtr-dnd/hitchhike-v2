@@ -7,21 +7,9 @@ using UnityEngine;
 
 public class NetworkGrabbable : NetworkBehaviour
 {
-    NetworkVariable<bool> isSelected = new NetworkVariable<bool>(
-        false,
-        NetworkVariableReadPermission.Everyone,
-        NetworkVariableWritePermission.Owner
-    );
     public void OnSelect()
     {
-        if (isSelected.Value) return;
-        if (IsOwner) isSelected.Value = true;
         if (!IsOwner) ChangeOwnershipServerRpc();
-    }
-    public void OnUnselect()
-    {
-        if (!IsOwner) return;
-        isSelected.Value = false;
     }
 
     private void Update()
@@ -37,6 +25,5 @@ public class NetworkGrabbable : NetworkBehaviour
         {
             no.ChangeOwnership(serverRpcParams.Receive.SenderClientId);
         });
-        isSelected.Value = true;
     }
 }
