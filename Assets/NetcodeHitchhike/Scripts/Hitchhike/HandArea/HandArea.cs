@@ -21,8 +21,11 @@ public class HandArea : NetworkBehaviour
         if (!IsServer) return;
         if (handAreaCoordinatePrefab == null) return;
         NetworkObject n_coordinate = Instantiate(handAreaCoordinatePrefab);
+        n_coordinate.transform.localPosition = transform.position;
+        n_coordinate.transform.localScale = transform.localScale;
+        n_coordinate.transform.rotation = transform.rotation;
         n_coordinate.SpawnWithOwnership(clientId);
-        n_coordinate.TrySetParent(transform, false);
+        n_coordinate.TrySetParent(transform);
     }
 
     public HandAreaCoordinate GetCoordinateForClient(ulong clientId)
