@@ -27,11 +27,11 @@ public class PlayerMovementPool : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
-        headVisual = Instantiate(hmdPrefab);
+        if (!IsOwner) headVisual = Instantiate(hmdPrefab);
     }
 
     private void Update()
     {
-        headVisual.transform.SetPose(hmdPosePool.Value);
+        if (!IsOwner) headVisual.transform.SetPose(hmdPosePool.Value);
     }
 }

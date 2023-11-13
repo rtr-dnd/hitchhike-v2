@@ -66,6 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55e654e2ac04ed34dbde5d8dc07c1b76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hmdPrefab: {fileID: 4180687690338125755, guid: 29eac82c06837d44b87458661e6926b2, type: 3}
 --- !u!114 &8058424733551143175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,5 +79,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c21df41a0b8083048be172246609b01d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeHandAreaId:
-    m_InternalValue: 18446744073709551615
