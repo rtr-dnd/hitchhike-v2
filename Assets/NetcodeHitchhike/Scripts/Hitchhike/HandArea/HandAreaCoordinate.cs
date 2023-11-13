@@ -117,7 +117,7 @@ public class HandAreaCoordinate : NetworkBehaviour
         leftPose.Value = tempLeftPose;
         rightPose.Value = tempRightPose;
 
-        if (!isEnabled || player == null) return;
+        if (!isEnabled || playerMovementPool == null) return;
         handsWrap.leftFinalHand.GetJointPosesLocal(out var tempLeftJoints);
         handsWrap.rightFinalHand.GetJointPosesLocal(out var tempRightJoints);
         playerMovementPool.leftJointsPool.Value = tempLeftJoints;
