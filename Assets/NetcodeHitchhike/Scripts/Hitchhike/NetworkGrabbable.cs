@@ -12,11 +12,6 @@ public class NetworkGrabbable : NetworkBehaviour
         if (!IsOwner) ChangeOwnershipServerRpc();
     }
 
-    private void Update()
-    {
-        Debug.Log(gameObject.name + ": " + IsOwner);
-    }
-
     [ServerRpc(RequireOwnership = false)]
     void ChangeOwnershipServerRpc(ServerRpcParams serverRpcParams = default)
     {

@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEditor.Animations;
+using System.Collections;
 
 public class HandArea : NetworkBehaviour
 {
@@ -21,11 +22,17 @@ public class HandArea : NetworkBehaviour
         if (!IsServer) return;
         if (handAreaCoordinatePrefab == null) return;
         NetworkObject n_coordinate = Instantiate(handAreaCoordinatePrefab);
-        n_coordinate.transform.localPosition = transform.position;
-        n_coordinate.transform.localScale = transform.localScale;
+        n_coordinate.transform.position = transform.position;
         n_coordinate.transform.rotation = transform.rotation;
         n_coordinate.SpawnWithOwnership(clientId);
         n_coordinate.TrySetParent(transform);
+        StartCoroutine(SetScale(n_coordinate));
+    }
+
+    IEnumerator SetScale(NetworkObject n_coordinate)
+    {
+        yield return new WaitForSeconds(0.5f);
+        n_coordinate.transform.localScale = Vector3.one;
     }
 
     public HandAreaCoordinate GetCoordinateForClient(ulong clientId)
