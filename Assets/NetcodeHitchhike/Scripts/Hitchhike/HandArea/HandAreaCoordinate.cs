@@ -110,7 +110,7 @@ public class HandAreaCoordinate : NetworkBehaviour
 
     void OwnerUpdate()
     {
-        if (isOriginal) Debug.Log(transform.parent + ", " + transform.localScale + ", " + transform.parent == null ? "none" : transform.parent.transform.localScale);
+        if (transform.localScale != Vector3.one) transform.localScale = Vector3.one;
         if (LocalHitchhikeManager.Instance.billboardToHead) Billboard();
         if (handsWrap == null) return;
         handsWrap.leftFinalHand.GetRootPose(out var tempLeftPose);
