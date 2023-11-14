@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3997588770589675510}
   - component: {fileID: -6395265605985935740}
-  - component: {fileID: 5978793861924661430}
+  - component: {fileID: 4689944998294573402}
   - component: {fileID: 7128019282792548071}
   m_Layer: 0
   m_Name: HandAreaCoordinate
@@ -55,7 +55,7 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &5978793861924661430
+--- !u!114 &4689944998294573402
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -64,7 +64,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6693586988141286223}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Script: {fileID: 11500000, guid: e74b9e591ee176840b7916f680b4cdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SyncPositionX: 1
@@ -97,9 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 002e23fc45aa97449aa2825045418ac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enabledMaterial: {fileID: 2100000, guid: d1168845a7b063b40a96ae2d42c8bf79, type: 2}
-  disabledMaterial: {fileID: 2100000, guid: 34963dfd40dde494b827f860ac9d83b2, type: 2}
-  meshRenderer: {fileID: 911141297594276933}
+  handsWrap: {fileID: 0}
 --- !u!1 &7504077947626509603
 GameObject:
   m_ObjectHideFlags: 0
