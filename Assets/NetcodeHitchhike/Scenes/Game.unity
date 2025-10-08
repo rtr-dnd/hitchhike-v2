@@ -426,6 +426,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2851714296901184535, guid: 887fbefdfc0e59445b88556911798d85, type: 3}
+      propertyPath: apply_offset
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2851714296901184535, guid: 887fbefdfc0e59445b88556911798d85, type: 3}
       propertyPath: gizmo2Prefab
       value: 
       objectReference: {fileID: 0}
@@ -433,6 +437,10 @@ PrefabInstance:
       propertyPath: _cameraRigRef
       value: 
       objectReference: {fileID: 893998844}
+    - target: {fileID: 2851714296901184535, guid: 887fbefdfc0e59445b88556911798d85, type: 3}
+      propertyPath: animationController
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2851714296901184535, guid: 887fbefdfc0e59445b88556911798d85, type: 3}
       propertyPath: skinnedMeshRenderer
       value: 

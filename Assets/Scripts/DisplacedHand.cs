@@ -8,6 +8,7 @@ namespace Oculus.Interaction.Input
 
     public class DisplacedHand : Hand
     {
+        public bool apply_offset = false;
         [HideInInspector] public Transform originalSpace;
         [HideInInspector] public Transform thisSpace;
         private bool m_frozen = false;
@@ -38,6 +39,8 @@ namespace Oculus.Interaction.Input
 
         protected override void Apply(HandDataAsset data)
         {
+            
+            
             if (_trackingState == 0)
             {
                 if (!data.IsHighConfidence) return;
@@ -49,6 +52,10 @@ namespace Oculus.Interaction.Input
             if (!frozen) _lastState.CopyFrom(data);
 
             UpdateRootPose(ref data.Root);
+            if (apply_offset)
+            {
+                data.Root.position += new Vector3(0, 0.5f, 0);
+            }
             ScaleHand(ref data.HandScale);
             data.IsDataValid = true;
             data.IsTracked = true;
