@@ -78,22 +78,31 @@ public class HandsWrap : MonoBehaviour
         return hand.GetComponentInChildren<HandGrabInteractor>().SelectedInteractable;
     }
 
+    // public void Select(Handedness handedness, HandGrabInteractable interactable, HandGrabTarget target)
+    // {
+    //     var hand = handedness == Handedness.Left ? leftHand : rightHand;
+    //     var interactor = hand.GetComponentInChildren<HandGrabInteractor>();
+    //     switch (target.Anchor)
+    //     {
+    //         case HandGrabTarget.GrabAnchor.Pinch:
+    //             interactor.grabTypeOverride = Oculus.Interaction.Grab.GrabTypeFlags.Pinch;
+    //             break;
+    //         case HandGrabTarget.GrabAnchor.Palm:
+    //             interactor.grabTypeOverride = Oculus.Interaction.Grab.GrabTypeFlags.Palm;
+    //             break;
+    //     }
+    //     interactor.HandGrabTarget.Set(null, target.HandAlignment, target.Anchor, target._handGrabResult);
+    //     interactor.ForceSelect(interactable, true);
+    //     StartCoroutine(ResetGrabOverride(interactor));
+    // }
+
     public void Select(Handedness handedness, HandGrabInteractable interactable, HandGrabTarget target)
     {
-        // var hand = handedness == Handedness.Left ? leftHand : rightHand;
-        // var interactor = hand.GetComponentInChildren<HandGrabInteractor>();
-        // switch (target.Anchor)
-        // {
-        //     case HandGrabTarget.GrabAnchor.Pinch:
-        //         interactor.grabTypeOverride = Oculus.Interaction.Grab.GrabTypeFlags.Pinch;
-        //         break;
-        //     case HandGrabTarget.GrabAnchor.Palm:
-        //         interactor.grabTypeOverride = Oculus.Interaction.Grab.GrabTypeFlags.Palm;
-        //         break;
-        // }
-        // interactor.HandGrabTarget.Set(null, target.HandAlignment, target.Anchor, target._handGrabResult);
-        // interactor.ForceSelect(interactable, true);
-        // StartCoroutine(ResetGrabOverride(interactor));
+        var hand = handedness == Handedness.Left ? leftHand : rightHand;
+        var interactor = hand.GetComponentInChildren<HandGrabInteractor>();
+        //interactor.HandGrabTarget.Set(null, target.HandAlignment, target.Anchor, target._handGrabResult);
+        interactor.ForceSelect(interactable, true);
+        //StartCoroutine(ResetGrabOverride(interactor));
     }
     
 
