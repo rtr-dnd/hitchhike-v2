@@ -134,59 +134,61 @@ public class DrivenHandVisualEditor : UnityEditor.Editor
     // force aliased enum values to the more appropriate value
     private static string HandJointLabelFromJointId(HandJointId handJointId)
     {
-        switch (handJointId)
-        {
-            case HandJointId.HandWristRoot:
-                return "HandWristRoot";
-            case HandJointId.HandForearmStub:
-                return "HandForearmStub";
-            case HandJointId.HandThumb0:
-                return "HandThumb0";
-            case HandJointId.HandThumb1:
-                return "HandThumb1";
-            case HandJointId.HandThumb2:
-                return "HandThumb2";
-            case HandJointId.HandThumb3:
-                return "HandThumb3";
-            case HandJointId.HandIndex1:
-                return "HandIndex1";
-            case HandJointId.HandIndex2:
-                return "HandIndex2";
-            case HandJointId.HandIndex3:
-                return "HandIndex3";
-            case HandJointId.HandMiddle1:
-                return "HandMiddle1";
-            case HandJointId.HandMiddle2:
-                return "HandMiddle2";
-            case HandJointId.HandMiddle3:
-                return "HandMiddle3";
-            case HandJointId.HandRing1:
-                return "HandRing1";
-            case HandJointId.HandRing2:
-                return "HandRing2";
-            case HandJointId.HandRing3:
-                return "HandRing3";
-            case HandJointId.HandPinky0:
-                return "HandPinky0";
-            case HandJointId.HandPinky1:
-                return "HandPinky1";
-            case HandJointId.HandPinky2:
-                return "HandPinky2";
-            case HandJointId.HandPinky3:
-                return "HandPinky3";
-            case HandJointId.HandThumbTip:
-                return "HandThumbTip";
-            case HandJointId.HandIndexTip:
-                return "HandIndexTip";
-            case HandJointId.HandMiddleTip:
-                return "HandMiddleTip";
-            case HandJointId.HandRingTip:
-                return "HandRingTip";
-            case HandJointId.HandPinkyTip:
-                return "HandPinkyTip";
-            default:
-                return "HandUnknown";
-        }
+        // switch (handJointId)
+        // {
+        //     case HandJointId.HandWristRoot:
+        //         return "HandWristRoot";
+        //     case HandJointId.HandForearmStub:
+        //         return "HandForearmStub";
+        //     case HandJointId.HandThumb0:
+        //         return "HandThumb0";
+        //     case HandJointId.HandThumb1:
+        //         return "HandThumb1";
+        //     case HandJointId.HandThumb2:
+        //         return "HandThumb2";
+        //     case HandJointId.HandThumb3:
+        //         return "HandThumb3";
+        //     case HandJointId.HandIndex1:
+        //         return "HandIndex1";
+        //     case HandJointId.HandIndex2:
+        //         return "HandIndex2";
+        //     case HandJointId.HandIndex3:
+        //         return "HandIndex3";
+        //     case HandJointId.HandMiddle1:
+        //         return "HandMiddle1";
+        //     case HandJointId.HandMiddle2:
+        //         return "HandMiddle2";
+        //     case HandJointId.HandMiddle3:
+        //         return "HandMiddle3";
+        //     case HandJointId.HandRing1:
+        //         return "HandRing1";
+        //     case HandJointId.HandRing2:
+        //         return "HandRing2";
+        //     case HandJointId.HandRing3:
+        //         return "HandRing3";
+        //     case HandJointId.HandPinky0:
+        //         return "HandPinky0";
+        //     case HandJointId.HandPinky1:
+        //         return "HandPinky1";
+        //     case HandJointId.HandPinky2:
+        //         return "HandPinky2";
+        //     case HandJointId.HandPinky3:
+        //         return "HandPinky3";
+        //     case HandJointId.HandThumbTip:
+        //         return "HandThumbTip";
+        //     case HandJointId.HandIndexTip:
+        //         return "HandIndexTip";
+        //     case HandJointId.HandMiddleTip:
+        //         return "HandMiddleTip";
+        //     case HandJointId.HandRingTip:
+        //         return "HandRingTip";
+        //     case HandJointId.HandPinkyTip:
+        //         return "HandPinkyTip";
+        //     default:
+        //         return "HandUnknown";
+        // }
+        return handJointId.ToString();
     }
+    
 
 }

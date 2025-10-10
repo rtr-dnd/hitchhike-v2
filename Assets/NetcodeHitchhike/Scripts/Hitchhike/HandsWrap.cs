@@ -80,26 +80,27 @@ public class HandsWrap : MonoBehaviour
 
     public void Select(Handedness handedness, HandGrabInteractable interactable, HandGrabTarget target)
     {
-        var hand = handedness == Handedness.Left ? leftHand : rightHand;
-        var interactor = hand.GetComponentInChildren<HandGrabInteractor>();
-        switch (target.Anchor)
-        {
-            case HandGrabTarget.GrabAnchor.Pinch:
-                interactor.grabTypeOverride = Oculus.Interaction.Grab.GrabTypeFlags.Pinch;
-                break;
-            case HandGrabTarget.GrabAnchor.Palm:
-                interactor.grabTypeOverride = Oculus.Interaction.Grab.GrabTypeFlags.Palm;
-                break;
-        }
-        interactor.HandGrabTarget.Set(null, target.HandAlignment, target.Anchor, target._handGrabResult);
-        interactor.ForceSelect(interactable, true);
-        StartCoroutine(ResetGrabOverride(interactor));
+        // var hand = handedness == Handedness.Left ? leftHand : rightHand;
+        // var interactor = hand.GetComponentInChildren<HandGrabInteractor>();
+        // switch (target.Anchor)
+        // {
+        //     case HandGrabTarget.GrabAnchor.Pinch:
+        //         interactor.grabTypeOverride = Oculus.Interaction.Grab.GrabTypeFlags.Pinch;
+        //         break;
+        //     case HandGrabTarget.GrabAnchor.Palm:
+        //         interactor.grabTypeOverride = Oculus.Interaction.Grab.GrabTypeFlags.Palm;
+        //         break;
+        // }
+        // interactor.HandGrabTarget.Set(null, target.HandAlignment, target.Anchor, target._handGrabResult);
+        // interactor.ForceSelect(interactable, true);
+        // StartCoroutine(ResetGrabOverride(interactor));
     }
+    
 
     IEnumerator ResetGrabOverride(HandGrabInteractor interactor)
     {
         yield return new WaitForSeconds(0.5f);
-        interactor.grabTypeOverride = Oculus.Interaction.Grab.GrabTypeFlags.None;
+        //interactor.grabTypeOverride = Oculus.Interaction.Grab.GrabTypeFlags.None;
     }
 
     public HandGrabTarget Unselect(Handedness handedness)

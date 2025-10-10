@@ -94,6 +94,7 @@ MonoBehaviour:
   _cameraRigRef: {fileID: 0}
   _processLateUpdates: 0
   _handedness: 0
+  _ovrHand: {fileID: 0}
   _trackingToWorldTransformer: {fileID: 0}
   _handSkeletonProvider: {fileID: 0}
 --- !u!1 &1428462944428192189
@@ -307,6 +308,7 @@ MonoBehaviour:
   _updateAfter: {fileID: 8780007733249512826}
   _iModifyDataFromSourceMono: {fileID: 8780007733249512826}
   _applyModifier: 1
+  apply_offset: 0
   originalSpace: {fileID: 0}
   thisSpace: {fileID: 0}
   skinnedMeshRenderer: {fileID: 2904078289556922612}
@@ -558,6 +560,7 @@ MonoBehaviour:
   _cameraRigRef: {fileID: 0}
   _processLateUpdates: 0
   _handedness: 1
+  _ovrHand: {fileID: 0}
   _trackingToWorldTransformer: {fileID: 0}
   _handSkeletonProvider: {fileID: 0}
 --- !u!1 &7569883293532038430
@@ -695,6 +698,7 @@ MonoBehaviour:
   _updateAfter: {fileID: 3726958848038683717}
   _iModifyDataFromSourceMono: {fileID: 3726958848038683717}
   _applyModifier: 1
+  apply_offset: 0
   originalSpace: {fileID: 0}
   thisSpace: {fileID: 0}
   skinnedMeshRenderer: {fileID: 5308445519695438621}
