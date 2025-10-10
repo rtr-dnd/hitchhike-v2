@@ -514,6 +514,14 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 195546348
       objectReference: {fileID: 0}
+    - target: {fileID: -9133634215722379841, guid: 8aea1ed8af85baf46b6d0f19b00b6619, type: 3}
+      propertyPath: SceneMigrationSynchronization
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -9133634215722379841, guid: 8aea1ed8af85baf46b6d0f19b00b6619, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 1135789547
+      objectReference: {fileID: 0}
     - target: {fileID: 5485350865021554412, guid: 8aea1ed8af85baf46b6d0f19b00b6619, type: 3}
       propertyPath: m_LocalScale.x
       value: 14.27629
@@ -586,6 +594,14 @@ PrefabInstance:
     - target: {fileID: -9133634215722379841, guid: 8aea1ed8af85baf46b6d0f19b00b6619, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 3391476058
+      objectReference: {fileID: 0}
+    - target: {fileID: -9133634215722379841, guid: 8aea1ed8af85baf46b6d0f19b00b6619, type: 3}
+      propertyPath: SceneMigrationSynchronization
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -9133634215722379841, guid: 8aea1ed8af85baf46b6d0f19b00b6619, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 1135789547
       objectReference: {fileID: 0}
     - target: {fileID: 5485350865021554412, guid: 8aea1ed8af85baf46b6d0f19b00b6619, type: 3}
       propertyPath: m_LocalScale.x
@@ -1680,6 +1696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cd05c6ecd8da72458ba0a1b67340db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
 --- !u!114 &1279260622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1846,6 +1863,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  NetworkRigidbodyBaseExpanded: 0
+  UseRigidBodyForMotion: 0
+  AutoUpdateKinematicState: 1
+  AutoSetKinematicOnDespawn: 1
 --- !u!54 &1279260627
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1885,6 +1907,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e74b9e591ee176840b7916f680b4cdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  NetworkTransformExpanded: 0
+  AutoOwnerAuthorityTickOffset: 1
+  PositionInterpolationType: 0
+  RotationInterpolationType: 0
+  ScaleInterpolationType: 0
+  PositionLerpSmoothing: 1
+  PositionMaxInterpolationTime: 0.1
+  RotationLerpSmoothing: 1
+  RotationMaxInterpolationTime: 0.1
+  ScaleLerpSmoothing: 1
+  ScaleMaxInterpolationTime: 0.1
+  AuthorityMode: 0
+  TickSyncChildren: 0
   UseUnreliableDeltas: 0
   SyncPositionX: 1
   SyncPositionY: 1
@@ -1902,6 +1938,7 @@ MonoBehaviour:
   UseQuaternionCompression: 0
   UseHalfFloatPrecision: 0
   InLocalSpace: 0
+  SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
 --- !u!114 &1279260629
@@ -1918,13 +1955,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GlobalObjectIdHash: 2895901585
   InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
+  SceneMigrationSynchronization: 0
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!65 &1279260630
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2575,6 +2616,14 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 1238748668
       objectReference: {fileID: 0}
+    - target: {fileID: -9133634215722379841, guid: 8aea1ed8af85baf46b6d0f19b00b6619, type: 3}
+      propertyPath: SceneMigrationSynchronization
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -9133634215722379841, guid: 8aea1ed8af85baf46b6d0f19b00b6619, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 1135789547
+      objectReference: {fileID: 0}
     - target: {fileID: 5485350865021554412, guid: 8aea1ed8af85baf46b6d0f19b00b6619, type: 3}
       propertyPath: m_LocalScale.x
       value: 3.0791287
@@ -2678,13 +2727,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GlobalObjectIdHash: 696131331
   InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
+  SceneMigrationSynchronization: 0
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!65 &1999539305
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2922,6 +2975,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cd05c6ecd8da72458ba0a1b67340db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
 --- !u!114 &1999539316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2980,6 +3034,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  NetworkRigidbodyBaseExpanded: 0
+  UseRigidBodyForMotion: 0
+  AutoUpdateKinematicState: 1
+  AutoSetKinematicOnDespawn: 1
 --- !u!114 &1999539318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2992,6 +3051,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e74b9e591ee176840b7916f680b4cdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  NetworkTransformExpanded: 0
+  AutoOwnerAuthorityTickOffset: 1
+  PositionInterpolationType: 0
+  RotationInterpolationType: 0
+  ScaleInterpolationType: 0
+  PositionLerpSmoothing: 1
+  PositionMaxInterpolationTime: 0.1
+  RotationLerpSmoothing: 1
+  RotationMaxInterpolationTime: 0.1
+  ScaleLerpSmoothing: 1
+  ScaleMaxInterpolationTime: 0.1
+  AuthorityMode: 0
+  TickSyncChildren: 0
   UseUnreliableDeltas: 0
   SyncPositionX: 1
   SyncPositionY: 1
@@ -3009,6 +3082,7 @@ MonoBehaviour:
   UseQuaternionCompression: 0
   UseHalfFloatPrecision: 0
   InLocalSpace: 0
+  SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
 --- !u!1001 &2113455003
@@ -3084,6 +3158,14 @@ PrefabInstance:
     - target: {fileID: 262521963313835194, guid: 4c687931b7aae074f89e34e0bb300340, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 4015128879
+      objectReference: {fileID: 0}
+    - target: {fileID: 262521963313835194, guid: 4c687931b7aae074f89e34e0bb300340, type: 3}
+      propertyPath: SceneMigrationSynchronization
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 262521963313835194, guid: 4c687931b7aae074f89e34e0bb300340, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 2370603582
       objectReference: {fileID: 0}
     - target: {fileID: 6511031102466673449, guid: 4c687931b7aae074f89e34e0bb300340, type: 3}
       propertyPath: m_LocalPosition.x
