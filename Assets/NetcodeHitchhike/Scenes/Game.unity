@@ -13,7 +13,7 @@ OcclusionCullingSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 9
+  serializedVersion: 10
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -38,13 +38,12 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
-  m_GIWorkflowMode: 1
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -67,9 +66,6 @@ LightmapSettings:
     m_LightmapParameters: {fileID: 0}
     m_LightmapsBakeMode: 1
     m_TextureCompression: 1
-    m_FinalGather: 0
-    m_FinalGatherFiltering: 1
-    m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
     m_MixedBakeMode: 2
     m_BakeBackend: 1
@@ -97,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 20201, guid: 0000000000000000f000000000000000, type: 0}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -426,10 +422,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2851714296901184535, guid: 887fbefdfc0e59445b88556911798d85, type: 3}
-      propertyPath: apply_offset
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2851714296901184535, guid: 887fbefdfc0e59445b88556911798d85, type: 3}
       propertyPath: gizmo2Prefab
       value: 
       objectReference: {fileID: 0}
@@ -441,10 +433,6 @@ PrefabInstance:
       propertyPath: animationController
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 2851714296901184535, guid: 887fbefdfc0e59445b88556911798d85, type: 3}
-      propertyPath: skinnedMeshRenderer
-      value: 
-      objectReference: {fileID: 1974824712}
     - target: {fileID: 4568470625974888916, guid: 887fbefdfc0e59445b88556911798d85, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -497,10 +485,6 @@ PrefabInstance:
       propertyPath: _trackingToWorldTransformer
       value: 
       objectReference: {fileID: 893998843}
-    - target: {fileID: 5165796259067971102, guid: 887fbefdfc0e59445b88556911798d85, type: 3}
-      propertyPath: skinnedMeshRenderer
-      value: 
-      objectReference: {fileID: 856849644}
     - target: {fileID: 5235096724737332236, guid: 887fbefdfc0e59445b88556911798d85, type: 3}
       propertyPath: _cameraRigRef
       value: 
@@ -1155,11 +1139,6 @@ Transform:
   - {fileID: 734103851}
   m_Father: {fileID: 190994756}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!137 &856849644 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 5308445519695438621, guid: 887fbefdfc0e59445b88556911798d85, type: 3}
-  m_PrefabInstance: {fileID: 375401162}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &880279069 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 65207973030035947, guid: ea16c3c8c1688234fa81a4f39339bf1b, type: 3}
@@ -1316,7 +1295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2609c54f376cffc4da1ab9401cc1a36f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _skeletonType: 1
+  _skeletonType: 5
   _updateRootPose: 0
   _updateRootScale: 1
   _enablePhysicsCapsules: 0
@@ -1336,6 +1315,7 @@ MonoBehaviour:
   HandType: 1
   _pointerPoseRoot: {fileID: 0}
   m_showState: 3
+  RayHelper: {fileID: 0}
 --- !u!1001 &906009976
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1555,9 +1535,8 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1045767461}
   m_Enabled: 1
-  serializedVersion: 10
+  serializedVersion: 11
   m_Type: 1
-  m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
   m_Intensity: 1
   m_Range: 10
@@ -1607,8 +1586,12 @@ Light:
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
+  m_ForceVisible: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+  m_LightUnit: 1
+  m_LuxAtDistance: 1
+  m_EnableSpotReflector: 1
 --- !u!4 &1045767463
 Transform:
   m_ObjectHideFlags: 0
@@ -1755,6 +1738,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3236b8f205019504589358e7e0412a38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _positionConstraints:
+    ConstraintsAreRelative: 0
+    XAxis:
+      ConstrainAxis: 0
+      AxisRange:
+        Min: 0
+        Max: 0
+    YAxis:
+      ConstrainAxis: 0
+      AxisRange:
+        Min: 0
+        Max: 0
+    ZAxis:
+      ConstrainAxis: 0
+      AxisRange:
+        Min: 0
+        Max: 0
+  _rotationConstraints:
+    XAxis:
+      ConstrainAxis: 0
+      AxisRange:
+        Min: 0
+        Max: 0
+    YAxis:
+      ConstrainAxis: 0
+      AxisRange:
+        Min: 0
+        Max: 0
+    ZAxis:
+      ConstrainAxis: 0
+      AxisRange:
+        Min: 0
+        Max: 0
 --- !u!114 &1279260624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1815,6 +1831,9 @@ MonoBehaviour:
   _twoGrabTransformer: {fileID: 0}
   _targetTransform: {fileID: 0}
   _maxGrabPoints: -1
+  _rigidbody: {fileID: 0}
+  _kinematicWhileSelected: 1
+  _throwWhenUnselected: 1
 --- !u!114 &1279260626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1866,6 +1885,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e74b9e591ee176840b7916f680b4cdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UseUnreliableDeltas: 0
   SyncPositionX: 1
   SyncPositionY: 1
   SyncPositionZ: 1
@@ -1897,6 +1917,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GlobalObjectIdHash: 2895901585
+  InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -1942,6 +1963,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2304,11 +2328,11 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4392756070075192809, guid: ea16c3c8c1688234fa81a4f39339bf1b, type: 3}
-      propertyPath: _interactors.Array.data[0]
+      propertyPath: '_interactors.Array.data[0]'
       value: 
       objectReference: {fileID: 1588268977}
     - target: {fileID: 4392756070075192809, guid: ea16c3c8c1688234fa81a4f39339bf1b, type: 3}
-      propertyPath: _interactors.Array.data[1]
+      propertyPath: '_interactors.Array.data[1]'
       value: 
       objectReference: {fileID: 906009978}
     - target: {fileID: 4869577802921675287, guid: ea16c3c8c1688234fa81a4f39339bf1b, type: 3}
@@ -2372,11 +2396,11 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7048434468649777690, guid: ea16c3c8c1688234fa81a4f39339bf1b, type: 3}
-      propertyPath: _interactors.Array.data[0]
+      propertyPath: '_interactors.Array.data[0]'
       value: 
       objectReference: {fileID: 1696729566}
     - target: {fileID: 7048434468649777690, guid: ea16c3c8c1688234fa81a4f39339bf1b, type: 3}
-      propertyPath: _interactors.Array.data[1]
+      propertyPath: '_interactors.Array.data[1]'
       value: 
       objectReference: {fileID: 831778545}
     - target: {fileID: 7312179887322021490, guid: ea16c3c8c1688234fa81a4f39339bf1b, type: 3}
@@ -2518,7 +2542,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2609c54f376cffc4da1ab9401cc1a36f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _skeletonType: 0
+  _skeletonType: 4
   _updateRootPose: 0
   _updateRootScale: 1
   _enablePhysicsCapsules: 0
@@ -2538,6 +2562,7 @@ MonoBehaviour:
   HandType: 0
   _pointerPoseRoot: {fileID: 0}
   m_showState: 3
+  RayHelper: {fileID: 0}
 --- !u!1001 &1911534735
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2611,11 +2636,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8aea1ed8af85baf46b6d0f19b00b6619, type: 3}
---- !u!137 &1974824712 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 2904078289556922612, guid: 887fbefdfc0e59445b88556911798d85, type: 3}
-  m_PrefabInstance: {fileID: 375401162}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1999539303
 GameObject:
   m_ObjectHideFlags: 0
@@ -2657,6 +2677,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GlobalObjectIdHash: 696131331
+  InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -2702,6 +2723,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2811,6 +2835,9 @@ MonoBehaviour:
   _twoGrabTransformer: {fileID: 0}
   _targetTransform: {fileID: 0}
   _maxGrabPoints: -1
+  _rigidbody: {fileID: 0}
+  _kinematicWhileSelected: 1
+  _throwWhenUnselected: 1
 --- !u!54 &1999539312
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2850,6 +2877,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3236b8f205019504589358e7e0412a38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _positionConstraints:
+    ConstraintsAreRelative: 0
+    XAxis:
+      ConstrainAxis: 0
+      AxisRange:
+        Min: 0
+        Max: 0
+    YAxis:
+      ConstrainAxis: 0
+      AxisRange:
+        Min: 0
+        Max: 0
+    ZAxis:
+      ConstrainAxis: 0
+      AxisRange:
+        Min: 0
+        Max: 0
+  _rotationConstraints:
+    XAxis:
+      ConstrainAxis: 0
+      AxisRange:
+        Min: 0
+        Max: 0
+    YAxis:
+      ConstrainAxis: 0
+      AxisRange:
+        Min: 0
+        Max: 0
+    ZAxis:
+      ConstrainAxis: 0
+      AxisRange:
+        Min: 0
+        Max: 0
 --- !u!114 &1999539315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2932,6 +2992,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e74b9e591ee176840b7916f680b4cdeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UseUnreliableDeltas: 0
   SyncPositionX: 1
   SyncPositionY: 1
   SyncPositionZ: 1

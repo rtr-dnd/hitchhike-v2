@@ -311,7 +311,7 @@ MonoBehaviour:
   apply_offset: 0
   originalSpace: {fileID: 0}
   thisSpace: {fileID: 0}
-  skinnedMeshRenderer: {fileID: 2904078289556922612}
+  skinnedMeshRenderer: {fileID: 7117739938170655856}
 --- !u!1 &4905080885952528714
 GameObject:
   m_ObjectHideFlags: 0
@@ -701,7 +701,7 @@ MonoBehaviour:
   apply_offset: 0
   originalSpace: {fileID: 0}
   thisSpace: {fileID: 0}
-  skinnedMeshRenderer: {fileID: 5308445519695438621}
+  skinnedMeshRenderer: {fileID: 6375488090900563866}
 --- !u!1 &8281637954010506082
 GameObject:
   m_ObjectHideFlags: 0
@@ -967,6 +967,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9af9ea683544b184083cef283557012d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!137 &6375488090900563866 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7631183844095363767, guid: 94313e563929cb3499e3989be338a213, type: 3}
+  m_PrefabInstance: {fileID: 3575050948996599085}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6524102805901024739 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7716747580197146830, guid: 94313e563929cb3499e3989be338a213, type: 3}
@@ -1084,6 +1089,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c67033f580359c4581dff1ccffcca91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!137 &7117739938170655856 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6283771616338718899, guid: e7fbb376593cff24f9db4ecf8d465aaf, type: 3}
+  m_PrefabInstance: {fileID: 3887514937752872131}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5104044178014214820
 PrefabInstance:
   m_ObjectHideFlags: 0
