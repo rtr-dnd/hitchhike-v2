@@ -44,7 +44,7 @@ public class DrivenOpenXRHandVisual : NetworkBehaviour
         if (localJoints.Count != Constants.NUM_HAND_JOINTS) return;
         for (var i = 0; i < Constants.NUM_HAND_JOINTS; ++i)
         {
-            Debug.Log("DrivenOpenXRHandVisual Drive " + i + " " + localJoints[i].ToString());
+            //Debug.Log("DrivenOpenXRHandVisual Drive " + i + " " + localJoints[i].ToString());
             if (_jointTransforms[i] == null)
             {
                 continue;
