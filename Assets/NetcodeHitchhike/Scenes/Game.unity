@@ -892,6 +892,8 @@ MonoBehaviour:
   handsWrapPrefab: {fileID: 1819012567}
   drivenHandPrefabLeft: {fileID: 5175324739543704740, guid: b89dffd65c3f7a14788fadefbb27e512, type: 3}
   drivenHandPrefabRight: {fileID: 7004447263039391787, guid: 792a28c4761b14f4b88294165d77942e, type: 3}
+  drivenOpenXRHandPrefabLeft: {fileID: 4413135515876149793, guid: b89dffd65c3f7a14788fadefbb27e512, type: 3}
+  drivenOpenXRHandPrefabRight: {fileID: 6213774608057471387, guid: 792a28c4761b14f4b88294165d77942e, type: 3}
   ovrHands: {fileID: 880279069}
   localEnabledMaterial: {fileID: 2100000, guid: 2d9c01db7e7a68b4781ad7548116bdc9, type: 2}
   localDisabledMaterial: {fileID: 2100000, guid: 6c1d3c8882c5e3f469db4f3b2b44ba8b, type: 2}

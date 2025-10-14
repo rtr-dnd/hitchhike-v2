@@ -9,8 +9,11 @@ public class LocalHitchhikeManager : SingletonMonoBehaviour<LocalHitchhikeManage
     [SerializeField, InterfaceType(typeof(ISwitchTechnique))] Object _switchTechnique;
     public ISwitchTechnique switchTechnique;
     public HandsWrap handsWrapPrefab;
+
     public DrivenHandVisual drivenHandPrefabLeft;
     public DrivenHandVisual drivenHandPrefabRight;
+    public DrivenOpenXRHandVisual drivenOpenXRHandPrefabLeft;
+    public DrivenOpenXRHandVisual drivenOpenXRHandPrefabRight;
     public GameObject ovrHands;
     public Material localEnabledMaterial;
     public Material localDisabledMaterial;

@@ -19,8 +19,10 @@ public class HandAreaCoordinate : NetworkBehaviour
         NetworkVariableWritePermission.Owner
     );
     public HandsWrap handsWrap; // for IsOwner coordinate: actual hand
-    DrivenHandVisual leftVisual; // for !IsOwner coordinate: hand visual
-    DrivenHandVisual rightVisual;
+    // DrivenHandVisual leftVisual; // for !IsOwner coordinate: hand visual
+    // DrivenHandVisual rightVisual;
+    DrivenOpenXRHandVisual leftVisual; // for !IsOwner coordinate: hand visual
+    DrivenOpenXRHandVisual rightVisual;
     PlayerHitchhikeManager player;
     PlayerMovementPool playerMovementPool;
 
@@ -88,8 +90,10 @@ public class HandAreaCoordinate : NetworkBehaviour
 
     void NonOwnerOnSpawn()
     {
-        leftVisual = Instantiate(LocalHitchhikeManager.Instance.drivenHandPrefabLeft);
-        rightVisual = Instantiate(LocalHitchhikeManager.Instance.drivenHandPrefabRight);
+        // leftVisual = Instantiate(LocalHitchhikeManager.Instance.drivenHandPrefabLeft);
+        // rightVisual = Instantiate(LocalHitchhikeManager.Instance.drivenHandPrefabRight);
+        leftVisual = Instantiate(LocalHitchhikeManager.Instance.drivenOpenXRHandPrefabLeft);
+        rightVisual = Instantiate(LocalHitchhikeManager.Instance.drivenOpenXRHandPrefabRight);
         if (leftVisual != null) leftVisual.skinnedMeshRenderer.material = isEnabled ? LocalHitchhikeManager.Instance.remoteEnabledMaterial : LocalHitchhikeManager.Instance.remoteDisabledMaterial;
         if (rightVisual != null) rightVisual.skinnedMeshRenderer.material = isEnabled ? LocalHitchhikeManager.Instance.remoteEnabledMaterial : LocalHitchhikeManager.Instance.remoteDisabledMaterial;
     }
@@ -152,7 +156,12 @@ public class HandAreaCoordinate : NetworkBehaviour
         }
         if (isEnabled && leftVisual != null && playerMovementPool.leftJointsPool != null) leftVisual.Drive(Pose.identity, playerMovementPool.leftJointsPool.Value);
         if (isEnabled && rightVisual != null && playerMovementPool.rightJointsPool != null) rightVisual.Drive(Pose.identity, playerMovementPool.rightJointsPool.Value);
-
+        
+        // Debug.Log("playerjoints Right " + playerMovementPool.rightJointsPool.Value.poses.Length.ToString());
+        // for (int i = 0; i < playerMovementPool.rightJointsPool.Value.poses.Length; ++i)
+        // {
+        //     Debug.Log("playerjoints Right " + i + " " + playerMovementPool.rightJointsPool.Value.poses[i].ToString());
+        // }
     }
 
     void Billboard()
