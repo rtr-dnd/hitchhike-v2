@@ -33,9 +33,9 @@ public class BlockTitle : MonoBehaviour
         response.CreatePlayerObject = true;
         response.PlayerPrefabHash = null;
 
-        var position = new Vector3(0, 0, 0)
+        var position = new Vector3(0, 0, -1.6f)
         {
-            x = -1 + (NetworkManager.Singleton.ConnectedClients.Count % 3)
+            x = -1.2f + (NetworkManager.Singleton.ConnectedClients.Count % 3)
         };
         response.Position = position;
         response.Rotation = Quaternion.identity;
