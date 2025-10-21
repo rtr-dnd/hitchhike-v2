@@ -35,10 +35,16 @@ public class BlockTitle : MonoBehaviour
 
         var position = new Vector3(0, 0, -1.6f)
         {
-            x = -1.2f + (NetworkManager.Singleton.ConnectedClients.Count % 3)
+            x = -1.2f - (NetworkManager.Singleton.ConnectedClients.Count % 3),
+            z = -1.6f + (NetworkManager.Singleton.ConnectedClients.Count % 3)
+        };
+
+        var rotation = new Quaternion.Euler(0, 0, 0)
+        {
+            y = 0f + (NetworkManager.Singleton.ConnectedClients.Count % 3) * 90f
         };
         response.Position = position;
-        response.Rotation = Quaternion.identity;
+        response.Rotation = rotation;
 
         response.Pending = false;
     }
