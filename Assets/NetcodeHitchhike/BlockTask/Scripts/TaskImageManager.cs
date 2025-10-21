@@ -41,7 +41,7 @@ public class TaskImageManager : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isServer) return;
+        if (!IsServer) return;
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (imageIndex.Value == 5)
