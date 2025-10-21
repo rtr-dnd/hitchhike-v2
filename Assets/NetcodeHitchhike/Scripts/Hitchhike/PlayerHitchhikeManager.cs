@@ -100,7 +100,7 @@ public class PlayerHitchhikeManager : NetworkBehaviour
     {
         var cameraRig = FindObjectOfType<OVRCameraRig>();
         cameraRig.transform.position = transform.position;
-        cameraRig.transform.rotation = transform.rotation;
+        //cameraRig.transform.rotation = transform.rotation;
 
         Vector3 position = transform.TransformPoint(new Vector3(0, 0, 0.3f));   
         position.y = 0.7f;
