@@ -14163,6 +14163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   head: {fileID: 2117502593}
   gazeGizmo: {fileID: 0}
+  useGaze: 0
 --- !u!114 &751877996
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,6 +7,7 @@ public class GazeSwitchTechnique : MonoBehaviour, ISwitchTechnique
   public Transform gazeGizmo;
   List<OVREyeGaze> eyeGazes;
   int maxRaycastDistance = 100;
+  [SerializeField] private bool useGaze = true;
 
   void Awake()
   {
@@ -21,14 +22,19 @@ public class GazeSwitchTechnique : MonoBehaviour, ISwitchTechnique
       return i >= LocalHitchhikeManager.Instance.handAreaManager.handAreas.Count - 1 ? 0 : i + 1;
     }
 
-    if (eyeGazes == null) return i;
-    if (!eyeGazes[0].EyeTrackingEnabled)
+    Ray gazeRay = GetFrontRay();
+
+    if (useGaze)
     {
-      Debug.Log("Eye tracking not working");
-      return i;
+      if (eyeGazes == null) return i;
+      if (!eyeGazes[0].EyeTrackingEnabled)
+      {
+        Debug.Log("Eye tracking not working");
+        return i;
+      }
+      gazeRay = GetGazeRay();
     }
 
-    Ray gazeRay = GetGazeRay();
     int layerMask = 1 << LayerMask.NameToLayer("HandArea");
 
     RaycastHit closestHit = new RaycastHit();
@@ -86,5 +92,11 @@ public class GazeSwitchTechnique : MonoBehaviour, ISwitchTechnique
 
     if (gazeGizmo != null) gazeGizmo.transform.position = filteredPosition.Value + filteredDirection.Value * 0.5f;
     return new Ray(filteredPosition.Value, filteredDirection.Value);
+  }
+
+  private Ray GetFrontRay()
+  {
+    Vector3 direction = head.transform.forward; 
+    return new Ray(head.transform.position, direction);
   }
 }
