@@ -16,7 +16,7 @@ public class TaskImageManager : MonoBehaviour
         NetworkVariableWritePermission.Owner
     );
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void OnNetworkSpawn()
     {
         imageIndex.Value = 0;
         imageForClient0.sprite = taskImages[imageIndex.Value];
