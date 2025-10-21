@@ -13,27 +13,35 @@ public class TaskImageManager : NetworkBehaviour
     [SerializeField] NetworkVariable<int> imageIndex = new NetworkVariable<int>(
         0,
         NetworkVariableReadPermission.Everyone,
-        NetworkVariableWritePermission.Owner
+        NetworkVariableWritePermission.Server
     );
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public override void OnNetworkSpawn()
     {
-        imageIndex.Value = 0;
-        imageForClient0.sprite = taskImages[imageIndex.Value];
-        imageForClient1.sprite = taskImages[imageIndex.Value + 1];
-
-        imageIndex.OnValueChanged += (oldValue, newValue) =>
+        imageIndex.OnValueChanged += OnImageIndexChanged;
+        if (IsServer)
         {
-            imageForClient0.sprite = taskImages[newValue * 2];
-            imageForClient1.sprite = taskImages[newValue * 2 + 1];
-            Debug.Log("Task image changed to index: " + newValue);
-        };
+            imageIndex.Value = 0;
+        }
+
+        OnImageIndexChanged(0, imageIndex.Value);
+    }
+    
+    private void OnImageIndexChanged(int previousValue, int newValue)
+    {
+        if (newValue < 0 || newValue >= taskImages.Count * 2 + 1)
+        {
+            Debug.LogError("Invalid image index: " + newValue);
+            return;
+        }
+        imageForClient0.sprite = taskImages[newValue * 2];
+        imageForClient1.sprite = taskImages[newValue * 2 + 1];
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (imageIndex.Value == null) return;
+        if (!isServer) return;
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (imageIndex.Value == 5)
