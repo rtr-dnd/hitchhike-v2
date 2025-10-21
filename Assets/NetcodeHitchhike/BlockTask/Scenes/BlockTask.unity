@@ -23610,6 +23610,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1725776696}
+  - component: {fileID: 1725776697}
   - component: {fileID: 1725776695}
   m_Layer: 0
   m_Name: TaskImageManager
@@ -23630,6 +23631,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66f40c2d358b81643880287112ce8099, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   imageForClient0: {fileID: 1395612624}
   imageForClient1: {fileID: 288115910}
   taskImages:
@@ -23645,8 +23647,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b046511289553b84091277431901913b, type: 3}
   - {fileID: 21300000, guid: b98859df6f074644082aa7daa5f36513, type: 3}
   - {fileID: 21300000, guid: 81f07aa40366d8e419642c2769bd04b6, type: 3}
-  imageIndex:
-    m_InternalValue: 0
 --- !u!4 &1725776696
 Transform:
   m_ObjectHideFlags: 0
@@ -23662,6 +23662,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1725776697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725776694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 2777827540
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!1 &1727727899
 GameObject:
   m_ObjectHideFlags: 0
