@@ -26,6 +26,7 @@ public class TaskImageManager : MonoBehaviour
         {
             imageForClient0.sprite = taskImages[newValue * 2];
             imageForClient1.sprite = taskImages[newValue * 2 + 1];
+            Debug.Log("Task image changed to index: " + newValue);
         };
     }
 
