@@ -100,11 +100,16 @@ public class PlayerHitchhikeManager : NetworkBehaviour
     {
         var cameraRig = FindObjectOfType<OVRCameraRig>();
         cameraRig.transform.position = transform.position;
-        LocalHitchhikeManager.Instance.handAreaManager.CreateHandArea(new Vector3(
-            transform.position.x,
-            0.7f,
-            transform.position.z + 0.3f
-        ), Quaternion.identity, NetworkManager.LocalClientId);
+        cameraRig.transform.rotation = transform.rotation;
+
+        Vector3 position = transform.TransformPoint(new Vector3(0, 0, 0.3f));   
+        position.y = 0.7f;
+        Quaternion rotation = Quaternion.Euler(0, transform.eulerAngles.y, 0);
+        LocalHitchhikeManager.Instance.handAreaManager.CreateHandArea(
+            position,
+            rotation,
+            NetworkManager.LocalClientId
+        );
     }
     public void SetOriginalHandArea(ulong id)
     {
