@@ -72,6 +72,16 @@ public class HandsWrap : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (frozen) return;
+        var hand = rightHand;
+        var interactor = hand.GetComponentInChildren<HandGrabInteractor>();
+        var target = interactor.HandGrabTarget;
+        //var result = target._handGrabResult;
+        //Debug.Log("HandGrabResult RelativePose: " + result.RelativePose);
+    }
+
     public HandGrabInteractable GetCurrentInteractable(Handedness handedness)
     {
         var hand = handedness == Handedness.Left ? leftHand : rightHand;
@@ -100,8 +110,13 @@ public class HandsWrap : MonoBehaviour
     {
         var hand = handedness == Handedness.Left ? leftHand : rightHand;
         var interactor = hand.GetComponentInChildren<HandGrabInteractor>();
-        //interactor.HandGrabTarget.Set(null, target.HandAlignment, target.Anchor, target._handGrabResult);
+        //var result = target._handGrabResult;
+        //Debug.Log("HandGrabTarget RelativeTo: " + target._relativeTo);
+        //Debug.Log("HandGrabResult RelativePose2: " + result.RelativePose);
+        //var result = target._handGrabResult;
+
         interactor.ForceSelect(interactable, true);
+        //interactor.HandGrabTarget.Set(null, target.HandAlignment, target.Anchor, target._handGrabResult);
         //StartCoroutine(ResetGrabOverride(interactor));
     }
     
