@@ -7,6 +7,7 @@ public class TaskImageManager : NetworkBehaviour
     [SerializeField] private SpriteRenderer imageForClient0;
     [SerializeField] private SpriteRenderer imageForClient1;
     [SerializeField] private List<Sprite> taskImages;
+    [SerializeField] private bool isTask2 = false;
 
     // 書き込み権限をOwnerからServerに変更
     private NetworkVariable<int> imageIndex = new NetworkVariable<int>(
@@ -65,19 +66,24 @@ public class TaskImageManager : NetworkBehaviour
         {
             int nextIndex = imageIndex.Value + 1;
             // 6になる場合は0に戻す (仮にタスクが6ペアある場合)
-            if (nextIndex >= 6) 
+            if (nextIndex >= 6)
             {
                 nextIndex = 0;
             }
             imageIndex.Value = nextIndex;
         }
+        
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            isTask2 = !isTask2;
+        }
 
         // 数字キーでの直接指定 (こちらは簡略化のためそのまま)
-        if (Input.GetKeyDown(KeyCode.Alpha0)) imageIndex.Value = 0;
-        if (Input.GetKeyDown(KeyCode.Alpha1)) imageIndex.Value = 1;
-        if (Input.GetKeyDown(KeyCode.Alpha2)) imageIndex.Value = 2;
-        if (Input.GetKeyDown(KeyCode.Alpha3)) imageIndex.Value = 3;
-        if (Input.GetKeyDown(KeyCode.Alpha4)) imageIndex.Value = 4;
-        if (Input.GetKeyDown(KeyCode.Alpha5)) imageIndex.Value = 5;
+        if (Input.GetKeyDown(KeyCode.Alpha0)) imageIndex.Value = 0 + (isTask2 ? 6 : 0);
+        if (Input.GetKeyDown(KeyCode.Alpha1)) imageIndex.Value = 1 + (isTask2 ? 6 : 0);
+        if (Input.GetKeyDown(KeyCode.Alpha2)) imageIndex.Value = 2 + (isTask2 ? 6 : 0);
+        if (Input.GetKeyDown(KeyCode.Alpha3)) imageIndex.Value = 3 + (isTask2 ? 6 : 0);
+        if (Input.GetKeyDown(KeyCode.Alpha4)) imageIndex.Value = 4 + (isTask2 ? 6 : 0);
+        if (Input.GetKeyDown(KeyCode.Alpha5)) imageIndex.Value = 5 + (isTask2 ? 6 : 0);
     }
 }
