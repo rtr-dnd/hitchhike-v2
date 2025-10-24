@@ -54,36 +54,44 @@ public class TaskImageManager : NetworkBehaviour
         }
     }
 
-    void Update()
+    public void SetImageIndex(int newIndex)
     {
-        // サーバー（ホスト）でなければ入力処理を受け付けない
-        if (!IsServer)
+        if (IsServer)
         {
-            return;
+            imageIndex.Value = newIndex;
         }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            int nextIndex = imageIndex.Value + 1;
-            // 6になる場合は0に戻す (仮にタスクが6ペアある場合)
-            if (nextIndex >= 6)
-            {
-                nextIndex = 0;
-            }
-            imageIndex.Value = nextIndex;
-        }
-        
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            isTask2 = !isTask2;
-        }
-
-        // 数字キーでの直接指定 (こちらは簡略化のためそのまま)
-        if (Input.GetKeyDown(KeyCode.Alpha0)) imageIndex.Value = 0 + (isTask2 ? 6 : 0);
-        if (Input.GetKeyDown(KeyCode.Alpha1)) imageIndex.Value = 1 + (isTask2 ? 6 : 0);
-        if (Input.GetKeyDown(KeyCode.Alpha2)) imageIndex.Value = 2 + (isTask2 ? 6 : 0);
-        if (Input.GetKeyDown(KeyCode.Alpha3)) imageIndex.Value = 3 + (isTask2 ? 6 : 0);
-        if (Input.GetKeyDown(KeyCode.Alpha4)) imageIndex.Value = 4 + (isTask2 ? 6 : 0);
-        if (Input.GetKeyDown(KeyCode.Alpha5)) imageIndex.Value = 5 + (isTask2 ? 6 : 0);
     }
+
+    // void Update()
+    // {
+    //     // サーバー（ホスト）でなければ入力処理を受け付けない
+    //     if (!IsServer)
+    //     {
+    //         return;
+    //     }
+
+    //     if (Input.GetKeyDown(KeyCode.Space))
+    //     {
+    //         int nextIndex = imageIndex.Value + 1;
+    //         // 6になる場合は0に戻す (仮にタスクが6ペアある場合)
+    //         if (nextIndex >= 6)
+    //         {
+    //             nextIndex = 0;
+    //         }
+    //         imageIndex.Value = nextIndex;
+    //     }
+        
+    //     // if (Input.GetKeyDown(KeyCode.T))
+    //     // {
+    //     //     isTask2 = !isTask2;
+    //     // }
+
+    //     // // 数字キーでの直接指定 (こちらは簡略化のためそのまま)
+    //     // if (Input.GetKeyDown(KeyCode.Alpha0)) imageIndex.Value = 0 + (isTask2 ? 6 : 0);
+    //     // if (Input.GetKeyDown(KeyCode.Alpha1)) imageIndex.Value = 1 + (isTask2 ? 6 : 0);
+    //     // if (Input.GetKeyDown(KeyCode.Alpha2)) imageIndex.Value = 2 + (isTask2 ? 6 : 0);
+    //     // if (Input.GetKeyDown(KeyCode.Alpha3)) imageIndex.Value = 3 + (isTask2 ? 6 : 0);
+    //     // if (Input.GetKeyDown(KeyCode.Alpha4)) imageIndex.Value = 4 + (isTask2 ? 6 : 0);
+    //     // if (Input.GetKeyDown(KeyCode.Alpha5)) imageIndex.Value = 5 + (isTask2 ? 6 : 0);
+    // }
 }

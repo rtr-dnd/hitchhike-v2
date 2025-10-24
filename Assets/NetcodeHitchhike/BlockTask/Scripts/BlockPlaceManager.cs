@@ -14,13 +14,7 @@ namespace NetcodeHitchhike.BlockTask
             blockPlacers = this.GetComponentsInChildren<BlockPlacer>().ToList();
         }
 
-        void Update()
-        {
-         if (Input.GetKeyDown(KeyCode.R))
-            {
-                Reset();
-            }   
-        }
+        
 
         // Update is called once per frame
         public void Reset()

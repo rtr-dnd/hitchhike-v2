@@ -61,19 +61,4 @@ public class ShowAnswer : NetworkBehaviour
         isEnabled.Value = newState;
     }
 
-    void Update()
-    {
-        // サーバー（ホスト）でなければ入力処理を受け付けない
-        if (!IsServer) return;
-
-        // キー入力で有効/無効を切り替える例
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            SetEnabledState(true);
-        }
-        else if (Input.GetKeyDown(KeyCode.D))
-        {
-            SetEnabledState(false);
-        }
-    }
 }
