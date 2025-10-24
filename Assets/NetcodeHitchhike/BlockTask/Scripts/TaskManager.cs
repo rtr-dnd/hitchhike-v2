@@ -18,6 +18,8 @@ namespace NetcodeHitchhike.BlockTask
         [SerializeField] private TaskImageManager taskImageManager;
         [SerializeField] private ShowAnswer showAnswer1;
         [SerializeField] private ShowAnswer showAnswer2;
+        [SerializeField] private ShowTutorialCard showTutorialCard1;
+        [SerializeField] private ShowTutorialCard showTutorialCard2;
         private int internalStateIndex = 0;
         [SerializeField] private bool isTask2 = false;
 
@@ -66,6 +68,16 @@ namespace NetcodeHitchhike.BlockTask
             {
                 showAnswer1.SetEnabledState(false);
                 showAnswer2.SetEnabledState(false);
+            }
+            if (stateIndex2taskImageIndex == 1)
+            {
+                showTutorialCard1.SetEnabledState(!stateIndex2isTask2);
+                showTutorialCard2.SetEnabledState(stateIndex2isTask2);
+            }
+            else
+            {
+                showTutorialCard1.SetEnabledState(false);
+                showTutorialCard2.SetEnabledState(false);
             }
 
 
