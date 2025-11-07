@@ -96,7 +96,8 @@ public class GazeSwitchTechnique : MonoBehaviour, ISwitchTechnique
 
   private Ray GetFrontRay()
   {
-    Vector3 direction = head.transform.forward; 
+    Vector3 direction = head.transform.forward*10; 
+    Debug.DrawRay(head.transform.position, direction, Color.red);
     return new Ray(head.transform.position, direction);
   }
 }
