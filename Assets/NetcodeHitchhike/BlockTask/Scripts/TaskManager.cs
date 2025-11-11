@@ -86,7 +86,7 @@ namespace NetcodeHitchhike.BlockTask
         // Update is called once per frame
         void Update()
         {
-            Debug.Log("yyyy");
+            //Debug.Log("yyyy");
             if (!IsServer) return;
             Debug.Log($"Current state index: {stateIndex.Value}, internal index: {internalStateIndex}, isTask2: {isTask2}");
             if (Input.GetKeyDown(KeyCode.RightArrow))

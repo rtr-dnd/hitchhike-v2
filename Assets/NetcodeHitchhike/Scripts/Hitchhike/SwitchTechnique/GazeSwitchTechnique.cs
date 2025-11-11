@@ -91,6 +91,7 @@ public class GazeSwitchTechnique : MonoBehaviour, ISwitchTechnique
     }
 
     if (gazeGizmo != null) gazeGizmo.transform.position = filteredPosition.Value + filteredDirection.Value * 0.5f;
+    Debug.DrawRay(filteredPosition.Value, filteredDirection.Value, Color.red);
     return new Ray(filteredPosition.Value, filteredDirection.Value);
   }
 
