@@ -5,9 +5,12 @@ public class GazeSwitchTechnique : MonoBehaviour, ISwitchTechnique
 {
   public Transform head;
   public Transform gazeGizmo;
+  private Ray gazeRay;
+  private Ray frontRay;
   List<OVREyeGaze> eyeGazes;
   int maxRaycastDistance = 100;
   [SerializeField] private bool useGaze = true;
+  [SerializeField] private bool DebugMode = true;
 
   void Awake()
   {
@@ -22,24 +25,26 @@ public class GazeSwitchTechnique : MonoBehaviour, ISwitchTechnique
       return i >= LocalHitchhikeManager.Instance.handAreaManager.handAreas.Count - 1 ? 0 : i + 1;
     }
 
-    Ray gazeRay = GetFrontRay();
+    frontRay = GetFrontRay();
 
-    if (useGaze)
+    
+    if (eyeGazes == null) return i;
+    if (!eyeGazes[0].EyeTrackingEnabled)
     {
-      if (eyeGazes == null) return i;
-      if (!eyeGazes[0].EyeTrackingEnabled)
-      {
-        Debug.Log("Eye tracking not working");
-        return i;
-      }
-      gazeRay = GetGazeRay();
+      Debug.Log("Eye tracking not working");
+      return i;
     }
+    gazeRay = GetGazeRay();
+    
+
+    
+    Ray areaRay = useGaze ? gazeRay : frontRay;
 
     int layerMask = 1 << LayerMask.NameToLayer("HandArea");
 
     RaycastHit closestHit = new RaycastHit();
     float closestDistance = float.PositiveInfinity;
-    foreach (var hit in Physics.RaycastAll(gazeRay, maxRaycastDistance, layerMask))
+    foreach (var hit in Physics.RaycastAll(areaRay, maxRaycastDistance, layerMask))
     {
       // finding a nearest hit
       var colliderDistance = Vector3.Distance(hit.collider.gameObject.transform.position, head.transform.position);
@@ -91,14 +96,50 @@ public class GazeSwitchTechnique : MonoBehaviour, ISwitchTechnique
     }
 
     if (gazeGizmo != null) gazeGizmo.transform.position = filteredPosition.Value + filteredDirection.Value * 0.5f;
-    Debug.DrawRay(filteredPosition.Value, filteredDirection.Value, Color.red);
+    //Debug.DrawRay(filteredPosition.Value, filteredDirection.Value*10f, Color.blue);
     return new Ray(filteredPosition.Value, filteredDirection.Value);
   }
 
   private Ray GetFrontRay()
   {
-    Vector3 direction = head.transform.forward*10; 
-    Debug.DrawRay(head.transform.position, direction, Color.red);
+    Vector3 direction = Quaternion.AngleAxis(8f, head.transform.right) * head.transform.forward; 
+    //Debug.DrawRay(head.transform.position, direction, Color.red);
     return new Ray(head.transform.position, direction);
+  }
+
+  void OnDrawGizmos(){
+    if (!DebugMode) return;
+    //Debug.DrawRay(ray.origin, ray.direction*10f, Color.green);
+    if (Physics.Raycast(gazeRay, out RaycastHit hit))
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawRay(gazeRay.origin, gazeRay.direction * hit.distance);
+
+        // 2. ヒットした場所(hit.point)に赤い丸を表示
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(hit.point, 0.01f); // 第2引数は半径
+    }
+    else
+    {
+        // ヒットしなかった場合のRay（緑色）
+        Gizmos.color = Color.blue;
+        Gizmos.DrawRay(gazeRay.origin, gazeRay.direction * 100f);
+    }
+    if (Physics.Raycast(frontRay, out RaycastHit hit2))
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawRay(frontRay.origin, frontRay.direction * hit2.distance);
+
+        // 2. ヒットした場所(hit2.point)に赤い丸を表示
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(hit2.point, 0.01f); // 第2引数は半径
+    }
+    else
+    {
+        // ヒットしなかった場合のRay（緑色）
+        Gizmos.color = Color.green;
+        Gizmos.DrawRay(frontRay.origin, frontRay.direction * 100f);
+    }
+
   }
 }
