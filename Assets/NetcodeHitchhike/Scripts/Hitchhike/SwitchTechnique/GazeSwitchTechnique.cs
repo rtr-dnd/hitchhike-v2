@@ -102,7 +102,7 @@ public class GazeSwitchTechnique : MonoBehaviour, ISwitchTechnique
 
   private Ray GetFrontRay()
   {
-    Vector3 direction = Quaternion.AngleAxis(8f, head.transform.right) * head.transform.forward; 
+    Vector3 direction = Quaternion.AngleAxis(5f, head.transform.right) * head.transform.forward; 
     //Debug.DrawRay(head.transform.position, direction, Color.red);
     return new Ray(head.transform.position, direction);
   }
