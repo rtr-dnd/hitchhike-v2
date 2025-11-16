@@ -4,6 +4,10 @@ using Oculus.Interaction.Input;
 using System.Linq;
 using Oculus.Interaction.HandGrab;
 using System.Collections;
+using Oculus.Interaction;
+//using RootScript;
+using Oculus.Interaction.Grab;
+using Hitchhike;
 
 public class HandsWrap : MonoBehaviour
 {
@@ -52,11 +56,13 @@ public class HandsWrap : MonoBehaviour
     [SerializeField, InterfaceType(typeof(IHand))]
     private UnityEngine.Object _rightFinalHand;
     public IHand rightFinalHand;
+    //private HitchhikeHandGrabInteractor grab;
 
     void Awake()
     {
         leftFinalHand = _leftFinalHand as IHand;
         rightFinalHand = _rightFinalHand as IHand;
+        //grab = gameObject.GetComponentInChildren<HitchhikeHandGrabInteractor>();
     }
     void Start()
     {
@@ -76,7 +82,7 @@ public class HandsWrap : MonoBehaviour
     {
         if (frozen) return;
         var hand = rightHand;
-        var interactor = hand.GetComponentInChildren<HandGrabInteractor>();
+        var interactor = hand.GetComponentInChildren<HitchhikeHandGrabInteractor>();
         var target = interactor.HandGrabTarget;
         //var result = target._handGrabResult;
         //Debug.Log("HandGrabResult RelativePose: " + result.RelativePose);
@@ -85,7 +91,7 @@ public class HandsWrap : MonoBehaviour
     public HandGrabInteractable GetCurrentInteractable(Handedness handedness)
     {
         var hand = handedness == Handedness.Left ? leftHand : rightHand;
-        return hand.GetComponentInChildren<HandGrabInteractor>().SelectedInteractable;
+        return hand.GetComponentInChildren<HitchhikeHandGrabInteractor>().SelectedInteractable;
     }
 
     // public void Select(Handedness handedness, HandGrabInteractable interactable, HandGrabTarget target)
@@ -106,36 +112,117 @@ public class HandsWrap : MonoBehaviour
     //     StartCoroutine(ResetGrabOverride(interactor));
     // }
 
-    public void Select(Handedness handedness, HandGrabInteractable interactable, HandGrabTarget target)
+    // public void Select(Handedness handedness, HandGrabInteractable interactable, HandGrabTarget target)
+    // {
+    //     var hand = handedness == Handedness.Left ? leftHand : rightHand;
+    //     var interactor = hand.GetComponentInChildren<HandGrabInteractor>();
+    //     //var result = target._handGrabResult;
+    //     //Debug.Log("HandGrabTarget RelativeTo: " + target._relativeTo);
+    //     //Debug.Log("HandGrabResult RelativePose2: " + result.RelativePose);
+    //     //var result = target._handGrabResult;
+
+    //     interactor.ForceSelect(interactable, true);
+    //     //interactor.HandGrabTarget.Set(null, target.HandAlignment, target.Anchor, target._handGrabResult);
+    //     //StartCoroutine(ResetGrabOverride(interactor));
+    // }
+    public class SavedGrabState
+    {
+      public HandGrabTarget target;
+      public Pose relativePose;
+      public Vector3 objectScale;
+    }
+
+    public void Select(Handedness handedness, HandGrabInteractable interactable, SavedGrabState savedState)
     {
         var hand = handedness == Handedness.Left ? leftHand : rightHand;
-        var interactor = hand.GetComponentInChildren<HandGrabInteractor>();
-        //var result = target._handGrabResult;
-        //Debug.Log("HandGrabTarget RelativeTo: " + target._relativeTo);
-        //Debug.Log("HandGrabResult RelativePose2: " + result.RelativePose);
-        //var result = target._handGrabResult;
+        var grab = hand.GetComponentInChildren<HitchhikeHandGrabInteractor>();
+        var newResult = new HandGrabResult();
 
-        interactor.ForceSelect(interactable, true);
-        //interactor.HandGrabTarget.Set(null, target.HandAlignment, target.Anchor, target._handGrabResult);
-        //StartCoroutine(ResetGrabOverride(interactor));
+        // Copy HandPose if it exists
+        if (savedState.target.HandPose != null)
+        {
+            newResult.HasHandPose = true;
+            newResult.HandPose.CopyFrom(savedState.target.HandPose);
+        }
+
+        // Compensate for scale changes between Unselect and Select
+        Vector3 currentScale = interactable.RelativeTo.lossyScale;
+        Vector3 scaleRatio = new Vector3(
+            currentScale.x / savedState.objectScale.x,
+            currentScale.y / savedState.objectScale.y,
+            currentScale.z / savedState.objectScale.z
+        );
+
+        // Adjust the relative pose to maintain the same world-space grab point
+        // When object scales down, the relative offset should scale up proportionally
+        Vector3 compensatedPosition = new Vector3(
+            savedState.relativePose.position.x * scaleRatio.x,
+            savedState.relativePose.position.y * scaleRatio.y,
+            savedState.relativePose.position.z * scaleRatio.z
+        );
+
+        newResult.RelativePose = new Pose(compensatedPosition, savedState.relativePose.rotation);
+
+        // Force select with the custom target
+        grab.ForceSelectWithCustomTarget(
+            interactable,
+            newResult,
+            savedState.target.Anchor,
+            savedState.target.HandAlignment
+      );
     }
     
 
-    IEnumerator ResetGrabOverride(HandGrabInteractor interactor)
+    IEnumerator ResetGrabOverride(HitchhikeHandGrabInteractor interactor)
     {
         yield return new WaitForSeconds(0.5f);
         //interactor.grabTypeOverride = Oculus.Interaction.Grab.GrabTypeFlags.None;
     }
 
-    public HandGrabTarget Unselect(Handedness handedness)
+    // public HandGrabTarget Unselect(Handedness handedness)
+    // {
+    //     var hand = handedness == Handedness.Left ? leftHand : rightHand;
+    //     var interactor = hand.GetComponentInChildren<HitchhikeHandGrabInteractor>();
+    //     var target = interactor.HandGrabTarget;
+    //     interactor.Unselect();
+    //     var grabUse = hand.GetComponentInChildren<HandGrabUseInteractor>();
+    //     if (grabUse != null) grabUse.Unselect();
+    //     return target;
+    // }
+
+    public SavedGrabState Unselect(Handedness handedness)
     {
         var hand = handedness == Handedness.Left ? leftHand : rightHand;
-        var interactor = hand.GetComponentInChildren<HandGrabInteractor>();
-        var target = interactor.HandGrabTarget;
-        interactor.Unselect();
+        var grab = hand.GetComponentInChildren<HitchhikeHandGrabInteractor>();
         var grabUse = hand.GetComponentInChildren<HandGrabUseInteractor>();
+        if (grab.SelectedInteractable == null)
+        {
+            grab.Unselect();
+            if (grabUse != null) grabUse.Unselect();
+            return null;
+        }
+
+        var state = new SavedGrabState();
+        state.target = grab.HandGrabTarget;
+
+        // Get current grab point in world space
+        Pose worldGrabPose = grab.HandGrabTarget.GetWorldPoseDisplaced(Pose.identity);
+        Transform relativeTo = grab.SelectedInteractable.RelativeTo;
+
+        // Save the object's current scale for later compensation
+        state.objectScale = relativeTo.lossyScale;
+
+        // Convert to relative pose (ignoring scale to handle objects with non-uniform scale)
+        Vector3 worldOffset = worldGrabPose.position - relativeTo.position;
+        Vector3 localOffset = Quaternion.Inverse(relativeTo.rotation) * worldOffset;
+        Quaternion localRotation = Quaternion.Inverse(relativeTo.rotation) * worldGrabPose.rotation;
+
+        state.relativePose = new Pose(localOffset, localRotation);
+
+        grab.Unselect();
         if (grabUse != null) grabUse.Unselect();
-        return target;
+
+        return state;
     }
 
     void OnCoordinateChanged()

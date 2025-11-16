@@ -4,6 +4,7 @@ using System.Linq;
 using Oculus.Interaction;
 using Oculus.Interaction.HandGrab;
 using Oculus.Interaction.Input;
+using Oculus.Interaction.Grab;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -23,7 +24,7 @@ public class PlayerHitchhikeManager : NetworkBehaviour
 
     List<Handedness> handednesses = new List<Handedness>() { Handedness.Left, Handedness.Right };
     List<HandGrabInteractable> interactables;
-    List<HandGrabTarget> handGrabTargets;
+    List<HandsWrap.SavedGrabState> savedGrabStates;
     IEnumerator seekActiveAreaLoop;
     public override void OnNetworkSpawn()
     {
@@ -87,7 +88,7 @@ public class PlayerHitchhikeManager : NetworkBehaviour
                 grabbable.transform.localScale *= newScale;
 
                 var afterHandsWrap = newCoord.handsWrap;
-                afterHandsWrap.Select(handednesses[handIndex], interactable, handGrabTargets[handIndex]);
+                afterHandsWrap.Select(handednesses[handIndex], interactable, savedGrabStates[handIndex]);
                 alreadyDroppedInteractables.Add(interactable);
             }
             yield break;
@@ -149,7 +150,7 @@ public class PlayerHitchhikeManager : NetworkBehaviour
             interactables = handednesses.Select(h =>
                 beforeHandsWrap.GetCurrentInteractable(h)
             ).ToList();
-            handGrabTargets = handednesses.Select(h => beforeHandsWrap.Unselect(h)).ToList();
+            savedGrabStates = handednesses.Select(h => beforeHandsWrap.Unselect(h)).ToList();
 
             // actual switch
             activeHandAreaId.Value = newActiveId;
