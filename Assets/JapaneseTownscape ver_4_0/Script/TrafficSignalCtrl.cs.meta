@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: b2fe0fdd9e5ae27438d68717c12369d2
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 272371
+  packageName: Japanese Townscape
+  packageVersion: 4.0
+  assetPath: Assets/JapaneseTownscape ver_4_0/Script/TrafficSignalCtrl.cs
+  uploadId: 742052

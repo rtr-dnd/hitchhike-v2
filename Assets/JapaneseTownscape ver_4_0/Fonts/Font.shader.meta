@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 74f20e834bc315d48aba5df7ae7ddf17
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 272371
+  packageName: Japanese Townscape
+  packageVersion: 4.0
+  assetPath: Assets/JapaneseTownscape ver_4_0/Fonts/Font.shader
+  uploadId: 742052
