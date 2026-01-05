@@ -26,6 +26,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/NetcodeHitchhike/Demo/Scenes/DemoTitle.unity
     guid: eee0ace6980178344aa09028378bd712
+  - enabled: 1
+    path: Assets/NetcodeHitchhike/Demo/Scenes/MultiCity.unity
+    guid: beb247dcf17390a4e84c12896ef4cff9
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 08dc298f1f9716d4aa85f13fd062266c, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: c84dee05198d57a4e99b261080ce7308, type: 2}
