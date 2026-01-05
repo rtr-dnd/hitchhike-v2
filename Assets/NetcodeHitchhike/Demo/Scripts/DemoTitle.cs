@@ -36,7 +36,7 @@ public class DemoTitle : MonoBehaviour
         
         var position = new Vector3(0, 0, -20f)
         {
-            x =  (NetworkManager.Singleton.ConnectedClients.Count % 3) * 2f
+            x = -1 + (NetworkManager.Singleton.ConnectedClients.Count % 3) * 2f
         };
         response.Position = position;
         response.Rotation = Quaternion.identity;
