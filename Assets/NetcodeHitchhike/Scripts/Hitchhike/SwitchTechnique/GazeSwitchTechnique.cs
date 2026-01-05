@@ -8,7 +8,7 @@ public class GazeSwitchTechnique : MonoBehaviour, ISwitchTechnique
   private Ray gazeRay;
   private Ray frontRay;
   List<OVREyeGaze> eyeGazes;
-  int maxRaycastDistance = 100;
+  int maxRaycastDistance = 1000;
   [SerializeField] private bool useGaze = true;
   [SerializeField] private bool DebugMode = true;
 
